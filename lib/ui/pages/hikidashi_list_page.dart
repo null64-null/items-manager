@@ -7,22 +7,12 @@ class Hikidashi {
   Hikidashi({required this.name, required this.notifications});
 }
 
+// dummy data, 後にAPI通信でデータ取得
 List<Hikidashi> hikidashis = [
   Hikidashi(name: "冷蔵庫", notifications: 1),
   Hikidashi(name: "クローゼット", notifications: 0),
   Hikidashi(name: "日用品", notifications: 2),
 ];
-
-Widget modelToButton(Hikidashi hikidashi) {
-  return BoxButton(
-    label: hikidashi.name,
-    color: Colors.blue,
-    notifications: hikidashi.notifications,
-    onPressed: () {
-      debugPrint('1');
-    },
-  );
-}
 
 class HikidashiListPage extends StatelessWidget {
   const HikidashiListPage({super.key});
@@ -53,35 +43,20 @@ class HikidashiListPage extends StatelessWidget {
               height: 60,
             ),
             Wrap(
-              spacing: 25,
-              runSpacing: 25,
+              spacing: 30,
+              runSpacing: 30,
               children: [
-                BoxButton(
-                  label: '冷蔵庫',
-                  color: Colors.blue,
-                  notifications: 1,
-                  onPressed: () {
-                    debugPrint('1');
-                  },
-                ),
-                BoxButton(
-                  label: '食品棚',
-                  color: Colors.blue,
-                  notifications: 0,
-                  onPressed: () {
-                    debugPrint('1');
-                  },
-                ),
-                BoxButton(
-                  label: 'その他',
-                  color: Colors.blue,
-                  notifications: 2,
-                  onPressed: () {
-                    debugPrint('1');
-                  },
-                ),
+                for (final hikidashi in hikidashis)
+                  BoxButton(
+                    label: hikidashi.name,
+                    color: Colors.blue,
+                    notifications: hikidashi.notifications,
+                    onPressed: () {
+                      debugPrint('1');
+                    },
+                  )
               ],
-            ),
+            )
           ],
         ),
       ),
