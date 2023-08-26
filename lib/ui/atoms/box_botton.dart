@@ -17,37 +17,40 @@ class BoxButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return badges.Badge(
-      badgeContent: Text(
-        notifications.toString(),
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 30,
-          fontFamily: 'Inter',
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-      showBadge: notifications != 0,
-      position: badges.BadgePosition.topEnd(top: -25, end: -20),
-      badgeStyle: const badges.BadgeStyle(
-        padding: EdgeInsets.all(13),
-      ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          fixedSize: const Size(146, 130),
-          backgroundColor: color,
-          shadowColor: const Color(0x3F000000),
-        ),
-        child: Text(
-          label,
+    return Container(
+      alignment: Alignment.center,
+      child: badges.Badge(
+        badgeContent: Text(
+          notifications.toString(),
           style: const TextStyle(
+            color: Colors.white,
             fontSize: 30,
-            color: Colors.black,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w400,
+          ),
+        ),
+        showBadge: notifications != 0,
+        position: badges.BadgePosition.topEnd(top: -25, end: -15),
+        badgeStyle: const badges.BadgeStyle(
+          padding: EdgeInsets.all(13),
+        ),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            fixedSize: const Size(146, 130),
+            backgroundColor: color,
+            shadowColor: const Color(0x3F000000),
+          ),
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 30,
+              color: Colors.black,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ),
