@@ -12,6 +12,12 @@ List<Hikidashi> hikidashis = [
   Hikidashi(name: "冷蔵庫", notifications: 1),
   Hikidashi(name: "クローゼット", notifications: 0),
   Hikidashi(name: "日用品", notifications: 2),
+  Hikidashi(name: "日用品2", notifications: 1),
+  Hikidashi(name: "日用品3", notifications: 0),
+  Hikidashi(name: "日用品4", notifications: 0),
+  Hikidashi(name: "日用品5", notifications: 1),
+  Hikidashi(name: "日用品6", notifications: 1),
+  Hikidashi(name: "日用品7", notifications: 0),
 ];
 
 class HikidashiListPage extends StatelessWidget {
@@ -19,46 +25,30 @@ class HikidashiListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromARGB(255, 250, 253, 255),
-      child: Container(
-        width: 375,
-        height: 812,
-        padding: const EdgeInsets.only(top: 125),
-        clipBehavior: Clip.antiAlias,
-        decoration: const BoxDecoration(color: Colors.white),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'ひきだしリスト',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 45,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w400,
-              ),
+    return Scaffold(
+      appBar: AppBar(title: const Text("引き出しリスト")),
+      body: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 20,
             ),
-            const SizedBox(
-              height: 60,
-            ),
-            Wrap(
-              spacing: 30,
-              runSpacing: 30,
-              children: [
-                for (final hikidashi in hikidashis)
-                  BoxButton(
-                    label: hikidashi.name,
-                    color: Colors.blue,
-                    notifications: hikidashi.notifications,
-                    onPressed: () {
-                      debugPrint('1');
-                    },
-                  )
-              ],
-            )
-          ],
-        ),
+          ),
+          SliverGrid.count(
+            crossAxisCount: 2,
+            children: [
+              for (final hikidashi in hikidashis)
+                BoxButton(
+                  label: hikidashi.name,
+                  color: Colors.blue,
+                  notifications: hikidashi.notifications,
+                  onPressed: () {
+                    debugPrint(hikidashi.name);
+                  },
+                )
+            ],
+          )
+        ],
       ),
     );
   }
