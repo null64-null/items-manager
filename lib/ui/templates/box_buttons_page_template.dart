@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import './../atoms/box_botton.dart';
 
 class ButtonItem {
+  final int id;
   final String name;
   final int notifications;
 
   const ButtonItem({
+    required this.id,
     required this.name,
     required this.notifications,
   });
@@ -13,11 +15,12 @@ class ButtonItem {
   //ここをページ遷移関数に変更
   void onPressed() {
     debugPrint(name);
+    debugPrint(id.toString());
   }
 }
 
 const List<ButtonItem> initialButtonItems = [
-  ButtonItem(name: "name", notifications: 0),
+  ButtonItem(id: 0, name: "name", notifications: 0),
 ];
 
 class BoxButtonsPageTemplate extends StatelessWidget {
