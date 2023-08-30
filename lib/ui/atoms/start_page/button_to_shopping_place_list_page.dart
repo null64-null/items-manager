@@ -9,7 +9,7 @@ class ButtonToShoppingPlaceListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LongButton(
       label: 'かいものリスト',
-      color: const Color.fromARGB(255, 72, 255, 127),
+      color: Colors.lightGreen,
       onPressed: () {
         debugPrint('かいものリスト');
         Navigator.push(

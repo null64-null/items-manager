@@ -9,7 +9,7 @@ class ButtonToHikidashiListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LongButton(
       label: 'おうちのひきだし',
-      color: const Color.fromARGB(255, 0, 191, 255),
+      color: Colors.blue,
       onPressed: () {
         debugPrint('おうちのひきだし');
         Navigator.push(
