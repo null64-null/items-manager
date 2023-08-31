@@ -18,7 +18,7 @@ class HikidashiListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BoxButtonsPageTemplate(
-      pageTitle: "ひきだしリスト",
+      pageTitle: "おうちのひきだし",
       buttonItems: buttonItems,
       appBarColor: Colors.blue,
       boxButtonColor: Colors.blue,

@@ -17,7 +17,7 @@ class ShoppingPlaceListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BoxButtonsPageTemplate(
-      pageTitle: "ショップリスト",
+      pageTitle: "かいものリスト",
       buttonItems: buttonItems,
       appBarColor: Colors.lightGreen,
       boxButtonColor: Colors.lightGreen,
