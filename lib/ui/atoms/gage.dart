@@ -13,17 +13,16 @@ class Gage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
-      height: 12,
+      width: 142,
+      height: 13,
       child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(5)),
+        borderRadius: const BorderRadius.all(Radius.circular(6.5)),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.black54,
-              width: 2.5,
+              width: 3,
             ),
-            borderRadius: BorderRadius.circular(5),
           ),
           child: LinearProgressIndicator(
             backgroundColor: Colors.white,
