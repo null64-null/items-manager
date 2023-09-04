@@ -13,7 +13,7 @@ class Gage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 142,
+      width: 148,
       height: 13,
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(6.5)),
