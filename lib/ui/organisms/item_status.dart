@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './../atoms/gage.dart';
 
 class ItemStatus extends StatelessWidget {
+  final int id;
   final double remainingValue;
   final double maxValue;
   final String unit;
@@ -9,6 +10,7 @@ class ItemStatus extends StatelessWidget {
 
   const ItemStatus({
     Key? key,
+    this.id = 0,
     this.remainingValue = 1,
     this.maxValue = 1,
     this.unit = "unit",
@@ -24,7 +26,9 @@ class ItemStatus extends StatelessWidget {
         backgroundColor: getBackgroundColor(remainingValue, maxValue),
         elevation: 5,
       ),
-      onPressed: () {},
+      onPressed: () {
+        debugPrint(id.toString());
+      },
       child: Stack(
         fit: StackFit.expand,
         children: [
