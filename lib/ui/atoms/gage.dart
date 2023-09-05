@@ -37,9 +37,9 @@ class Gage extends StatelessWidget {
   getGageColor(remainingValue, maxValue) {
     final double value = remainingValue / maxValue;
     if (value <= 0.3) {
-      return Colors.red[700]!;
+      return const Color(0xFFFF5B5B);
     } else {
-      return Colors.blue[900]!;
+      return const Color(0xFF5B7FFF);
     }
   }
 }
