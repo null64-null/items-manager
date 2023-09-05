@@ -58,7 +58,7 @@ class ItemStatus extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.center,
                 child: Text(
-                  remainingValue.toString(),
+                  getNumberlabel(remainingValue),
                   style: const TextStyle(
                     fontSize: 35,
                     color: Colors.black,
@@ -98,7 +98,7 @@ class ItemStatus extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.center,
                 child: Text(
-                  maxValue.toString(),
+                  getNumberlabel(maxValue),
                   style: const TextStyle(
                     fontSize: 30,
                     color: Colors.black,
@@ -143,6 +143,14 @@ class ItemStatus extends StatelessWidget {
       return const Color(0xFFFFAEAE);
     } else {
       return const Color(0xFFAEE2FF);
+    }
+  }
+
+  String getNumberlabel(double value) {
+    if (value == value.floor()) {
+      return value.toStringAsFixed(0);
+    } else {
+      return value.toStringAsFixed(1);
     }
   }
 }
