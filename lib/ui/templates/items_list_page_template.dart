@@ -91,29 +91,3 @@ class ItemsListPageTemplate extends StatelessWidget {
     );
   }
 }
-
-/*
-for (final itemStatusItem in itemStatusItems)
-  ItemStatus(
-    id: itemStatusItem.id,
-    itemName: itemStatusItem.itemName,
-    remainingValue: itemStatusItem.remainingValue,
-    maxValue: itemStatusItem.maxValue,
-    unit: itemStatusItem.unit,
-  ),
-*/
-
-/*
-SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return ItemStatus(
-                id: itemStatusItems[index].id,
-                itemName: itemStatusItems[index].itemName,
-                remainingValue: itemStatusItems[index].remainingValue,
-                maxValue: itemStatusItems[index].maxValue,
-                unit: itemStatusItems[index].unit,
-              );
-            }),
-          ),
-
-*/
