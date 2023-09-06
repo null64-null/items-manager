@@ -30,21 +30,90 @@ const List<ItemStatusItem> initialItemStatusItems = [
 class ItemsListPageTemplate extends StatelessWidget {
   final String pageTitle;
   final Color appBarColor;
-  final List<ItemStatusItem> itemStatusItem;
+  final List<ItemStatusItem> itemStatusItems;
 
   const ItemsListPageTemplate({
     Key? key,
     this.pageTitle = "title",
     this.appBarColor = Colors.white,
-    this.itemStatusItem = initialItemStatusItems,
+    this.itemStatusItems = initialItemStatusItems,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-
-  void pageTransition(int id) {
-    debugPrint(id.toString());
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(pageTitle),
+        backgroundColor: appBarColor,
+      ),
+      bottomNavigationBar: Container(
+        height: 90,
+        child: ElevatedButton(
+          child: const Text(
+            "新規作成",
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          onPressed: () {
+            debugPrint("add");
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              for (final itemStatusItem in itemStatusItems)
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: ItemStatus(
+                        id: itemStatusItem.id,
+                        itemName: itemStatusItem.itemName,
+                        remainingValue: itemStatusItem.remainingValue,
+                        maxValue: itemStatusItem.maxValue,
+                        unit: itemStatusItem.unit,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
+
+/*
+for (final itemStatusItem in itemStatusItems)
+  ItemStatus(
+    id: itemStatusItem.id,
+    itemName: itemStatusItem.itemName,
+    remainingValue: itemStatusItem.remainingValue,
+    maxValue: itemStatusItem.maxValue,
+    unit: itemStatusItem.unit,
+  ),
+*/
+
+/*
+SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return ItemStatus(
+                id: itemStatusItems[index].id,
+                itemName: itemStatusItems[index].itemName,
+                remainingValue: itemStatusItems[index].remainingValue,
+                maxValue: itemStatusItems[index].maxValue,
+                unit: itemStatusItems[index].unit,
+              );
+            }),
+          ),
+
+*/
