@@ -52,7 +52,7 @@ class ItemsListPageTemplate extends StatelessWidget {
         ),
         backgroundColor: appBarColor,
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 90,
         child: ElevatedButton(
           child: const Text(
