@@ -19,14 +19,14 @@ class ButtonItem {
 
     switch (buttonType) {
       case "hikidashi":
-        page = ItemListPage(
+        page = ItemsListPage(
           categoryType: "hikidashi",
           categoryId: id,
           categoryName: name,
         );
         break;
       case "shoppingPlace":
-        page = ItemListPage(
+        page = ItemsListPage(
           categoryType: "shoppingPlace",
           categoryId: id,
           categoryName: name,

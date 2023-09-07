@@ -47,12 +47,12 @@ List<ItemStatusItem> statusItems = [
   ),
 ];
 
-class ItemListPage extends StatelessWidget {
+class ItemsListPage extends StatelessWidget {
   final String categoryType;
   final int categoryId;
   final String categoryName;
 
-  const ItemListPage({
+  const ItemsListPage({
     Key? key,
     this.categoryType = "",
     this.categoryId = 0,
