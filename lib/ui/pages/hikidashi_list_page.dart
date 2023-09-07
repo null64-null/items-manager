@@ -19,6 +19,7 @@ class HikidashiListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BoxButtonsPageTemplate(
       pageTitle: "おうちのひきだし",
+      pageType: "hikidashi",
       buttonItems: buttonItems,
       appBarColor: Colors.blue,
       boxButtonColor: Colors.blue,

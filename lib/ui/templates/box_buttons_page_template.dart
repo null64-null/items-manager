@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import './../atoms/box_botton.dart';
+import './../pages/start_page.dart';
+import './../pages/items_list_page_from_hikidashi_list.dart';
+import './../pages/items_list_page_from_shopping_place_list.dart';
 
 class ButtonItem {
   final int id;
@@ -12,10 +15,33 @@ class ButtonItem {
     required this.notifications,
   });
 
-  //ここをページ遷移関数に変更
-  void onPressed() {
-    debugPrint(name);
-    debugPrint(id.toString());
+  void onPressed(context, String buttonType) {
+    final dynamic page;
+
+    switch (buttonType) {
+      case "hikidashi":
+        page = ItemListPageFromHikidashiList(
+          hikidashiId: id,
+          hikidashiName: name,
+        );
+        break;
+      case "shoppingPlace":
+        page = ItemListPageFromShoppingPlaceList(
+          shoppingPlaceId: id,
+          shoppingPlaceName: name,
+        );
+        break;
+      default:
+        page = const StartPage();
+        break;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => page,
+      ),
+    );
   }
 }
 
@@ -25,6 +51,7 @@ const List<ButtonItem> initialButtonItems = [
 
 class BoxButtonsPageTemplate extends StatelessWidget {
   final String pageTitle;
+  final String pageType;
   final List<ButtonItem> buttonItems;
   final Color appBarColor;
   final Color boxButtonColor;
@@ -32,6 +59,7 @@ class BoxButtonsPageTemplate extends StatelessWidget {
   const BoxButtonsPageTemplate({
     Key? key,
     this.pageTitle = 'title',
+    this.pageType = "",
     this.buttonItems = initialButtonItems,
     this.appBarColor = Colors.white,
     this.boxButtonColor = Colors.white,
@@ -59,8 +87,10 @@ class BoxButtonsPageTemplate extends StatelessWidget {
                   label: buttonItem.name,
                   color: boxButtonColor,
                   notifications: buttonItem.notifications,
-                  onPressed: buttonItem.onPressed,
-                )
+                  onPressed: () {
+                    buttonItem.onPressed(context, pageType);
+                  },
+                ),
             ],
           )
         ],
