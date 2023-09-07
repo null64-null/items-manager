@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../atoms/long_button.dart';
-import '../pages/hikidashi_list_page.dart';
-import '../pages/shopping_place_list_page.dart';
+import '../pages/categories_list_page.dart';
 
 class StartPageTemplate extends StatelessWidget {
   const StartPageTemplate({super.key});
@@ -31,7 +30,8 @@ class StartPageTemplate extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const HikidashiListPage(),
+                    builder: (context) =>
+                        const CategoriesListPage(categoryType: "hikidashi"),
                   ),
                 );
               },
@@ -46,7 +46,8 @@ class StartPageTemplate extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ShoppingPlaceListPage(),
+                    builder: (context) =>
+                        const CategoriesListPage(categoryType: "shoppingPlace"),
                   ),
                 );
               },
