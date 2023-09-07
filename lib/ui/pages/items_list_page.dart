@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import './../templates/items_list_page_template.dart';
 
 // dummy data, 後にAPI通信でデータ取得
-// API：買い物が必要なアイテム数を引き出しごとに取得
 List<ItemStatusItem> statusItems = [
   const ItemStatusItem(
     id: 1,
@@ -65,14 +64,15 @@ class ItemListPage extends StatelessWidget {
     return ItemsListPageTemplate(
       pageTitle: categoryName,
       appBarColor: const Color.fromARGB(255, 255, 124, 59), // change later
-      itemStatusItems: statusItems,
+      itemStatusItems: getData(),
     );
   }
 
   // 該当のpageType, categoryIdに該当する買い物アイテムデータを取得
   // dummy dataは上に仮置きしている
-  void dataFetch(int categoryId) {
+  List<ItemStatusItem> getData() {
     debugPrint(categoryType);
     debugPrint(categoryId.toString());
+    return statusItems;
   }
 }
