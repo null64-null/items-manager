@@ -42,6 +42,7 @@ class BoxButton extends StatelessWidget {
             fixedSize: const Size(146, 130),
             backgroundColor: color,
             shadowColor: const Color(0x3F000000),
+            elevation: 5,
           ),
           child: Text(
             label,

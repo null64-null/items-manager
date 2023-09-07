@@ -40,6 +40,7 @@ class LongButton extends StatelessWidget {
           fixedSize: const Size(320, 81),
           backgroundColor: color,
           shadowColor: const Color(0x3F000000),
+          elevation: 5,
         ),
         child: Text(
           label,

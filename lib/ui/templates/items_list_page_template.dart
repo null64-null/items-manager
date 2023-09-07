@@ -43,7 +43,13 @@ class ItemsListPageTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(pageTitle),
+        title: Text(
+          pageTitle,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         backgroundColor: appBarColor,
       ),
       bottomNavigationBar: Container(

@@ -21,8 +21,8 @@ class HikidashiListPage extends StatelessWidget {
       pageTitle: "おうちのひきだし",
       pageType: "hikidashi",
       buttonItems: buttonItems,
-      appBarColor: Colors.blue,
-      boxButtonColor: Colors.blue,
+      appBarColor: const Color(0xFF54D6FF),
+      boxButtonColor: const Color(0xFF54D6FF),
     );
   }
 }

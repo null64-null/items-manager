@@ -62,7 +62,7 @@ class ItemListPageFromHikidashiList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ItemsListPageTemplate(
       pageTitle: hikidashiName,
-      appBarColor: Colors.yellow,
+      appBarColor: const Color.fromARGB(255, 255, 124, 59),
       itemStatusItems: statusItems,
     );
   }

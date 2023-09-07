@@ -20,8 +20,8 @@ class ShoppingPlaceListPage extends StatelessWidget {
       pageTitle: "かいものリスト",
       pageType: "shoppingPlace",
       buttonItems: buttonItems,
-      appBarColor: Colors.lightGreen,
-      boxButtonColor: Colors.lightGreen,
+      appBarColor: const Color(0xFF62FF54),
+      boxButtonColor: const Color(0xFF62FF54),
     );
   }
 }

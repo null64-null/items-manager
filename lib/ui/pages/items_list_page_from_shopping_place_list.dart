@@ -62,7 +62,7 @@ class ItemListPageFromShoppingPlaceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ItemsListPageTemplate(
       pageTitle: shoppingPlaceName,
-      appBarColor: Colors.yellow,
+      appBarColor: const Color.fromARGB(255, 255, 124, 59),
       itemStatusItems: statusItems,
     );
   }
