@@ -19,12 +19,6 @@ class ButtonItem {
 
     switch (buttonType) {
       case "hikidashi":
-        /*
-        page = ItemListPageFromHikidashiList(
-          hikidashiId: id,
-          hikidashiName: name,
-        );
-        */
         page = ItemListPage(
           pageType: "hikidashi",
           categoryId: id,
@@ -32,12 +26,6 @@ class ButtonItem {
         );
         break;
       case "shoppingPlace":
-        /*
-        page = ItemListPageFromShoppingPlaceList(
-          shoppingPlaceId: id,
-          shoppingPlaceName: name,
-        );
-        */
         page = ItemListPage(
           pageType: "shoppingPlace",
           categoryId: id,
@@ -62,14 +50,14 @@ const List<ButtonItem> initialButtonItems = [
   ButtonItem(id: 0, name: "name", notifications: 0),
 ];
 
-class BoxButtonsPageTemplate extends StatelessWidget {
+class CategoriesPageTemplate extends StatelessWidget {
   final String pageTitle;
   final String pageType;
   final List<ButtonItem> buttonItems;
   final Color appBarColor;
   final Color boxButtonColor;
 
-  const BoxButtonsPageTemplate({
+  const CategoriesPageTemplate({
     Key? key,
     this.pageTitle = 'title',
     this.pageType = "",

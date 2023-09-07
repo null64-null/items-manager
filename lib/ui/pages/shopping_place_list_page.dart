@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/ui/templates/box_buttons_page_template.dart';
+import 'package:test_app/ui/templates/categories_page_template.dart';
 
 // dummy data, 後にAPI通信でデータ取得
 // API：買い物が必要になったアイテム数をショップごとに取得
@@ -16,7 +16,7 @@ class ShoppingPlaceListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BoxButtonsPageTemplate(
+    return CategoriesPageTemplate(
       pageTitle: "かいものリスト",
       pageType: "shoppingPlace",
       buttonItems: buttonItems,
