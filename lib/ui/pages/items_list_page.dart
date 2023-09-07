@@ -49,13 +49,13 @@ List<ItemStatusItem> statusItems = [
 ];
 
 class ItemListPage extends StatelessWidget {
-  final String pageType;
+  final String categoryType;
   final int categoryId;
   final String categoryName;
 
   const ItemListPage({
     Key? key,
-    this.pageType = "",
+    this.categoryType = "",
     this.categoryId = 0,
     this.categoryName = "",
   }) : super(key: key);
@@ -72,7 +72,7 @@ class ItemListPage extends StatelessWidget {
   // 該当のpageType, categoryIdに該当する買い物アイテムデータを取得
   // dummy dataは上に仮置きしている
   void dataFetch(int categoryId) {
-    debugPrint(pageType);
+    debugPrint(categoryType);
     debugPrint(categoryId.toString());
   }
 }

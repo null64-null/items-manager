@@ -20,14 +20,14 @@ class ButtonItem {
     switch (buttonType) {
       case "hikidashi":
         page = ItemListPage(
-          pageType: "hikidashi",
+          categoryType: "hikidashi",
           categoryId: id,
           categoryName: name,
         );
         break;
       case "shoppingPlace":
         page = ItemListPage(
-          pageType: "shoppingPlace",
+          categoryType: "shoppingPlace",
           categoryId: id,
           categoryName: name,
         );
@@ -52,7 +52,7 @@ const List<ButtonItem> initialButtonItems = [
 
 class CategoriesPageTemplate extends StatelessWidget {
   final String pageTitle;
-  final String pageType;
+  final String categoryType;
   final List<ButtonItem> buttonItems;
   final Color appBarColor;
   final Color boxButtonColor;
@@ -60,7 +60,7 @@ class CategoriesPageTemplate extends StatelessWidget {
   const CategoriesPageTemplate({
     Key? key,
     this.pageTitle = 'title',
-    this.pageType = "",
+    this.categoryType = "",
     this.buttonItems = initialButtonItems,
     this.appBarColor = Colors.white,
     this.boxButtonColor = Colors.white,
@@ -95,7 +95,7 @@ class CategoriesPageTemplate extends StatelessWidget {
                   color: boxButtonColor,
                   notifications: buttonItem.notifications,
                   onPressed: () {
-                    buttonItem.onPressed(context, pageType);
+                    buttonItem.onPressed(context, categoryType);
                   },
                 ),
             ],

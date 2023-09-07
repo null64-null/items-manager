@@ -33,7 +33,7 @@ class CategoriesListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CategoriesPageTemplate(
       pageTitle: getTitle(categoryType),
-      pageType: "hikidashi",
+      categoryType: "hikidashi",
       buttonItems: getData(categoryType),
       appBarColor: getColor(categoryType),
       boxButtonColor: getColor(categoryType),
