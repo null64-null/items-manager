@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import './../atoms/box_botton.dart';
 import './../pages/start_page.dart';
-import './../pages/items_list_page_from_hikidashi_list.dart';
-import './../pages/items_list_page_from_shopping_place_list.dart';
+import './../pages/items_list_page.dart';
 
 class ButtonItem {
   final int id;
@@ -20,15 +19,29 @@ class ButtonItem {
 
     switch (buttonType) {
       case "hikidashi":
+        /*
         page = ItemListPageFromHikidashiList(
           hikidashiId: id,
           hikidashiName: name,
         );
+        */
+        page = ItemListPage(
+          pageType: "hikidashi",
+          categoryId: id,
+          categoryName: name,
+        );
         break;
       case "shoppingPlace":
+        /*
         page = ItemListPageFromShoppingPlaceList(
           shoppingPlaceId: id,
           shoppingPlaceName: name,
+        );
+        */
+        page = ItemListPage(
+          pageType: "shoppingPlace",
+          categoryId: id,
+          categoryName: name,
         );
         break;
       default:

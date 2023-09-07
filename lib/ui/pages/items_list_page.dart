@@ -48,29 +48,31 @@ List<ItemStatusItem> statusItems = [
   ),
 ];
 
-class ItemListPageFromHikidashiList extends StatelessWidget {
-  final int hikidashiId;
-  final String hikidashiName;
+class ItemListPage extends StatelessWidget {
+  final String pageType;
+  final int categoryId;
+  final String categoryName;
 
-  const ItemListPageFromHikidashiList({
+  const ItemListPage({
     Key? key,
-    this.hikidashiId = 0,
-    this.hikidashiName = "hikidashi",
+    this.pageType = "",
+    this.categoryId = 0,
+    this.categoryName = "",
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ItemsListPageTemplate(
-      pageTitle: hikidashiName,
-      appBarColor: const Color.fromARGB(255, 255, 124, 59),
+      pageTitle: categoryName,
+      appBarColor: const Color.fromARGB(255, 255, 124, 59), // change later
       itemStatusItems: statusItems,
     );
   }
 
-  // 該当のhikidashiIdの引き出しにある買い物アイテムデータを取得
+  // 該当のpageType, categoryIdに該当する買い物アイテムデータを取得
   // dummy dataは上に仮置きしている
-  void dataFetch(int hikidashiId) {
-    debugPrint(hikidashiName);
-    debugPrint(hikidashiId.toString());
+  void dataFetch(int categoryId) {
+    debugPrint(pageType);
+    debugPrint(categoryId.toString());
   }
 }
