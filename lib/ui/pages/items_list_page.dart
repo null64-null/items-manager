@@ -71,6 +71,7 @@ class ItemListPage extends StatelessWidget {
   // 該当のpageType, categoryIdに該当する買い物アイテムデータを取得
   // dummy dataは上に仮置きしている
   List<ItemStatusItem> getData() {
+    debugPrint("------------");
     debugPrint(categoryType);
     debugPrint(categoryId.toString());
     return statusItems;

@@ -33,7 +33,7 @@ class CategoriesListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CategoriesPageTemplate(
       pageTitle: getTitle(categoryType),
-      categoryType: "hikidashi",
+      categoryType: categoryType,
       buttonItems: getData(categoryType),
       appBarColor: getColor(categoryType),
       boxButtonColor: getColor(categoryType),
@@ -64,6 +64,7 @@ class CategoriesListPage extends StatelessWidget {
 
   // API : Category list を取得
   List<ButtonItem> getData(String categoryType) {
+    debugPrint("=============");
     debugPrint(categoryType);
     switch (categoryType) {
       case "hikidashi":
