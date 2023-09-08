@@ -52,22 +52,6 @@ class ItemsListPageTemplate extends StatelessWidget {
         ),
         backgroundColor: appBarColor,
       ),
-      bottomNavigationBar: SizedBox(
-        height: 90,
-        child: ElevatedButton(
-          child: const Text(
-            "新規作成",
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          onPressed: () {
-            debugPrint("add");
-          },
-        ),
-      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -92,6 +76,22 @@ class ItemsListPageTemplate extends StatelessWidget {
                 ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 90,
+        child: ElevatedButton(
+          child: const Text(
+            "新規作成",
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          onPressed: () {
+            debugPrint("add");
+          },
         ),
       ),
     );
