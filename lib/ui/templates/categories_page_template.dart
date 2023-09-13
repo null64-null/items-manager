@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './../atoms/box_botton.dart';
 import './../pages/start_page.dart';
 import './../pages/items_list_page.dart';
+import './../organisms/footer/categories_page_footer.dart';
 
 class ButtonItem {
   final int id;
@@ -102,6 +103,20 @@ class CategoriesPageTemplate extends StatelessWidget {
           )
         ],
       ),
+      bottomNavigationBar: CategoryPageFooter(
+        color: getColor(categoryType),
+      ),
     );
+  }
+
+  Color getColor(categoryType) {
+    switch (categoryType) {
+      case "hikidashi":
+        return const Color(0xFF54D6FF);
+      case "shoppingPlace":
+        return const Color(0xFF62FF54);
+      default:
+        return Colors.white;
+    }
   }
 }
