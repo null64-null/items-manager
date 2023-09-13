@@ -25,12 +25,12 @@ class CategoryPageFooter extends ConsumerWidget {
       backgroundColor: color,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.edit),
-          label: "編集",
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.add),
           label: "追加",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.delete),
+          label: "選択削除",
         ),
       ],
     );
@@ -45,6 +45,9 @@ class CategoryPageFooter extends ConsumerWidget {
         break;
       case 1:
         debugPrint("1");
+        break;
+      case 2:
+        debugPrint("2");
         break;
       default:
         debugPrint("none");
