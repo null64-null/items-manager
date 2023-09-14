@@ -22,7 +22,7 @@ class CategoryAddDialog extends ConsumerWidget {
     final registable = ref.watch(registrableProvider);
 
     return AlertDialog(
-      title: const Text("引き出し名を入力"),
+      title: Text('${getLabelText(categoryType)}を入力'),
       content: TextField(
         controller: controller,
         decoration: InputDecoration(
@@ -70,7 +70,7 @@ class CategoryAddDialog extends ConsumerWidget {
       case "hikidashi":
         return "引き出し名";
       case "shoppingPlace":
-        return "ショップ";
+        return "ショップ名";
       default:
         return "";
     }
