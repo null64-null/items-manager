@@ -105,6 +105,8 @@ class CategoriesPageTemplate extends StatelessWidget {
       ),
       bottomNavigationBar: CategoryPageFooter(
         color: getColor(categoryType),
+        categoryType: categoryType,
+        itemsLength: buttonItems.length,
       ),
     );
   }
