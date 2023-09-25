@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future<Database> connectDatabase() async {
+Future<void> initializeDatabase() async {
+  debugPrint("Database intialize start");
   final Future<Database> database = openDatabase(
     join(await getDatabasesPath(), 'zaiko_databases.db'),
     onCreate: (db, version) async {
@@ -30,8 +32,10 @@ Future<Database> connectDatabase() async {
         "FOREIGN KEY (shopping_place_id) REFERENCES shopping_places(id)"
         ");",
       );
+      debugPrint("Database initialized");
     },
     version: 1,
   );
-  return database;
+  debugPrint("Database intialize end");
+  await database;
 }
