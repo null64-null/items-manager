@@ -3,10 +3,10 @@ import 'package:sqflite/sqflite.dart';
 import './migrate.dart';
 
 class Hikidashi {
-  final int id;
+  final int? id;
   final String name;
 
-  Hikidashi({required this.id, required this.name});
+  Hikidashi({this.id, required this.name});
 
   Map<String, dynamic> toMap() {
     return {
@@ -17,10 +17,10 @@ class Hikidashi {
 }
 
 class ShoppingPlace {
-  final int id;
+  final int? id;
   final String name;
 
-  ShoppingPlace({required this.id, required this.name});
+  ShoppingPlace({this.id, required this.name});
 
   Map<String, dynamic> toMap() {
     return {
@@ -31,7 +31,7 @@ class ShoppingPlace {
 }
 
 class Item {
-  final int id;
+  final int? id;
   final String name;
   final double remainingValue;
   final double maxValue;
@@ -40,7 +40,7 @@ class Item {
   final int? shoppingPlaceId;
 
   Item({
-    required this.id,
+    this.id,
     required this.name,
     required this.remainingValue,
     required this.maxValue,
