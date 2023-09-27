@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import './models.dart';
-import './migrate.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
