@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import './models.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import '../util/classes/category.dart';
+import '../util/classes/items.dart';
 
 // Hikidashi
 // create
-Future<void> insertHikidashi(Hikidashi hikidashi) async {
+Future<void> insertHikidashi(Category hikidashi) async {
   final Database db = await openDatabase(
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
@@ -13,13 +14,13 @@ Future<void> insertHikidashi(Hikidashi hikidashi) async {
 }
 
 // get (all)
-Future<List<Hikidashi>> getHikidashi() async {
+Future<List<Category>> getHikidashis() async {
   final Database db = await openDatabase(
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query('hikidashis');
   return List.generate(maps.length, (index) {
-    return Hikidashi(
+    return Category(
       id: maps[index]['id'],
       name: maps[index]['name'],
     );
@@ -27,7 +28,7 @@ Future<List<Hikidashi>> getHikidashi() async {
 }
 
 // edit
-Future<void> updateHikidashi(Hikidashi hikidashi) async {
+Future<void> updateHikidashi(Category hikidashi) async {
   final Database db = await openDatabase(
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );

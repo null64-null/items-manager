@@ -1,34 +1,4 @@
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import './migrate.dart';
-
-class Hikidashi {
-  final int? id;
-  final String name;
-
-  Hikidashi({this.id, required this.name});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-    };
-  }
-}
-
-class ShoppingPlace {
-  final int? id;
-  final String name;
-
-  ShoppingPlace({this.id, required this.name});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-    };
-  }
-}
+import 'package:flutter/material.dart';
 
 class Item {
   final int? id;

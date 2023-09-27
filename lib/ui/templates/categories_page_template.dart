@@ -1,60 +1,16 @@
 import 'package:flutter/material.dart';
 import './../atoms/box_botton.dart';
-import './../pages/start_page.dart';
-import './../pages/items_list_page.dart';
 import './../organisms/footer/categories_page_footer.dart';
+import '../../util/classes/category.dart';
 
-class ButtonItem {
-  final int id;
-  final String name;
-  final int notifications;
-
-  const ButtonItem({
-    required this.id,
-    required this.name,
-    required this.notifications,
-  });
-
-  void onPressed(context, String buttonType) {
-    final dynamic page;
-
-    switch (buttonType) {
-      case "hikidashi":
-        page = ItemsListPage(
-          categoryType: "hikidashi",
-          categoryId: id,
-          categoryName: name,
-        );
-        break;
-      case "shoppingPlace":
-        page = ItemsListPage(
-          categoryType: "shoppingPlace",
-          categoryId: id,
-          categoryName: name,
-        );
-        break;
-      default:
-        page = const StartPage();
-        break;
-    }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => page,
-      ),
-    );
-  }
-}
-
-const List<ButtonItem> initialButtonItems = [
-  ButtonItem(id: 0, name: "name", notifications: 0),
+const List<Category> initialCategorys = [
+  Category(id: 0, name: "name", notifications: 0),
 ];
 
 class CategoriesPageTemplate extends StatelessWidget {
   final String pageTitle;
   final String categoryType;
-  final List<ButtonItem> buttonItems;
+  final List<Category> buttonItems;
   final Color appBarColor;
   final Color boxButtonColor;
 
@@ -62,7 +18,7 @@ class CategoriesPageTemplate extends StatelessWidget {
     Key? key,
     this.pageTitle = 'title',
     this.categoryType = "",
-    this.buttonItems = initialButtonItems,
+    this.buttonItems = initialCategorys,
     this.appBarColor = Colors.white,
     this.boxButtonColor = Colors.white,
   }) : super(key: key);
@@ -94,7 +50,7 @@ class CategoriesPageTemplate extends StatelessWidget {
                 BoxButton(
                   label: buttonItem.name,
                   color: boxButtonColor,
-                  notifications: buttonItem.notifications,
+                  notifications: buttonItem.notifications ?? 0,
                   onPressed: () {
                     buttonItem.onPressed(context, categoryType);
                   },

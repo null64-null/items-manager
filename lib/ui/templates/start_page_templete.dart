@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../atoms/long_button.dart';
 import '../pages/categories_list_page.dart';
-//import 'package:test_app/db/models.dart';
-//import '../../db/crud.dart';
 
 class StartPageTemplate extends StatelessWidget {
   const StartPageTemplate({super.key});
@@ -29,7 +27,6 @@ class StartPageTemplate extends StatelessWidget {
               label: 'おうちのひきだし',
               color: const Color(0xFF54D6FF),
               onPressed: () {
-                /* await getHikidashi(); */
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -46,7 +43,6 @@ class StartPageTemplate extends StatelessWidget {
               label: 'かいものリスト',
               color: const Color(0xFF62FF54),
               onPressed: () {
-                /* await insertHikidashi(Hikidashi(name: "name")); */
                 Navigator.push(
                   context,
                   MaterialPageRoute(

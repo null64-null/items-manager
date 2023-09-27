@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/ui/templates/categories_page_template.dart';
 import '../../util/dummy_data.dart';
+import '../../db/crud.dart';
+import '../../util/classes/category.dart';
 
-List<ButtonItem> nothig = [
-  const ButtonItem(id: 1, name: "", notifications: 0),
+List<Category> nothig = [
+  const Category(id: 1, name: "", notifications: 0),
 ];
 
 class CategoriesListPage extends StatelessWidget {
@@ -48,14 +50,16 @@ class CategoriesListPage extends StatelessWidget {
   }
 
   // Category list を取得
-  List<ButtonItem> getData(String categoryType) {
+  List<Category> getData(String categoryType) async {
     debugPrint("=============");
     debugPrint(categoryType);
     switch (categoryType) {
       case "hikidashi":
-        return hikidashiButtonItems; //DBから取得
+        final hikidashiCategorys = await getHikidashis();
+        return hikidashiCategorys; //DBから取得
       case "shoppingPlace":
-        return shoppingPlaceButtonItems; //DBから取得
+        //final shoppingPlaceCategorys = await getShoppingPlace();
+        return shoppingPlaceCategorys; //DBから取得
       default:
         return nothig;
     }
