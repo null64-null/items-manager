@@ -17,7 +17,8 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Local Database
 - database dir
-~/Library/Developer/CoreSimulator/Devices/690CDFDB-7BD2-44A7-9826-2AF72ABD2F5A/data/Containers/Data/Application/D8B3FA72-6855-4FA4-847F-73C22E97E915/Documents
+in ~/Library/Developer/CoreSimulator/Devices , command as follow to find database file in local
+find . -name "zaiko_database.db" -type f
 
 - make file editable
 chmod 666 zaiko_databases.db
