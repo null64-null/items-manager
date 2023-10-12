@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './../templates/items_list_page_template.dart';
 import '../../util/dummy_data.dart';
+import '../../util/classes/items.dart';
 
 class ItemsListPage extends StatelessWidget {
   final String categoryType;
@@ -19,15 +20,15 @@ class ItemsListPage extends StatelessWidget {
     return ItemsListPageTemplate(
       pageTitle: categoryName,
       appBarColor: const Color.fromARGB(255, 255, 124, 59), // change later
-      itemStatusItems: getData(),
+      items: getData(),
     );
   }
 
   // 該当のpageType, categoryIdに該当する買い物アイテムデータを取得
-  List<ItemStatusItem> getData() {
+  List<Item> getData() {
     debugPrint("------------");
     debugPrint(categoryType);
     debugPrint(categoryId.toString());
-    return statusItems; //statusItemsをDBから取得
+    return items; //statusItemsをDBから取得
   }
 }

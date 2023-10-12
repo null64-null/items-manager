@@ -14,3 +14,14 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Local Database
+- database dir
+in ~/Library/Developer/CoreSimulator/Devices , command as follow to find database file in local
+find . -name "zaiko_database.db" -type f
+
+- make file editable
+chmod 666 zaiko_databases.db
+
+- make file readonly
+chmod 644 zaiko_databases.db

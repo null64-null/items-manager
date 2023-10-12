@@ -1,42 +1,17 @@
 import 'package:flutter/material.dart';
 import './../organisms/item_status.dart';
-
-class ItemStatusItem {
-  final int id;
-  final String itemName;
-  final double remainingValue;
-  final double maxValue;
-  final String unit;
-
-  const ItemStatusItem({
-    required this.id,
-    required this.itemName,
-    required this.remainingValue,
-    required this.maxValue,
-    required this.unit,
-  });
-}
-
-const List<ItemStatusItem> initialItemStatusItems = [
-  ItemStatusItem(
-    id: 0,
-    itemName: "name",
-    remainingValue: 1,
-    maxValue: 1,
-    unit: "unit",
-  ),
-];
+import '../../util/classes/items.dart';
 
 class ItemsListPageTemplate extends StatelessWidget {
   final String pageTitle;
   final Color appBarColor;
-  final List<ItemStatusItem> itemStatusItems;
+  final List<Item>? items;
 
   const ItemsListPageTemplate({
     Key? key,
     this.pageTitle = "title",
     this.appBarColor = Colors.white,
-    this.itemStatusItems = initialItemStatusItems,
+    this.items,
   }) : super(key: key);
 
   @override
@@ -56,7 +31,7 @@ class ItemsListPageTemplate extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              for (final itemStatusItem in itemStatusItems)
+              for (final item in items ?? [])
                 Column(
                   children: [
                     const SizedBox(
@@ -65,11 +40,11 @@ class ItemsListPageTemplate extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: ItemStatus(
-                        id: itemStatusItem.id,
-                        itemName: itemStatusItem.itemName,
-                        remainingValue: itemStatusItem.remainingValue,
-                        maxValue: itemStatusItem.maxValue,
-                        unit: itemStatusItem.unit,
+                        id: item.id ?? 0,
+                        itemName: item.name,
+                        remainingValue: item.remainingValue,
+                        maxValue: item.maxValue,
+                        unit: item.unit,
                       ),
                     ),
                   ],
