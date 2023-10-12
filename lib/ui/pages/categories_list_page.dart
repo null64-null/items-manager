@@ -50,9 +50,7 @@ class CategoriesListPage extends StatelessWidget {
   }
 
   // Category list を取得
-  List<Category> getData(String categoryType) async {
-    debugPrint("=============");
-    debugPrint(categoryType);
+  Future<List<Category>> getData(String categoryType) async {
     switch (categoryType) {
       case "hikidashi":
         final hikidashiCategorys = await getHikidashis();
