@@ -10,13 +10,15 @@ Future<void> initializeDatabase() async {
       await db.execute(
         "CREATE TABLE hikidashis ("
         "id INTEGER PRIMARY KEY,"
-        "name TEXT"
+        "name TEXT,"
+        "notification INTEGER"
         ");",
       );
       await db.execute(
         "CREATE TABLE shopping_places ("
         "id INTEGER PRIMARY KEY,"
-        "name TEXT"
+        "name TEXT,"
+        "notification INTEGER"
         ");",
       );
       await db.execute(

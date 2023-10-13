@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../db/crud.dart';
+import '../../../util/classes/category.dart';
+import '../../pages/categories_list_page.dart';
 
 final controller = TextEditingController();
 
@@ -54,10 +57,18 @@ class CategoryAddDialog extends ConsumerWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          onTap: () {
+          onTap: () async {
             if (registable) {
-              debugPrint(controller.text);
+              var newCategory = Category(name: controller.text);
+              await insertHikidashi(newCategory);
               Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const CategoriesListPage(categoryType: "hikidashi"),
+                ),
+              );
             }
           },
         ),
