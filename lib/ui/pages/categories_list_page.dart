@@ -54,10 +54,10 @@ class CategoriesListPage extends StatelessWidget {
     switch (categoryType) {
       case "hikidashi":
         final hikidashiCategorys = await getHikidashis();
-        return hikidashiCategorys; //DBから取得
+        return hikidashiCategorys;
       case "shoppingPlace":
         final shoppingPlaceCategorys = await getShoppingPlaces();
-        return shoppingPlaceCategorys; //DBから取得
+        return shoppingPlaceCategorys;
       default:
         return nothig;
     }
