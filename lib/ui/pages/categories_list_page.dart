@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_app/ui/templates/categories_page_template.dart';
 import '../../util/dummy_data.dart';
 import '../../db/crud.dart';
@@ -8,7 +9,26 @@ List<Category> nothig = [
   const Category(id: 1, name: "", notifications: 0),
 ];
 
-class CategoriesListPage extends StatelessWidget {
+final categoriesProvider = StateProvider<List<Category>>((ref) {
+  return [];
+});
+
+Future<void> getData(String categoryType, WidgetRef ref) async {
+  switch (categoryType) {
+    case "hikidashi":
+      final hikidashiCategorys = await getHikidashis();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = hikidashiCategorys;
+    case "shoppingPlace":
+      final shoppingPlaceCategorys = await getShoppingPlaces();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = shoppingPlaceCategorys;
+    default:
+      debugPrint("category type error");
+  }
+}
+
+class CategoriesListPage extends ConsumerWidget {
   final String categoryType;
 
   const CategoriesListPage({
@@ -17,11 +37,14 @@ class CategoriesListPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categories = ref.watch(categoriesProvider);
+    getData(categoryType, ref);
+
     return CategoriesPageTemplate(
       pageTitle: getTitle(categoryType),
       categoryType: categoryType,
-      buttonItems: getData(categoryType),
+      buttonItems: categories,
       appBarColor: getColor(categoryType),
       boxButtonColor: getColor(categoryType),
     );
@@ -46,20 +69,6 @@ class CategoriesListPage extends StatelessWidget {
         return "かいものリスト";
       default:
         return "";
-    }
-  }
-
-  // Category list を取得
-  Future<List<Category>> getData(String categoryType) async {
-    switch (categoryType) {
-      case "hikidashi":
-        final hikidashiCategorys = await getHikidashis();
-        return hikidashiCategorys;
-      case "shoppingPlace":
-        final shoppingPlaceCategorys = await getShoppingPlaces();
-        return shoppingPlaceCategorys;
-      default:
-        return nothig;
     }
   }
 }

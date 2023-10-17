@@ -10,7 +10,85 @@ const List<Category> initialCategorys = [
 class CategoriesPageTemplate extends StatelessWidget {
   final String pageTitle;
   final String categoryType;
-  final Future<List<Category>>? buttonItems;
+  final List<Category> buttonItems;
+  final Color appBarColor;
+  final Color boxButtonColor;
+
+  const CategoriesPageTemplate({
+    Key? key,
+    this.pageTitle = 'title',
+    this.categoryType = "",
+    this.buttonItems = initialCategorys,
+    this.appBarColor = Colors.white,
+    this.boxButtonColor = Colors.white,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          pageTitle,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        backgroundColor: appBarColor,
+      ),
+      body: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 20,
+            ),
+          ),
+          SliverGrid.count(
+            crossAxisCount: 2,
+            children: [
+              for (final buttonItem in buttonItems)
+                BoxButton(
+                  label: buttonItem.name,
+                  color: boxButtonColor,
+                  notifications: buttonItem.notifications ?? 0,
+                  onPressed: () {
+                    buttonItem.onPressed(context, categoryType);
+                  },
+                ),
+            ],
+          )
+        ],
+      ),
+      bottomNavigationBar: CategoryPageFooter(
+        color: getColor(categoryType),
+        categoryType: categoryType,
+        itemsLength: buttonItems.length,
+      ),
+    );
+  }
+
+  Color getColor(categoryType) {
+    switch (categoryType) {
+      case "hikidashi":
+        return const Color(0xFF54D6FF);
+      case "shoppingPlace":
+        return const Color(0xFF62FF54);
+      default:
+        return Colors.white;
+    }
+  }
+}
+
+
+/*
+const List<Category> initialCategorys = [
+  Category(id: 0, name: "name", notifications: 0),
+];
+
+class CategoriesPageTemplate extends StatelessWidget {
+  final String pageTitle;
+  final String categoryType;
+  final List<Category>? buttonItems;
   final Color appBarColor;
   final Color boxButtonColor;
 
@@ -131,3 +209,4 @@ class CategoriesPageTemplate extends StatelessWidget {
     }
   }
 }
+*/

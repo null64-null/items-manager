@@ -46,6 +46,7 @@ class CategoryAddDialog extends ConsumerWidget {
             ),
           ),
           onTap: () {
+            controller.clear();
             Navigator.pop(context);
           },
         ),
@@ -61,14 +62,11 @@ class CategoryAddDialog extends ConsumerWidget {
             if (registable) {
               var newCategory = Category(name: controller.text);
               await insertHikidashi(newCategory);
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      const CategoriesListPage(categoryType: "hikidashi"),
-                ),
-              );
+              await getData(categoryType, ref);
+              controller.clear();
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
             }
           },
         ),
