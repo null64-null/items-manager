@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../util/classes/category.dart';
-import '../util/classes/items.dart';
 
 // Hikidashi
 // create
