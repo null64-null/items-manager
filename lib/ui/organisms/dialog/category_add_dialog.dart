@@ -61,7 +61,12 @@ class CategoryAddDialog extends ConsumerWidget {
           onTap: () async {
             if (registable) {
               var newCategory = Category(name: controller.text);
-              await insertHikidashi(newCategory);
+              if (categoryType == "hikidashi") {
+                await insertHikidashi(newCategory);
+              }
+              if (categoryType == "shoppingPlace") {
+                await insertShoppingPlace(newCategory);
+              }
               await getData(categoryType, ref);
               controller.clear();
               Future.delayed(Duration.zero, () {
