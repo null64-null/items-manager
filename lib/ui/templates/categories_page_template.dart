@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './../atoms/box_botton.dart';
+import '../molecules/box_botton.dart';
 import './../organisms/footer/categories_page_footer.dart';
 import '../../util/classes/category.dart';
 
