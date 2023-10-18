@@ -17,7 +17,7 @@ class Category {
     return {
       'id': id,
       'name': name,
-      'notification': notifications,
+      'notifications': notifications,
     };
   }
 

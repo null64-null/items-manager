@@ -21,6 +21,7 @@ Future<List<Category>> getHikidashis() async {
     return Category(
       id: maps[index]['id'],
       name: maps[index]['name'],
+      notifications: maps[index]['notifications'],
     );
   });
 }
@@ -81,6 +82,7 @@ Future<List<Category>> getShoppingPlaces() async {
     return Category(
       id: maps[index]['id'],
       name: maps[index]['name'],
+      notifications: maps[index]['notifications'],
     );
   });
 }

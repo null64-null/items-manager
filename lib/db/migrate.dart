@@ -11,14 +11,14 @@ Future<void> initializeDatabase() async {
         "CREATE TABLE hikidashis ("
         "id INTEGER PRIMARY KEY,"
         "name TEXT,"
-        "notification INTEGER"
+        "notifications INTEGER"
         ");",
       );
       await db.execute(
         "CREATE TABLE shopping_places ("
         "id INTEGER PRIMARY KEY,"
         "name TEXT,"
-        "notification INTEGER"
+        "notifications INTEGER"
         ");",
       );
       await db.execute(
