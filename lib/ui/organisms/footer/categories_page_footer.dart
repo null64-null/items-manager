@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../dialog/category_add_dialog.dart';
+import '../dialog/category_add_dialog/category_add_dialog.dart';
 
 final selectProvider = StateProvider<int>((ref) {
   return 0;
