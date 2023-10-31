@@ -45,7 +45,7 @@ class CategoriesListPage extends ConsumerWidget {
       categoryType: categoryType,
       buttonItems: categories,
       appBarColor: getColor(categoryType),
-      boxButtonColor: getColor(categoryType),
+      buttonColor: getColor(categoryType),
     );
   }
 
