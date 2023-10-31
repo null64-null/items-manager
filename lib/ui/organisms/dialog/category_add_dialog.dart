@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_app/ui/organisms/button/category_button.dart';
 import '../../../db/crud.dart';
 import '../../../util/classes/category.dart';
 import '../../pages/categories_list_page.dart';
-
-final controller = TextEditingController();
 
 final registrableProvider = StateProvider<bool>((ref) {
   return false;
@@ -23,16 +22,18 @@ class CategoryAddDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final registable = ref.watch(registrableProvider);
+    final formText = ref.watch(formTextProvider);
 
     return AlertDialog(
       title: Text('${getLabelText(categoryType)}を入力'),
-      content: TextField(
-        controller: controller,
+      content: TextFormField(
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: getLabelText(categoryType),
         ),
         onChanged: (text) {
+          final notifire = ref.read(formTextProvider.notifier);
+          notifire.state = text;
           setRegistable(text, ref);
         },
       ),
@@ -46,7 +47,6 @@ class CategoryAddDialog extends ConsumerWidget {
             ),
           ),
           onTap: () {
-            controller.clear();
             Navigator.pop(context);
           },
         ),
@@ -60,7 +60,7 @@ class CategoryAddDialog extends ConsumerWidget {
           ),
           onTap: () async {
             if (registable) {
-              var newCategory = Category(name: controller.text);
+              var newCategory = Category(name: formText);
               if (categoryType == "hikidashi") {
                 await insertHikidashi(newCategory);
               }
@@ -68,7 +68,6 @@ class CategoryAddDialog extends ConsumerWidget {
                 await insertShoppingPlace(newCategory);
               }
               await getData(categoryType, ref);
-              controller.clear();
               Future.delayed(Duration.zero, () {
                 Navigator.pop(context);
               });

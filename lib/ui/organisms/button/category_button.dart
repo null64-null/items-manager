@@ -29,12 +29,11 @@ class CategoryButton extends ConsumerWidget {
       color: buttonColor,
       notifications: buttonItem.notifications ?? 0,
       onPressed: () {
-        debugPrint(categoryType);
+        final notifire = ref.read(formTextProvider.notifier);
+        notifire.state = "";
         buttonItem.onPressed(context, categoryType);
       },
       onLongPressed: () {
-        debugPrint('long button');
-        debugPrint(categoryType);
         final notifire = ref.read(formTextProvider.notifier);
         notifire.state = buttonItem.name;
         buttonItem.onLongPressed(context, categoryType);
