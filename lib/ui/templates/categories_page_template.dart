@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../molecules/box_botton.dart';
 import './../organisms/footer/categories_page_footer.dart';
 import '../organisms/button/category_button.dart';
 import '../../util/classes/category.dart';
