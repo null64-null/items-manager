@@ -1,33 +1,6 @@
 import 'package:flutter/material.dart';
 import '../atoms/notification_badge.dart';
 
-ButtonStyle buttonStyle(Color color) {
-  return ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(color),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-  );
-}
-
-const TextStyle buttonTextStyle = TextStyle(
-  color: Colors.black,
-  fontWeight: FontWeight.w600,
-  fontSize: 20,
-);
-
-Text buttonText(String label) {
-  return Text(
-    label,
-    style: buttonTextStyle,
-    maxLines: 4,
-    overflow: TextOverflow.ellipsis,
-    textAlign: TextAlign.center,
-  );
-}
-
 class BoxButton extends StatelessWidget {
   final String label;
   final Color color;
@@ -70,4 +43,31 @@ class BoxButton extends StatelessWidget {
       ],
     );
   }
+}
+
+const TextStyle buttonTextStyle = TextStyle(
+  color: Colors.black,
+  fontWeight: FontWeight.w600,
+  fontSize: 20,
+);
+
+Text buttonText(String label) {
+  return Text(
+    label,
+    style: buttonTextStyle,
+    maxLines: 4,
+    overflow: TextOverflow.ellipsis,
+    textAlign: TextAlign.center,
+  );
+}
+
+ButtonStyle buttonStyle(Color color) {
+  return ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(color),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+  );
 }
