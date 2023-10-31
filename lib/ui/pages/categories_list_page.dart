@@ -48,26 +48,26 @@ class CategoriesListPage extends ConsumerWidget {
       buttonColor: getColor(categoryType),
     );
   }
+}
 
-  Color getColor(String categoryType) {
-    switch (categoryType) {
-      case "hikidashi":
-        return const Color(0xFF54D6FF);
-      case "shoppingPlace":
-        return const Color(0xFF62FF54);
-      default:
-        return Colors.white;
-    }
+String getTitle(String categoryType) {
+  switch (categoryType) {
+    case "hikidashi":
+      return "おうちのひきだし";
+    case "shoppingPlace":
+      return "かいものリスト";
+    default:
+      return "";
   }
+}
 
-  String getTitle(String categoryType) {
-    switch (categoryType) {
-      case "hikidashi":
-        return "おうちのひきだし";
-      case "shoppingPlace":
-        return "かいものリスト";
-      default:
-        return "";
-    }
+Color getColor(String categoryType) {
+  switch (categoryType) {
+    case "hikidashi":
+      return const Color(0xFF54D6FF);
+    case "shoppingPlace":
+      return const Color(0xFF62FF54);
+    default:
+      return Colors.white;
   }
 }
