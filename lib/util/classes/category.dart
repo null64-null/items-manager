@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../ui/pages/items_list_page.dart';
 import '../../ui/pages/start_page.dart';
+import '../../ui/organisms/dialog/category_edit_dialog.dart';
 
 class Category {
   final int? id;
@@ -49,6 +50,19 @@ class Category {
       MaterialPageRoute(
         builder: (context) => page,
       ),
+    );
+  }
+
+  void onLongPressed(context, String categoryType) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return CategoryEditDialog(
+          categoryType: categoryType,
+          categoryId: id!,
+        );
+      },
     );
   }
 }

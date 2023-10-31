@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../molecules/box_botton.dart';
 import './../organisms/footer/categories_page_footer.dart';
 import '../../util/classes/category.dart';
@@ -7,7 +8,11 @@ const List<Category> initialCategorys = [
   Category(id: 0, name: "name", notifications: 0),
 ];
 
-class CategoriesPageTemplate extends StatelessWidget {
+final formTextProvider = StateProvider<String>((ref) {
+  return "";
+});
+
+class CategoriesPageTemplate extends ConsumerWidget {
   final String pageTitle;
   final String categoryType;
   final List<Category> buttonItems;
@@ -24,7 +29,7 @@ class CategoriesPageTemplate extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -53,6 +58,11 @@ class CategoriesPageTemplate extends StatelessWidget {
                   notifications: buttonItem.notifications ?? 0,
                   onPressed: () {
                     buttonItem.onPressed(context, categoryType);
+                  },
+                  onLongPressed: () {
+                    final notifire = ref.read(formTextProvider.notifier);
+                    notifire.state = buttonItem.name;
+                    buttonItem.onLongPressed(context, categoryType);
                   },
                 ),
             ],

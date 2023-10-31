@@ -33,6 +33,7 @@ class BoxButton extends StatelessWidget {
   final Color color;
   final int notifications;
   final VoidCallback? onPressed;
+  final VoidCallback? onLongPressed;
 
   const BoxButton({
     Key? key,
@@ -40,6 +41,7 @@ class BoxButton extends StatelessWidget {
     this.color = Colors.white,
     this.notifications = 0,
     this.onPressed,
+    this.onLongPressed,
   }) : super(key: key);
 
   @override
@@ -54,6 +56,7 @@ class BoxButton extends StatelessWidget {
             width: 130,
             child: ElevatedButton(
               onPressed: onPressed,
+              onLongPress: onLongPressed,
               style: buttonStyle(color),
               child: buttonText(label),
             ),
