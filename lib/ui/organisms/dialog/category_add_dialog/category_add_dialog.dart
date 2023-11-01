@@ -4,7 +4,7 @@ import 'package:test_app/ui/organisms/button/category_button.dart';
 import './_cansel_button.dart';
 import './_insert_button.dart';
 
-final registrableProvider = StateProvider<bool>((ref) {
+final registableProvider = StateProvider<bool>((ref) {
   return false;
 });
 
@@ -57,7 +57,7 @@ String getLabelText(String categoryType) {
 }
 
 void setRegistable(String text, WidgetRef ref) {
-  final notifier = ref.read(registrableProvider.notifier);
+  final notifier = ref.read(registableProvider.notifier);
   if (text == "") {
     notifier.state = false;
   } else {

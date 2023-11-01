@@ -16,7 +16,7 @@ class InsertButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final registable = ref.watch(registrableProvider);
+    final registable = ref.watch(registableProvider);
     final formText = ref.watch(formTextProvider);
 
     return GestureDetector(
@@ -27,7 +27,7 @@ class InsertButton extends ConsumerWidget {
           await insertData(newCategory, categoryType);
           await getData(categoryType, ref);
           Future.delayed(Duration.zero, () {
-            final notifier = ref.read(registrableProvider.notifier);
+            final notifier = ref.read(registableProvider.notifier);
             notifier.state = false;
             Navigator.pop(context);
           });

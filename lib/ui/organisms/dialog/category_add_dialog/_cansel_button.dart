@@ -8,9 +8,9 @@ class CanselButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      child: Text("キャンセル", style: canselTextStyle),
+      child: Text("キャンセル", style: style),
       onTap: () {
-        final notifier = ref.read(registrableProvider.notifier);
+        final notifier = ref.read(registableProvider.notifier);
         notifier.state = false;
         Navigator.pop(context);
       },
@@ -18,7 +18,7 @@ class CanselButton extends ConsumerWidget {
   }
 }
 
-final TextStyle canselTextStyle = TextStyle(
+final TextStyle style = TextStyle(
   color: Colors.blue[800]!,
   fontWeight: FontWeight.w600,
 );
