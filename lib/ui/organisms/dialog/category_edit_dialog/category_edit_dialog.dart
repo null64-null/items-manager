@@ -43,7 +43,7 @@ class CategoryEditDialog extends ConsumerWidget {
       ),
       actions: [
         const CanselButton(),
-        DeleteButton(categoryId: categoryId),
+        DeleteButton(categoryId: categoryId, categoryType: categoryType),
         UpdateButton(editCategory: category, categoryType: categoryType),
       ],
     );
