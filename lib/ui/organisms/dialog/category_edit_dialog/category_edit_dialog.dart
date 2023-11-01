@@ -9,6 +9,9 @@ import './_update_button.dart';
 import './_yes_button.dart';
 import './_no_button.dart';
 
+const Category initialCategory =
+    Category(id: 0, name: "name", notifications: 0);
+
 final registableProvider = StateProvider<bool>((ref) {
   return false;
 });
@@ -32,7 +35,10 @@ class CategoryEditDialog extends ConsumerWidget {
     final isConfirmed = ref.watch(isConfirmedProvider);
     final categories = ref.watch(categoriesProvider);
     final formText = ref.watch(formTextProvider);
-    final category = categories[categoryId - 1];
+    final Category category = categories.firstWhere(
+      (category) => category.id == categoryId,
+      orElse: () => initialCategory,
+    );
 
     return AlertDialog(
       title: Text('${getLabelText(categoryType)}を編集'),
@@ -48,7 +54,7 @@ class CategoryEditDialog extends ConsumerWidget {
           setRegistable(text, ref);
         },
       ),
-      actions: actions(isConfirmed, category, categoryId, categoryType),
+      actions: actions(isConfirmed, category, categoryType),
     );
   }
 }
@@ -62,17 +68,16 @@ void setRegistable(String text, WidgetRef ref) {
   }
 }
 
-List<Widget> actions(
-    bool isConfirmed, Category category, int categoryId, String categoryType) {
+List<Widget> actions(bool isConfirmed, Category category, String categoryType) {
   if (isConfirmed) {
     return [
       const NoButton(),
-      YesButton(categoryId: categoryId, categoryType: categoryType),
+      YesButton(categoryId: category.id!, categoryType: categoryType),
     ];
   } else {
     return [
       const CanselButton(),
-      DeleteButton(categoryId: categoryId, categoryType: categoryType),
+      DeleteButton(categoryId: category.id!, categoryType: categoryType),
       UpdateButton(editCategory: category, categoryType: categoryType),
     ];
   }
