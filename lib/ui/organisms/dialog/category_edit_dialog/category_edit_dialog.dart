@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_app/util/classes/category.dart';
 import '../../../pages/categories_list_page.dart';
 import '../../button/category_button.dart';
-import '../../../../db/crud.dart';
+import './_cansel_button.dart';
+import './_delete_button.dart';
+import './_update_button.dart';
 
 final registableProvider = StateProvider<bool>((ref) {
   return false;
@@ -41,64 +42,11 @@ class CategoryEditDialog extends ConsumerWidget {
         },
       ),
       actions: [
-        GestureDetector(
-          child: Text("キャンセル", style: buttonFontStyle),
-          onTap: () {
-            setRegistableDisable(ref);
-            Navigator.pop(context);
-          },
-        ),
-        GestureDetector(
-          child: Text("削除", style: buttonFontStyle),
-          onTap: () async {
-            setRegistableDisable(ref);
-          },
-        ),
-        GestureDetector(
-          child: Text("更新",
-              style: registable ? buttonFontStyle : buttonFontStyleDisabled),
-          onTap: () async {
-            var newCategory = Category(
-              id: category.id,
-              name: formText,
-              notifications: category.notifications,
-            );
-            await updateData(newCategory, categoryType);
-            await getData(categoryType, ref);
-            Future.delayed(Duration.zero, () {
-              setRegistableDisable(ref);
-              Navigator.pop(context);
-            });
-          },
-        ),
+        const CanselButton(),
+        DeleteButton(categoryId: categoryId),
+        UpdateButton(editCategory: category, categoryType: categoryType),
       ],
     );
-  }
-}
-
-final buttonFontStyle = TextStyle(
-  color: Colors.blue[800]!,
-  fontWeight: FontWeight.w600,
-);
-
-const buttonFontStyleDisabled = TextStyle(
-  color: Colors.black26,
-  fontWeight: FontWeight.w600,
-);
-
-void disactivateRegist(WidgetRef ref) {
-  final notifier = ref.read(registableProvider.notifier);
-  notifier.state = false;
-}
-
-String getLabelText(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return "引き出し名";
-    case "shoppingPlace":
-      return "ショップ名";
-    default:
-      return "";
   }
 }
 
@@ -111,16 +59,13 @@ void setRegistable(String text, WidgetRef ref) {
   }
 }
 
-void setRegistableDisable(WidgetRef ref) {
-  final notifier = ref.read(registableProvider.notifier);
-  notifier.state = false;
-}
-
-Future<void> updateData(Category newCategory, String categoryType) async {
-  if (categoryType == "hikidashi") {
-    await updateHikidashi(newCategory);
-  }
-  if (categoryType == "shoppingPlace") {
-    await updateShoppingPlace(newCategory);
+String getLabelText(String categoryType) {
+  switch (categoryType) {
+    case "hikidashi":
+      return "引き出し名";
+    case "shoppingPlace":
+      return "ショップ名";
+    default:
+      return "";
   }
 }
