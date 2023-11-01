@@ -2,29 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import './category_edit_dialog.dart';
 
-class DeleteButton extends ConsumerWidget {
-  final int categoryId;
-  final String categoryType;
-
-  const DeleteButton({
-    Key? key,
-    this.categoryId = 0,
-    this.categoryType = "",
-  }) : super(key: key);
+class NoButton extends ConsumerWidget {
+  const NoButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      child: Text("削除", style: style),
+      child: Text("いいえ", style: style),
       onTap: () {
         final notifier = ref.read(isConfirmedProvider.notifier);
-        notifier.state = true;
+        notifier.state = false;
       },
     );
   }
 }
 
-final style = TextStyle(
+final TextStyle style = TextStyle(
   color: Colors.blue[800]!,
   fontWeight: FontWeight.w600,
 );
