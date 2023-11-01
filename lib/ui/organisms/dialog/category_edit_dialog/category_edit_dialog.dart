@@ -22,7 +22,6 @@ class CategoryEditDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final registable = ref.watch(registableProvider);
     final categories = ref.watch(categoriesProvider);
     final formText = ref.watch(formTextProvider);
     final category = categories[categoryId - 1];
