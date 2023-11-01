@@ -59,15 +59,6 @@ class CategoryEditDialog extends ConsumerWidget {
   }
 }
 
-void setRegistable(String text, WidgetRef ref) {
-  final notifier = ref.read(registableProvider.notifier);
-  if (text == "") {
-    notifier.state = false;
-  } else {
-    notifier.state = true;
-  }
-}
-
 List<Widget> actions(bool isConfirmed, Category category, String categoryType) {
   if (isConfirmed) {
     return [
@@ -80,6 +71,15 @@ List<Widget> actions(bool isConfirmed, Category category, String categoryType) {
       DeleteButton(categoryId: category.id!, categoryType: categoryType),
       UpdateButton(editCategory: category, categoryType: categoryType),
     ];
+  }
+}
+
+void setRegistable(String text, WidgetRef ref) {
+  final notifier = ref.read(registableProvider.notifier);
+  if (text == "") {
+    notifier.state = false;
+  } else {
+    notifier.state = true;
   }
 }
 
