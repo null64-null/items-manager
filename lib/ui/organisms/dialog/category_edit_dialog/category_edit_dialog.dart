@@ -62,6 +62,7 @@ class CategoryEditDialog extends ConsumerWidget {
 List<Widget> actions(bool isConfirmed, Category category, String categoryType) {
   if (isConfirmed) {
     return [
+      const Text("本当に削除しますか？"),
       const NoButton(),
       YesButton(categoryId: category.id!, categoryType: categoryType),
     ];

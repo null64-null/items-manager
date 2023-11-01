@@ -17,7 +17,7 @@ class YesButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      child: Text("削除", style: style),
+      child: Text("はい", style: style),
       onTap: () async {
         await deleteData(categoryId, categoryType);
         await getData(categoryType, ref);
