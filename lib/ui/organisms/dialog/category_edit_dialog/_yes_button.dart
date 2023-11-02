@@ -43,6 +43,6 @@ Future<void> deleteData(int categoryId, String categoryType) async {
 }
 
 final style = TextStyle(
-  color: Colors.blue[800]!,
+  color: Colors.red[600]!,
   fontWeight: FontWeight.w600,
 );
