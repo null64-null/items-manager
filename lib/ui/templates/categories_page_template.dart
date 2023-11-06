@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import './../organisms/footer/categories_page_footer.dart';
 import '../organisms/button/category_button.dart';
 import '../../util/classes/category.dart';
+import '../organisms/footer/home_button.dart';
+import '../organisms/footer/categorys_page_footer/add_category_button.dart';
 
 const List<Category> initialCategorys = [
   Category(id: 0, name: "name", notifications: 0),
@@ -47,10 +48,21 @@ class CategoriesPageTemplate extends ConsumerWidget {
           )
         ],
       ),
-      bottomNavigationBar: CategoryPageFooter(
-        color: getColor(categoryType),
-        categoryType: categoryType,
-        itemsLength: buttonItems.length,
+      bottomNavigationBar: BottomAppBar(
+        color: appBarColor,
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              AddCategoryButton(
+                categoryType: categoryType,
+                itemsLength: buttonItems.length,
+              ),
+              const HomeButton(),
+            ],
+          ),
+        ),
       ),
     );
   }
