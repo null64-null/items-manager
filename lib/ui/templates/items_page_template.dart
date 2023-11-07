@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import '../organisms/item_status/item_status.dart';
+import '../organisms/button/items_page/add_item_button.dart';
 import '../../util/classes/items.dart';
 
 class ItemsPageTemplate extends StatelessWidget {
   final String pageTitle;
+  final String categoryType;
   final Color appBarColor;
   final List<Item>? items;
 
   const ItemsPageTemplate({
     Key? key,
-    this.pageTitle = "title",
+    this.pageTitle = "",
+    this.categoryType = "",
     this.appBarColor = Colors.white,
     this.items,
   }) : super(key: key);
@@ -17,16 +20,7 @@ class ItemsPageTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          pageTitle,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        backgroundColor: appBarColor,
-      ),
+      appBar: appBar(pageTitle, appBarColor),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -53,22 +47,20 @@ class ItemsPageTemplate extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 90,
-        child: ElevatedButton(
-          child: const Text(
-            "新規作成",
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          onPressed: () {
-            debugPrint("add");
-          },
-        ),
-      ),
+      floatingActionButton: AddItemButton(categoryType: categoryType),
     );
   }
+}
+
+AppBar appBar(String pageTitle, Color color) {
+  return AppBar(
+    title: Text(
+      pageTitle,
+      style: const TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+    backgroundColor: color,
+  );
 }
