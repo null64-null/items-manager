@@ -1,5 +1,5 @@
-import 'classes/category.dart';
-import '../util/classes/items.dart';
+import '../classes/category.dart';
+import '../classes/items.dart';
 
 // category list page
 List<Category> hikidashiCategorys = [
