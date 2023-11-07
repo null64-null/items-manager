@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../organisms/button/categorys_page/category_button.dart';
 import '../../util/classes/category.dart';
-import '../organisms/button/home_button.dart';
 import '../organisms/button/categorys_page/add_category_button.dart';
 
 const List<Category> initialCategorys = [
