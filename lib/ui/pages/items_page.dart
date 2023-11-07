@@ -26,7 +26,7 @@ class ItemsPage extends ConsumerWidget {
 
     return ItemsPageTemplate(
       pageTitle: categoryName,
-      appBarColor: getColor(categoryType), // change later
+      categoryType: categoryType,
       items: items,
     );
   }
@@ -43,16 +43,5 @@ Future<void> getData(String categoryType, int categoryId, WidgetRef ref) async {
     final shopingPlaceId = categoryId;
     final selectedItems = await getItemsFromShoppingPlace(shopingPlaceId);
     notifire.state = selectedItems;
-  }
-}
-
-Color getColor(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return const Color(0xFF54D6FF);
-    case "shoppingPlace":
-      return const Color(0xFF62FF54);
-    default:
-      return Colors.white;
   }
 }

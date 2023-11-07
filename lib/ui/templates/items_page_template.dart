@@ -6,21 +6,19 @@ import '../../util/classes/items.dart';
 class ItemsPageTemplate extends StatelessWidget {
   final String pageTitle;
   final String categoryType;
-  final Color appBarColor;
   final List<Item>? items;
 
   const ItemsPageTemplate({
     Key? key,
     this.pageTitle = "",
     this.categoryType = "",
-    this.appBarColor = Colors.white,
     this.items,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(pageTitle, appBarColor),
+      appBar: appBar(pageTitle, categoryType),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -52,7 +50,7 @@ class ItemsPageTemplate extends StatelessWidget {
   }
 }
 
-AppBar appBar(String pageTitle, Color color) {
+AppBar appBar(String pageTitle, String categoryType) {
   return AppBar(
     title: Text(
       pageTitle,
@@ -61,6 +59,17 @@ AppBar appBar(String pageTitle, Color color) {
         fontWeight: FontWeight.w600,
       ),
     ),
-    backgroundColor: color,
+    backgroundColor: getColor(categoryType),
   );
+}
+
+Color getColor(String categoryType) {
+  switch (categoryType) {
+    case "hikidashi":
+      return const Color(0xFF54D6FF);
+    case "shoppingPlace":
+      return const Color(0xFF62FF54);
+    default:
+      return Colors.white;
+  }
 }
