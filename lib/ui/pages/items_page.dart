@@ -26,13 +26,12 @@ class ItemsPage extends ConsumerWidget {
 
     return ItemsPageTemplate(
       pageTitle: categoryName,
-      appBarColor: const Color.fromARGB(255, 255, 124, 59), // change later
+      appBarColor: getColor(categoryType), // change later
       items: items,
     );
   }
 }
 
-// 該当のpageType, categoryIdに該当する買い物アイテムデータを取得
 Future<void> getData(String categoryType, int categoryId, WidgetRef ref) async {
   final notifire = ref.read(itemsProvider.notifier);
   if (categoryType == "hikidashi") {
@@ -44,5 +43,16 @@ Future<void> getData(String categoryType, int categoryId, WidgetRef ref) async {
     final shopingPlaceId = categoryId;
     final selectedItems = await getItemsFromShoppingPlace(shopingPlaceId);
     notifire.state = selectedItems;
+  }
+}
+
+Color getColor(String categoryType) {
+  switch (categoryType) {
+    case "hikidashi":
+      return const Color(0xFF54D6FF);
+    case "shoppingPlace":
+      return const Color(0xFF62FF54);
+    default:
+      return Colors.white;
   }
 }
