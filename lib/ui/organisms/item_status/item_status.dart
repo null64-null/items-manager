@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './../atoms/gage.dart';
+import '../../atoms/gage.dart';
 
 class ItemStatus extends StatelessWidget {
   final int id;
