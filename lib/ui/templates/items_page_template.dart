@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../organisms/item_status/item_status.dart';
 import '../../util/classes/items.dart';
 
-class ItemsListPageTemplate extends StatelessWidget {
+class ItemsPageTemplate extends StatelessWidget {
   final String pageTitle;
   final Color appBarColor;
   final List<Item>? items;
 
-  const ItemsListPageTemplate({
+  const ItemsPageTemplate({
     Key? key,
     this.pageTitle = "title",
     this.appBarColor = Colors.white,

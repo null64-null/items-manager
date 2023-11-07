@@ -17,7 +17,7 @@ class ItemsListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ItemsListPageTemplate(
+    return ItemsPageTemplate(
       pageTitle: categoryName,
       appBarColor: const Color.fromARGB(255, 255, 124, 59), // change later
       items: getData(),
