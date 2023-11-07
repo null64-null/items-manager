@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../util/classes/category.dart';
+import '../util/classes/items.dart';
 
 // Hikidashi
 // create
@@ -57,7 +58,7 @@ Future<void> deleteHikidashis(List<int> ids) async {
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
   await db.delete(
-    'zaiko_databases.db',
+    'hikidashis',
     where: 'id IN (${ids.map((_) => '?').join(', ')})',
     whereArgs: ids,
   );
@@ -119,6 +120,71 @@ Future<void> deleteShoppingPlaces(List<int> ids) async {
   );
   await db.delete(
     'shopping_places',
+    where: 'id IN (${ids.map((_) => '?').join(', ')})',
+    whereArgs: ids,
+  );
+}
+
+//items
+// create
+Future<void> insertItem(Item item) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.insert('items', item.toMap());
+}
+
+// get (all)
+Future<List<Item>> getItems() async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  final List<Map<String, dynamic>> maps = await db.query('items');
+  return List.generate(maps.length, (index) {
+    return Item(
+      id: maps[index]['id'],
+      name: maps[index]['name'],
+      remainingValue: maps[index]['remaining_value'],
+      maxValue: maps[index]['max_value'],
+      unit: maps[index]['unit'],
+      hikidashiId: maps[index]['hikidashi_id'],
+      shoppingPlaceId: maps[index]['shopping_place_id'],
+    );
+  });
+}
+
+// edit
+Future<void> updateItem(Item item) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.update(
+    'items',
+    item.toMap(),
+    where: 'id = ?',
+    whereArgs: [item.id],
+  );
+}
+
+// delete
+Future<void> deleteItem(int id) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete(
+    'items',
+    where: 'id = ?',
+    whereArgs: [id],
+  );
+}
+
+// delete (select)
+Future<void> deleteItems(List<int> ids) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete(
+    'items',
     where: 'id IN (${ids.map((_) => '?').join(', ')})',
     whereArgs: ids,
   );
