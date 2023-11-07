@@ -12,10 +12,10 @@ final categoriesProvider = StateProvider<List<Category>>((ref) {
   return [];
 });
 
-class CategoriesListPage extends ConsumerWidget {
+class CategoriesPage extends ConsumerWidget {
   final String categoryType;
 
-  const CategoriesListPage({
+  const CategoriesPage({
     Key? key,
     this.categoryType = "",
   }) : super(key: key);

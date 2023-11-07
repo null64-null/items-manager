@@ -31,7 +31,7 @@ class StartPageTemplate extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        const CategoriesListPage(categoryType: "hikidashi"),
+                        const CategoriesPage(categoryType: "hikidashi"),
                   ),
                 );
               },
@@ -47,7 +47,7 @@ class StartPageTemplate extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        const CategoriesListPage(categoryType: "shoppingPlace"),
+                        const CategoriesPage(categoryType: "shoppingPlace"),
                   ),
                 );
               },
