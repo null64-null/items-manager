@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../templates/items_page_template.dart';
-import '../../util/dummy_data/dummy_data.dart';
 import '../../util/classes/items.dart';
+import '../../db/crud.dart';
 
-class ItemsPage extends StatelessWidget {
+final itemsProvider = StateProvider<List<Item>>((ref) {
+  return [];
+});
+
+class ItemsPage extends ConsumerWidget {
   final String categoryType;
   final int categoryId;
   final String categoryName;
@@ -16,19 +21,28 @@ class ItemsPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(itemsProvider);
+
     return ItemsPageTemplate(
       pageTitle: categoryName,
       appBarColor: const Color.fromARGB(255, 255, 124, 59), // change later
-      items: getData(),
+      items: items,
     );
   }
+}
 
-  // 該当のpageType, categoryIdに該当する買い物アイテムデータを取得
-  List<Item> getData() {
-    debugPrint("------------");
-    debugPrint(categoryType);
-    debugPrint(categoryId.toString());
-    return items; //statusItemsをDBから取得
+// 該当のpageType, categoryIdに該当する買い物アイテムデータを取得
+Future<void> getData(String categoryType, int categoryId, WidgetRef ref) async {
+  final notifire = ref.read(itemsProvider.notifier);
+  if (categoryType == "hikidashi") {
+    final hikidashiId = categoryId;
+    final selectedItems = await getItemsFromHikidashi(hikidashiId);
+    notifire.state = selectedItems;
+  }
+  if (categoryType == "shoppingPlace") {
+    final shopingPlaceId = categoryId;
+    final selectedItems = await getItemsFromShoppingPlace(shopingPlaceId);
+    notifire.state = selectedItems;
   }
 }

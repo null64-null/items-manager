@@ -153,6 +153,52 @@ Future<List<Item>> getItems() async {
   });
 }
 
+// get (from hikidashis page)
+Future<List<Item>> getItemsFromHikidashi(int hikidashiId) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  final List<Map<String, dynamic>> maps = await db.query(
+    'items',
+    where: 'hikidashi_id = ?',
+    whereArgs: [hikidashiId],
+  );
+  return List.generate(maps.length, (index) {
+    return Item(
+      id: maps[index]['id'],
+      name: maps[index]['name'],
+      remainingValue: maps[index]['remaining_value'],
+      maxValue: maps[index]['max_value'],
+      unit: maps[index]['unit'],
+      hikidashiId: maps[index]['hikidashi_id'],
+      shoppingPlaceId: maps[index]['shopping_place_id'],
+    );
+  });
+}
+
+// get (from hikidashis page)
+Future<List<Item>> getItemsFromShoppingPlace(int shoppingPlaceId) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  final List<Map<String, dynamic>> maps = await db.query(
+    'items',
+    where: 'shopping_place_id = ?',
+    whereArgs: [shoppingPlaceId],
+  );
+  return List.generate(maps.length, (index) {
+    return Item(
+      id: maps[index]['id'],
+      name: maps[index]['name'],
+      remainingValue: maps[index]['remaining_value'],
+      maxValue: maps[index]['max_value'],
+      unit: maps[index]['unit'],
+      hikidashiId: maps[index]['hikidashi_id'],
+      shoppingPlaceId: maps[index]['shopping_place_id'],
+    );
+  });
+}
+
 // edit
 Future<void> updateItem(Item item) async {
   final Database db = await openDatabase(
