@@ -6,7 +6,7 @@ class HomeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+    return FloatingActionButton(
       onPressed: () => {
         Navigator.push(
           context,
@@ -15,7 +15,7 @@ class HomeButton extends StatelessWidget {
           ),
         ),
       },
-      icon: const Icon(Icons.home),
+      child: const Icon(Icons.home),
     );
   }
 }

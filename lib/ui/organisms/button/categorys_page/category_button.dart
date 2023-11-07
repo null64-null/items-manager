@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../molecules/box_botton.dart';
-import '../../../util/classes/category.dart';
+import '../../../molecules/box_botton.dart';
+import '../../../../util/classes/category.dart';
 
 const Category initialCategory =
     Category(id: 0, name: "name", notifications: 0);

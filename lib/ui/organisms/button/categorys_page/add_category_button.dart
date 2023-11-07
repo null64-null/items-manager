@@ -13,7 +13,7 @@ class AddCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+    return FloatingActionButton(
       onPressed: () => {
         showDialog(
           context: context,
@@ -26,7 +26,7 @@ class AddCategoryButton extends StatelessWidget {
           },
         )
       },
-      icon: const Icon(Icons.add),
+      child: const Icon(Icons.add),
     );
   }
 }

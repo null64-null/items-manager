@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../pages/categories_page.dart';
-import '../../button/category_button.dart';
+import '../../button/categorys_page/category_button.dart';
 import '../../../../util/classes/category.dart';
 import './_cansel_button.dart';
 import './_delete_button.dart';
