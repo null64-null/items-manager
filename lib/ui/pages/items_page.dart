@@ -3,12 +3,12 @@ import '../templates/items_page_template.dart';
 import '../../util/dummy_data/dummy_data.dart';
 import '../../util/classes/items.dart';
 
-class ItemsListPage extends StatelessWidget {
+class ItemsPage extends StatelessWidget {
   final String categoryType;
   final int categoryId;
   final String categoryName;
 
-  const ItemsListPage({
+  const ItemsPage({
     Key? key,
     this.categoryType = "",
     this.categoryId = 0,

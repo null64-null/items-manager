@@ -27,14 +27,14 @@ class Category {
 
     switch (buttonType) {
       case "hikidashi":
-        page = ItemsListPage(
+        page = ItemsPage(
           categoryType: "hikidashi",
           categoryId: id ?? 0,
           categoryName: name,
         );
         break;
       case "shoppingPlace":
-        page = ItemsListPage(
+        page = ItemsPage(
           categoryType: "shoppingPlace",
           categoryId: id ?? 0,
           categoryName: name,
