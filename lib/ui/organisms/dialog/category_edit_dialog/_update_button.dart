@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_app/ui/organisms/button/category_button.dart';
 import './category_edit_dialog.dart';
 import '../../../../util/classes/category.dart';
-import '../../../pages/categories_list_page.dart';
+import '../../../pages/categories_page.dart';
 import '../../../../db/crud.dart';
 
 const Category initialCategory = Category(id: 0, name: "", notifications: 0);

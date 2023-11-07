@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './../templates/items_list_page_template.dart';
+import '../templates/items_page_template.dart';
 import '../../util/dummy_data/dummy_data.dart';
 import '../../util/classes/items.dart';
 

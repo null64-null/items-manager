@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './../organisms/item_status.dart';
+import '../organisms/item_status/item_status.dart';
 import '../../util/classes/items.dart';
 
 class ItemsListPageTemplate extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../ui/pages/items_list_page.dart';
+import '../../ui/pages/items_page.dart';
 import '../../ui/pages/start_page.dart';
 import '../../ui/organisms/dialog/category_edit_dialog/category_edit_dialog.dart';
 

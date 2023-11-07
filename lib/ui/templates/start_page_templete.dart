@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../atoms/long_button.dart';
-import '../pages/categories_list_page.dart';
+import '../pages/categories_page.dart';
 
 class StartPageTemplate extends StatelessWidget {
   const StartPageTemplate({super.key});

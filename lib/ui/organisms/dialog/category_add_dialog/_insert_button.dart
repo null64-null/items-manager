@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../db/crud.dart';
 import './category_add_dialog.dart';
 import '../../button/category_button.dart';
-import '../../../pages/categories_list_page.dart';
+import '../../../pages/categories_page.dart';
 import '../../../../util/classes/category.dart';
 
 class InsertButton extends ConsumerWidget {

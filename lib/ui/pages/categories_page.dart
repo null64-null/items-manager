@@ -12,21 +12,6 @@ final categoriesProvider = StateProvider<List<Category>>((ref) {
   return [];
 });
 
-Future<void> getData(String categoryType, WidgetRef ref) async {
-  switch (categoryType) {
-    case "hikidashi":
-      final hikidashiCategorys = await getHikidashis();
-      final notifire = ref.read(categoriesProvider.notifier);
-      notifire.state = hikidashiCategorys;
-    case "shoppingPlace":
-      final shoppingPlaceCategorys = await getShoppingPlaces();
-      final notifire = ref.read(categoriesProvider.notifier);
-      notifire.state = shoppingPlaceCategorys;
-    default:
-      debugPrint("category type error");
-  }
-}
-
 class CategoriesListPage extends ConsumerWidget {
   final String categoryType;
 
@@ -47,6 +32,21 @@ class CategoriesListPage extends ConsumerWidget {
       appBarColor: getColor(categoryType),
       buttonColor: getColor(categoryType),
     );
+  }
+}
+
+Future<void> getData(String categoryType, WidgetRef ref) async {
+  switch (categoryType) {
+    case "hikidashi":
+      final hikidashiCategorys = await getHikidashis();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = hikidashiCategorys;
+    case "shoppingPlace":
+      final shoppingPlaceCategorys = await getShoppingPlaces();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = shoppingPlaceCategorys;
+    default:
+      debugPrint("category type error");
   }
 }
 
