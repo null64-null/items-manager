@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../util/classes/items.dart';
 
-final Item initialItem = Item(
+const Item initialItem = Item(
   name: "",
   remainingValue: 0,
   maxValue: 0,
