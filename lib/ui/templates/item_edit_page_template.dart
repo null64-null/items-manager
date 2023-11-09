@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../util/classes/items.dart';
+import '../../util/classes/category.dart';
 
 const Item initialItem = Item(
   name: "",
@@ -9,6 +10,8 @@ const Item initialItem = Item(
   unit: "",
 );
 
+const List<Category> initialOptinos = [];
+
 final itemEditProvider = StateProvider<Item>((ref) {
   return initialItem;
 });
@@ -16,11 +19,15 @@ final itemEditProvider = StateProvider<Item>((ref) {
 class ItemEditPageTemplate extends ConsumerWidget {
   final int categoryId;
   final String categoryType;
+  final List<Category> hikidashiOptions;
+  final List<Category> shoppingPlaceOptions;
 
   const ItemEditPageTemplate({
     Key? key,
     this.categoryId = 0,
     this.categoryType = "",
+    this.hikidashiOptions = initialOptinos,
+    this.shoppingPlaceOptions = initialOptinos,
   }) : super(key: key);
 
   @override
@@ -29,6 +36,43 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     return Scaffold(
       appBar: appBar(itemEdit, categoryType),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Align(
+            alignment: const Alignment(0, -0.8),
+            child: SizedBox(
+              width: 300,
+              child: TextFormField(
+                initialValue: itemEdit.name,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "名前を入力",
+                ),
+                onChanged: (text) {
+                  final notifire = ref.read(itemEditProvider.notifier);
+                  notifire.state = Item(
+                    id: itemEdit.id,
+                    name: text,
+                    remainingValue: itemEdit.remainingValue,
+                    maxValue: itemEdit.maxValue,
+                    unit: itemEdit.unit,
+                    hikidashiId: itemEdit.hikidashiId,
+                    shoppingPlaceId: itemEdit.shoppingPlaceId,
+                  );
+                },
+              ),
+            ),
+          ),
+          Align(
+            alignment: const Alignment(0, 0),
+            child: SizedBox(
+              width: 300,
+              child: Text("aaa"),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
