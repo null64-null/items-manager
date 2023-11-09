@@ -7,7 +7,7 @@ class Item {
   final int? hikidashiId;
   final int? shoppingPlaceId;
 
-  Item({
+  const Item({
     this.id,
     required this.name,
     required this.remainingValue,

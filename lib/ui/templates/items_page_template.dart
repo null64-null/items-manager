@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../organisms/item_status/item_status.dart';
 import '../organisms/button/items_page/add_item_button.dart';
 import '../../util/classes/items.dart';
 
-class ItemsPageTemplate extends StatelessWidget {
+class ItemsPageTemplate extends ConsumerWidget {
   final String pageTitle;
   final String categoryType;
+  final int categoryId;
   final List<Item>? items;
 
   const ItemsPageTemplate({
     Key? key,
     this.pageTitle = "",
     this.categoryType = "",
+    this.categoryId = 0,
     this.items,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: appBar(pageTitle, categoryType),
       body: SingleChildScrollView(
@@ -32,11 +35,9 @@ class ItemsPageTemplate extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: ItemStatus(
-                        id: item.id ?? 0,
-                        itemName: item.name,
-                        remainingValue: item.remainingValue,
-                        maxValue: item.maxValue,
-                        unit: item.unit,
+                        item: item,
+                        categoryType: categoryType,
+                        categoryId: categoryId,
                       ),
                     ),
                   ],

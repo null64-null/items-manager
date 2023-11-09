@@ -1,33 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../templates/item_edit_page_template.dart';
+import '../../../util/classes/items.dart';
+import '../../pages/item_edit_page.dart';
 import '../../atoms/gage.dart';
 
-class ItemStatus extends StatelessWidget {
-  final int id;
-  final double remainingValue;
-  final double maxValue;
-  final String unit;
-  final String itemName;
+const Item initialItem = Item(
+  name: "",
+  remainingValue: 0,
+  maxValue: 0,
+  unit: "",
+);
+
+class ItemStatus extends ConsumerWidget {
+  final Item item;
+  final String categoryType;
+  final int categoryId;
 
   const ItemStatus({
     Key? key,
-    this.id = 0,
-    this.remainingValue = 1,
-    this.maxValue = 1,
-    this.unit = "unit",
-    this.itemName = "item",
+    this.item = initialItem,
+    this.categoryType = "",
+    this.categoryId = 0,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(itemEditProvider.notifier);
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         fixedSize: const Size(331, 75),
-        backgroundColor: getBackgroundColor(remainingValue, maxValue),
+        backgroundColor: getBackgroundColor(item.remainingValue, item.maxValue),
         elevation: 5,
       ),
-      onPressed: () {
-        debugPrint(id.toString());
+      onPressed: () => {
+        notifier.state = item,
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemEditPage(
+                categoryId: item.id ?? 0, categoryType: categoryType),
+          ),
+        ),
       },
       child: Stack(
         fit: StackFit.expand,
@@ -42,7 +58,7 @@ class ItemStatus extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.center,
                 child: Text(
-                  itemName,
+                  item.name,
                   style: const TextStyle(
                     fontSize: 30,
                     color: Colors.black,
@@ -62,7 +78,7 @@ class ItemStatus extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.center,
                 child: Text(
-                  getNumberlabel(remainingValue),
+                  getNumberlabel(item.remainingValue),
                   style: const TextStyle(
                     fontSize: 35,
                     color: Colors.black,
@@ -102,7 +118,7 @@ class ItemStatus extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.center,
                 child: Text(
-                  getNumberlabel(maxValue),
+                  getNumberlabel(item.maxValue),
                   style: const TextStyle(
                     fontSize: 30,
                     color: Colors.black,
@@ -122,7 +138,7 @@ class ItemStatus extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.center,
                 child: Text(
-                  unit,
+                  item.unit,
                   style: const TextStyle(
                     fontSize: 30,
                     color: Colors.black,
@@ -134,7 +150,8 @@ class ItemStatus extends StatelessWidget {
           ),
           Align(
             alignment: const Alignment(0.95, 0.6),
-            child: Gage(remainingValue: remainingValue, maxValue: maxValue),
+            child: Gage(
+                remainingValue: item.remainingValue, maxValue: item.maxValue),
           ),
         ],
       ),

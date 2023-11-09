@@ -25,9 +25,10 @@ class ItemsPage extends ConsumerWidget {
     final items = ref.watch(itemsProvider);
 
     return ItemsPageTemplate(
+      items: items,
       pageTitle: categoryName,
       categoryType: categoryType,
-      items: items,
+      categoryId: categoryId,
     );
   }
 }
