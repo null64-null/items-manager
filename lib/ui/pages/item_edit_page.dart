@@ -18,7 +18,6 @@ class ItemEditPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ItemEditPageTemplate(
-      item: item,
       categoryId: categoryId,
       categoryType: categoryType,
     );

@@ -2,51 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../util/classes/items.dart';
 
+final Item initialItem = Item(
+  name: "",
+  remainingValue: 0,
+  maxValue: 0,
+  unit: "",
+);
+
+final itemEditProvider = StateProvider<Item>((ref) {
+  return initialItem;
+});
+
 class ItemEditPageTemplate extends ConsumerWidget {
   final int categoryId;
   final String categoryType;
-  final Item? item;
 
   const ItemEditPageTemplate({
     Key? key,
-    this.item,
     this.categoryId = 0,
     this.categoryType = "",
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final itemEdit = ref.watch(itemEditProvider);
+
     return Scaffold(
-      appBar: appBar(),
+      appBar: appBar(itemEdit, categoryType),
     );
   }
-
-  AppBar appBar() {
-    if (item == null) {
-      return AppBar(
-        title: const Text(
-          "アイテムを追加",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        backgroundColor: getColor(categoryType),
-      );
-    } else {
-      return AppBar(
-        title: Text(
-          "item.name",
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        backgroundColor: getColor(categoryType),
-      );
-    }
-  }
 }
+
+AppBar appBar(Item item, String categoryType) {
+  return AppBar(
+    title: Text(
+      item.name == "" ? "アイテムを追加" : item.name,
+      style: titleStyle,
+    ),
+    backgroundColor: getColor(categoryType),
+  );
+}
+
+TextStyle titleStyle = const TextStyle(
+  color: Colors.black,
+  fontWeight: FontWeight.w600,
+);
 
 Color getColor(String categoryType) {
   switch (categoryType) {
