@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
-import '../../util/classes/category.dart';
 
 const Item initialItem = Item(
   name: "",
@@ -10,8 +10,6 @@ const Item initialItem = Item(
   unit: "",
 );
 
-const List<Category> initialOptinos = [];
-
 final itemEditProvider = StateProvider<Item>((ref) {
   return initialItem;
 });
@@ -19,20 +17,18 @@ final itemEditProvider = StateProvider<Item>((ref) {
 class ItemEditPageTemplate extends ConsumerWidget {
   final int categoryId;
   final String categoryType;
-  final List<Category> hikidashiOptions;
-  final List<Category> shoppingPlaceOptions;
 
   const ItemEditPageTemplate({
     Key? key,
     this.categoryId = 0,
     this.categoryType = "",
-    this.hikidashiOptions = initialOptinos,
-    this.shoppingPlaceOptions = initialOptinos,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemEdit = ref.watch(itemEditProvider);
+    final hikidashiOptins = ref.watch(hikidashiOptinsProvider);
+    final shoppingPlaceOptions = ref.watch(shoppingPlaceOptinsProvider);
 
     return Scaffold(
       appBar: appBar(itemEdit, categoryType),

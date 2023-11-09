@@ -27,16 +27,12 @@ class ItemEditPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hikidashiOptins = ref.watch(hikidashiOptinsProvider);
-    final shoppingPlaceOptions = ref.watch(shoppingPlaceOptinsProvider);
     getHikidashOptins(ref);
     getShoppingPlaceOptins(ref);
 
     return ItemEditPageTemplate(
       categoryId: categoryId,
       categoryType: categoryType,
-      hikidashiOptions: hikidashiOptins,
-      shoppingPlaceOptions: shoppingPlaceOptions,
     );
   }
 }
