@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../templates/item_edit_page_template.dart';
 import '../../../util/classes/items.dart';
 import '../../pages/item_edit_page.dart';
-import '../../atoms/gage.dart';
+import '../../atoms/items_page/gage.dart';
 
 const Item initialItem = Item(
   name: "",
