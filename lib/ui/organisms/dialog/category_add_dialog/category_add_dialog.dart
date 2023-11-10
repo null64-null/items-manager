@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_app/ui/organisms/button/categorys_page/category_button.dart';
+import 'package:test_app/ui/organisms/button/categories_page/category_button.dart';
 import './_cansel_button.dart';
 import './_insert_button.dart';
 

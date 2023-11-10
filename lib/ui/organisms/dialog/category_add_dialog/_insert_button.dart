@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../db/crud.dart';
 import './category_add_dialog.dart';
-import '../../button/categorys_page/category_button.dart';
+import '../../button/categories_page/category_button.dart';
 import '../../../pages/categories_page.dart';
 import '../../../../util/classes/category.dart';
 
