@@ -15,7 +15,6 @@ class AddCategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AddButton(
-      icon: const Icon(Icons.add),
       onPressed: () => {
         showDialog(
           context: context,

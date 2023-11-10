@@ -18,7 +18,6 @@ class AddItemButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AddButton(
-      icon: const Icon(Icons.add),
       onPressed: () => {
         itemEditInitialize(categoryType, categoryId, ref),
         Navigator.push(
