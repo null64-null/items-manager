@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../templates/item_edit_page_template.dart';
 import '../../../pages/item_edit_page.dart';
+import '../../../../util/classes/items.dart';
 
 class AddItemButton extends ConsumerWidget {
   final String categoryType;
-  final int? categoryId;
+  final int categoryId;
 
   const AddItemButton({
     Key? key,
     this.categoryType = "",
-    this.categoryId,
+    this.categoryId = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(itemEditProvider.notifier);
-
     return FloatingActionButton(
       onPressed: () => {
-        notifier.state = initialItem,
+        itemEditInitialize(categoryType, categoryId, ref),
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -29,5 +28,36 @@ class AddItemButton extends ConsumerWidget {
       },
       child: const Icon(Icons.add),
     );
+  }
+}
+
+void itemEditInitialize(String categoryType, int categoryId, WidgetRef ref) {
+  final notifier = ref.read(itemEditProvider.notifier);
+  if (categoryType == "hikidashi") {
+    final initialItem = Item(
+      name: "",
+      remainingValue: 0,
+      maxValue: 0,
+      unit: "",
+      hikidashiId: categoryId,
+    );
+    notifier.state = initialItem;
+  } else if (categoryType == "shoppingPlace") {
+    final initialItem = Item(
+      name: "",
+      remainingValue: 0,
+      maxValue: 0,
+      unit: "",
+      shoppingPlaceId: categoryId,
+    );
+    notifier.state = initialItem;
+  } else {
+    const initialItem = Item(
+      name: "",
+      remainingValue: 0,
+      maxValue: 0,
+      unit: "",
+    );
+    notifier.state = initialItem;
   }
 }

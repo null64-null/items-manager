@@ -46,7 +46,10 @@ class ItemsPageTemplate extends ConsumerWidget {
           ),
         ),
       ),
-      floatingActionButton: AddItemButton(categoryType: categoryType),
+      floatingActionButton: AddItemButton(
+        categoryType: categoryType,
+        categoryId: categoryId,
+      ),
     );
   }
 }

@@ -37,10 +37,20 @@ class ItemEditPageTemplate extends ConsumerWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
+          const Align(
+            alignment: Alignment(-0.85, -0.78),
+            child: Text(
+              "名前",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           Align(
-            alignment: const Alignment(0, -0.8),
+            alignment: const Alignment(0.6, -0.8),
             child: SizedBox(
-              width: 300,
+              width: 250,
               child: TextFormField(
                 initialValue: itemEdit.name,
                 decoration: const InputDecoration(
@@ -62,9 +72,20 @@ class ItemEditPageTemplate extends ConsumerWidget {
               ),
             ),
           ),
+          const Align(
+            alignment: Alignment(-0.85, -0.48),
+            child: Text(
+              "ひきだし",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           Align(
-            alignment: const Alignment(-0.5, -0.4),
+            alignment: const Alignment(0.45, -0.5),
             child: SizedBox(
+              height: 50,
               child: DropdownButton(
                 items: optionItems(hikidashiOptins),
                 onChanged: (value) {
@@ -83,9 +104,20 @@ class ItemEditPageTemplate extends ConsumerWidget {
               ),
             ),
           ),
+          const Align(
+            alignment: Alignment(-0.85, -0.28),
+            child: Text(
+              "買う場所",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           Align(
-            alignment: const Alignment(0.5, -0.4),
+            alignment: const Alignment(0.45, -0.28),
             child: SizedBox(
+              height: 50,
               child: DropdownButton(
                 items: optionItems(shoppingPlaceOptions),
                 onChanged: (value) {
@@ -104,10 +136,20 @@ class ItemEditPageTemplate extends ConsumerWidget {
               ),
             ),
           ),
+          const Align(
+            alignment: Alignment(-0.85, 0),
+            child: Text(
+              "必要量",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           Align(
-            alignment: const Alignment(-0.5, 0),
+            alignment: const Alignment(0.25, 0),
             child: SizedBox(
-              width: 100,
+              width: 150,
               child: TextFormField(
                 initialValue: itemEdit.maxValue.toString(),
                 keyboardType: TextInputType.number,
@@ -133,10 +175,20 @@ class ItemEditPageTemplate extends ConsumerWidget {
               ),
             ),
           ),
+          const Align(
+            alignment: Alignment(-0.85, 0.20),
+            child: Text(
+              "残りの量",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           Align(
-            alignment: const Alignment(0.5, 0),
+            alignment: const Alignment(0.25, 0.20),
             child: SizedBox(
-              width: 100,
+              width: 150,
               child: TextFormField(
                 initialValue: itemEdit.remainingValue.toString(),
                 keyboardType: TextInputType.number,
@@ -162,8 +214,18 @@ class ItemEditPageTemplate extends ConsumerWidget {
               ),
             ),
           ),
+          const Align(
+            alignment: Alignment(-0.85, 0.4),
+            child: Text(
+              "単位",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           Align(
-            alignment: const Alignment(0, 0.3),
+            alignment: const Alignment(0.25, 0.4),
             child: SizedBox(
               width: 150,
               child: TextFormField(
@@ -184,6 +246,86 @@ class ItemEditPageTemplate extends ConsumerWidget {
                     shoppingPlaceId: itemEdit.shoppingPlaceId,
                   );
                 },
+              ),
+            ),
+          ),
+          Align(
+            alignment: const Alignment(0.5, 0.75),
+            child: SizedBox(
+              width: 110,
+              height: 45,
+              child: ElevatedButton(
+                child: const Text(
+                  "保存",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+          Align(
+            alignment: const Alignment(-0.5, 0.75),
+            child: SizedBox(
+              width: 110,
+              height: 45,
+              child: ElevatedButton(
+                child: const Text(
+                  "キャンセル",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+          Align(
+            alignment: const Alignment(0.87, 0.75),
+            child: SizedBox(
+              width: 110,
+              height: 45,
+              child: ElevatedButton(
+                child: const Text(
+                  "更新",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+          Align(
+            alignment: const Alignment(0, 0.75),
+            child: SizedBox(
+              width: 110,
+              height: 45,
+              child: ElevatedButton(
+                child: const Text(
+                  "削除",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+          Align(
+            alignment: const Alignment(-0.87, 0.75),
+            child: SizedBox(
+              width: 110,
+              height: 45,
+              child: ElevatedButton(
+                child: const Text(
+                  "キャンセル",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {},
               ),
             ),
           ),
@@ -211,7 +353,12 @@ TextStyle titleStyle = const TextStyle(
 List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
   final optionItems = options
       .map(
-        (e) => DropdownMenuItem(value: e.id, child: Text(e.name)),
+        (e) => DropdownMenuItem(
+            value: e.id,
+            child: Text(
+              e.name,
+              style: const TextStyle(fontSize: 25),
+            )),
       )
       .toList();
   return optionItems;
