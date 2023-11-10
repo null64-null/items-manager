@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../atoms/add_button.dart';
 import '../../../templates/item_edit_page_template.dart';
 import '../../../pages/item_edit_page.dart';
 import '../../../../util/classes/items.dart';
@@ -16,7 +17,8 @@ class AddItemButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return FloatingActionButton(
+    return AddButton(
+      icon: const Icon(Icons.add),
       onPressed: () => {
         itemEditInitialize(categoryType, categoryId, ref),
         Navigator.push(
@@ -26,7 +28,6 @@ class AddItemButton extends ConsumerWidget {
           ),
         ),
       },
-      child: const Icon(Icons.add),
     );
   }
 }
