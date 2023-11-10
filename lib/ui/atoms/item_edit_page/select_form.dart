@@ -6,13 +6,13 @@ void defaultOnChanged(String text) {
 
 class SelectForm extends StatelessWidget {
   final List<DropdownMenuItem<dynamic>>? options;
-  final Function onChange;
+  final Function onChanged;
   final dynamic value;
 
   const SelectForm({
     Key? key,
     this.options,
-    this.onChange = defaultOnChanged,
+    this.onChanged = defaultOnChanged,
     this.value,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class SelectForm extends StatelessWidget {
       child: DropdownButton(
         items: options,
         onChanged: (value) {
-          onChange(value);
+          onChanged(value);
         },
         value: value,
       ),
