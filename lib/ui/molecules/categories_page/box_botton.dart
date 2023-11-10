@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../atoms/categories_page/notification_badge.dart';
+import '../../atoms/categories_page/notification_badge.dart';
 
 class BoxButton extends StatelessWidget {
   final String label;

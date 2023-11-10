@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../molecules/box_botton.dart';
+import '../../../molecules/categories_page/box_botton.dart';
 import '../../../../util/classes/category.dart';
 
 const Category initialCategory =
