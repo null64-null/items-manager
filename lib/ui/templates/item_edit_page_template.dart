@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../atoms/app_bar.dart';
 import '../molecules/item_edit_page/add_buttons_section.dart';
@@ -9,6 +8,7 @@ import '../molecules/item_edit_page/update_buttons.section.dart';
 import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
+import '../../db/crud.dart';
 
 const Item initialItem = Item(
   name: "",
@@ -180,7 +180,10 @@ class ItemEditPageTemplate extends ConsumerWidget {
                 ? AddButtonsSection(
                     color: Colors.blue,
                     onCancellPressed: () {},
-                    onAddPressed: () {},
+                    onAddPressed: () {
+                      addData(itemEdit);
+                      debugPrint("insert");
+                    },
                   )
                 : UpdateButtonsSection(
                     color: Colors.blue,
@@ -193,6 +196,11 @@ class ItemEditPageTemplate extends ConsumerWidget {
       ),
     );
   }
+}
+
+Future<void> addData(Item item) async {
+  debugPrint(item.name);
+  await insertItem(item);
 }
 
 List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
