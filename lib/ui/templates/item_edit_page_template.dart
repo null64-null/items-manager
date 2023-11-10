@@ -48,7 +48,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
           Align(
             alignment: const Alignment(0, -0.8),
             child: LabeledTextEditor(
-              width: 250,
+              width: 210,
               title: "名前",
               initialValue: itemEdit.name,
               isNumeric: false,

@@ -29,7 +29,13 @@ class LabeledTextEditor extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        FormTitle(title: title),
+        const SizedBox(width: 25),
+        SizedBox(
+          width: 100,
+          child: FormTitle(
+            title: title,
+          ),
+        ),
         const SizedBox(width: 20),
         TextEditor(
           initialValue: initialValue,

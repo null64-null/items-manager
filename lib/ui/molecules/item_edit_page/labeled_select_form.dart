@@ -25,7 +25,11 @@ class LabeledSelectForm extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        FormTitle(title: title),
+        const SizedBox(width: 25),
+        SizedBox(
+          width: 120,
+          child: FormTitle(title: title),
+        ),
         const SizedBox(width: 20),
         SelectForm(
           options: options,
