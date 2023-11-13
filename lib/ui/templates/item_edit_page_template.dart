@@ -39,7 +39,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: categoryId.toString(),
+        title: itemEdit.name == "" ? "アイテムを追加" : "${itemEdit.name}を編集",
         color: getColor(categoryType),
       ),
       body: Stack(
