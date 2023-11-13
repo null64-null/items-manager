@@ -19,11 +19,13 @@ class ActionButton extends StatelessWidget {
       height: 45,
       child: ElevatedButton(
         onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color, // 例: Colors.blue
+        ),
         child: Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
-            backgroundColor: color,
           ),
         ),
       ),
