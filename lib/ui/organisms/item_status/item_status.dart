@@ -41,7 +41,9 @@ class ItemStatus extends ConsumerWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ItemEditPage(
-                categoryId: item.id ?? 0, categoryType: categoryType),
+              categoryId: item.id ?? 0,
+              categoryType: categoryType,
+            ),
           ),
         ),
       },
