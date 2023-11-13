@@ -178,7 +178,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
             alignment: const Alignment(0, 0.75),
             child: itemEdit.id == null
                 ? AddButtonsSection(
-                    color: Colors.blue,
+                    color: getButtonColor(categoryType),
                     onCancellPressed: () {
                       Navigator.pop(context);
                     },
@@ -188,7 +188,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
                     },
                   )
                 : UpdateButtonsSection(
-                    color: Colors.blue,
+                    color: getButtonColor(categoryType),
                     onCancellPressed: () {
                       Navigator.pop(context);
                     },
@@ -240,6 +240,17 @@ Color getColor(String categoryType) {
       return const Color(0xFF54D6FF);
     case "shoppingPlace":
       return const Color(0xFF62FF54);
+    default:
+      return Colors.white;
+  }
+}
+
+Color getButtonColor(String categoryType) {
+  switch (categoryType) {
+    case "hikidashi":
+      return Colors.blue;
+    case "shoppingPlace":
+      return Colors.green;
     default:
       return Colors.white;
   }
