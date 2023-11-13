@@ -23,6 +23,7 @@ class ItemsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(itemsProvider);
+    getData(categoryType, categoryId, ref);
 
     return ItemsPageTemplate(
       items: items,
