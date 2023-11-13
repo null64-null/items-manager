@@ -179,17 +179,26 @@ class ItemEditPageTemplate extends ConsumerWidget {
             child: itemEdit.id == null
                 ? AddButtonsSection(
                     color: Colors.blue,
-                    onCancellPressed: () {},
+                    onCancellPressed: () {
+                      Navigator.pop(context);
+                    },
                     onAddPressed: () {
                       addData(itemEdit);
-                      debugPrint("insert");
+                      Navigator.pop(context);
                     },
                   )
                 : UpdateButtonsSection(
                     color: Colors.blue,
-                    onCancellPressed: () {},
-                    onDeletePressed: () {},
-                    onUpdatePressed: () {},
+                    onCancellPressed: () {
+                      Navigator.pop(context);
+                    },
+                    onDeletePressed: () {
+                      deleteData(itemEdit.id!);
+                    },
+                    onUpdatePressed: () {
+                      updateData(itemEdit);
+                      Navigator.pop(context);
+                    },
                   ),
           ),
         ],
@@ -199,8 +208,15 @@ class ItemEditPageTemplate extends ConsumerWidget {
 }
 
 Future<void> addData(Item item) async {
-  debugPrint(item.name);
   await insertItem(item);
+}
+
+Future<void> updateData(Item item) async {
+  await updateItem(item);
+}
+
+Future<void> deleteData(int id) async {
+  await deleteItem(id);
 }
 
 List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
