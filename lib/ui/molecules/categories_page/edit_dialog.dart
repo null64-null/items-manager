@@ -39,6 +39,22 @@ class EditDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isConfirmed = ref.watch(isConfirmedProvider);
 
+    void stopDelete() {
+      final notifire = ref.read(isConfirmedProvider.notifier);
+      notifire.state = false;
+    }
+
+    void goDelete() {
+      final notifire = ref.read(isConfirmedProvider.notifier);
+      notifire.state = false;
+      onTapDelete == null ? () {} : onTapDelete!();
+    }
+
+    void tapDelete() {
+      final notifire = ref.read(isConfirmedProvider.notifier);
+      notifire.state = true;
+    }
+
     return AlertDialog(
       title: Text(title),
       content: DialogTextEditor(
@@ -52,16 +68,13 @@ class EditDialog extends ConsumerWidget {
               DialogButton(
                 buttonLabel: "いいえ",
                 buttonColor: buttonColor,
-                onTap: () {
-                  final notifire = ref.read(isConfirmedProvider.notifier);
-                  notifire.state = false;
-                },
+                onTap: stopDelete,
                 isActive: true,
               ),
               DialogButton(
                 buttonLabel: "はい",
                 buttonColor: Colors.red,
-                onTap: onTapDelete,
+                onTap: goDelete,
                 isActive: true,
               ),
             ]
@@ -75,10 +88,7 @@ class EditDialog extends ConsumerWidget {
               DialogButton(
                 buttonLabel: "削除",
                 buttonColor: Colors.red,
-                onTap: () {
-                  final notifire = ref.read(isConfirmedProvider.notifier);
-                  notifire.state = true;
-                },
+                onTap: tapDelete,
                 isActive: true,
               ),
               DialogButton(
