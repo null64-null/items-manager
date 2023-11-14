@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-void defaultOnChanged(String text) {
-  debugPrint(text);
-}
-
 class DialogTextEditor extends StatelessWidget {
   final String formLabel;
   final String? initialValue;
