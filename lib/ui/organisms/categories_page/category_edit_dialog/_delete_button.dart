@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import './category_edit_dialog.dart';
+import '../category_edit_dialog.dart';
 
 class DeleteButton extends ConsumerWidget {
   final int categoryId;

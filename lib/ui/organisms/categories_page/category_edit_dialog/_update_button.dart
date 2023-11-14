@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../categories_page/category_button.dart';
-import './category_edit_dialog.dart';
+import '../category_edit_dialog.dart';
 import '../../../pages/categories_page.dart';
 import '../../../../util/classes/category.dart';
 import '../../../../db/crud.dart';
