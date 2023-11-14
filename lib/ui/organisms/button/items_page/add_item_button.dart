@@ -18,6 +18,7 @@ class AddItemButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AddButton(
+      color: getColor(categoryType),
       onPressed: () => {
         itemEditInitialize(categoryType, categoryId, ref),
         Navigator.push(
@@ -28,6 +29,16 @@ class AddItemButton extends ConsumerWidget {
         ),
       },
     );
+  }
+}
+
+Color getColor(String categoryType) {
+  if (categoryType == "hikidashi") {
+    return Colors.blue;
+  } else if (categoryType == "shoppingPlace") {
+    return Colors.green;
+  } else {
+    return Colors.white;
   }
 }
 

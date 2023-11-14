@@ -15,6 +15,7 @@ class AddCategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AddButton(
+      color: getColor(categoryType),
       onPressed: () => {
         showDialog(
           context: context,
@@ -28,5 +29,15 @@ class AddCategoryButton extends StatelessWidget {
         ),
       },
     );
+  }
+}
+
+Color getColor(String categoryType) {
+  if (categoryType == "hikidashi") {
+    return Colors.blue;
+  } else if (categoryType == "shoppingPlace") {
+    return Colors.green;
+  } else {
+    return Colors.white;
   }
 }
