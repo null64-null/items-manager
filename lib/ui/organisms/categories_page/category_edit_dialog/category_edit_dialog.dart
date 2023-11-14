@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../pages/categories_page.dart';
-import '../../button/categories_page/category_button.dart';
-import '../../../../util/classes/category.dart';
 import './_cansel_button.dart';
 import './_delete_button.dart';
 import './_update_button.dart';
 import './_yes_button.dart';
 import './_no_button.dart';
+import '../../categories_page/category_button.dart';
+import '../../../pages/categories_page.dart';
+import '../../../../util/classes/category.dart';
 
 const Category initialCategory =
     Category(id: 0, name: "name", notifications: 0);

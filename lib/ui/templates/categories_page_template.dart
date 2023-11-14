@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../atoms/app_bar.dart';
-import '../organisms/button/categories_page/category_button.dart';
+import '../organisms/categories_page/category_button.dart';
+import '../organisms/categories_page/add_category_button.dart';
 import '../../util/classes/category.dart';
-import '../organisms/button/categories_page/add_category_button.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/functions/get_title.dart';
 

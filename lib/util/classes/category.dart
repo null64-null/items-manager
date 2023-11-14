@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../ui/pages/items_page.dart';
 import '../../ui/pages/start_page.dart';
-import '../../ui/organisms/dialog/category_edit_dialog/category_edit_dialog.dart';
+import '../../ui/organisms/categories_page/category_edit_dialog/category_edit_dialog.dart';
 
 class Category {
   final int? id;
