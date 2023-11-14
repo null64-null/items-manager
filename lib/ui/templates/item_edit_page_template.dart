@@ -179,7 +179,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
             alignment: const Alignment(0, 0.75),
             child: itemEdit.id == null
                 ? AddButtonsSection(
-                    color: getButtonColor(categoryType),
+                    color: getDarkColor(categoryType),
                     onCancellPressed: () {
                       final snackBar = SnackBar(
                         content: Text('Snackbarのメッセージ'),
@@ -201,7 +201,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
                     },
                   )
                 : UpdateButtonsSection(
-                    color: getButtonColor(categoryType),
+                    color: getDarkColor(categoryType),
                     onCancellPressed: () {
                       Navigator.pop(context);
                     },
