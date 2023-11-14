@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../atoms/categories_page/box_button.dart';
 import '../../atoms/categories_page/notification_badge.dart';
 
 class BadgeButton extends StatelessWidget {
@@ -24,15 +25,11 @@ class BadgeButton extends StatelessWidget {
       children: [
         Align(
           alignment: const Alignment(0, 0),
-          child: SizedBox(
-            height: 130,
-            width: 130,
-            child: ElevatedButton(
-              onPressed: onPressed,
-              onLongPress: onLongPressed,
-              style: buttonStyle(color),
-              child: buttonText(label),
-            ),
+          child: BoxButton(
+            onPressed: onPressed,
+            onLongPressed: onLongPressed,
+            color: color,
+            label: label,
           ),
         ),
         if (notifications != 0)
@@ -43,31 +40,4 @@ class BadgeButton extends StatelessWidget {
       ],
     );
   }
-}
-
-const TextStyle buttonTextStyle = TextStyle(
-  color: Colors.black,
-  fontWeight: FontWeight.w600,
-  fontSize: 20,
-);
-
-Text buttonText(String label) {
-  return Text(
-    label,
-    style: buttonTextStyle,
-    maxLines: 4,
-    overflow: TextOverflow.ellipsis,
-    textAlign: TextAlign.center,
-  );
-}
-
-ButtonStyle buttonStyle(Color color) {
-  return ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(color),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-  );
 }
