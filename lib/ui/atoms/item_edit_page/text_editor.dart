@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void defaultOnChanged(String text) {
-  debugPrint(text);
-}
-
 class TextEditor extends StatelessWidget {
   final String initialValue;
-  final Function onChanged;
+  final ValueChanged<String>? onChanged;
   final bool isNumeric;
   final String? placeholder;
   final double? width;
@@ -15,7 +11,7 @@ class TextEditor extends StatelessWidget {
   const TextEditor({
     Key? key,
     this.initialValue = "",
-    this.onChanged = defaultOnChanged,
+    this.onChanged,
     this.isNumeric = false,
     this.placeholder,
     this.width,
@@ -34,9 +30,7 @@ class TextEditor extends StatelessWidget {
           border: const OutlineInputBorder(),
           labelText: placeholder,
         ),
-        onChanged: (text) {
-          onChanged(text);
-        },
+        onChanged: onChanged,
       ),
     );
   }

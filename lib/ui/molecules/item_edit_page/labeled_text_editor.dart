@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import '../../atoms/item_edit_page/form_title.dart';
 import '../../atoms/item_edit_page/text_editor.dart';
 
-void defaultOnChanged(String text) {
-  debugPrint(text);
-}
-
 class LabeledTextEditor extends StatelessWidget {
   final String title;
   final String initialValue;
-  final Function onChanged;
+  final ValueChanged<String>? onChanged;
   final bool isNumeric;
   final String? placeholder;
   final double? width;
@@ -18,7 +14,7 @@ class LabeledTextEditor extends StatelessWidget {
     Key? key,
     this.title = "",
     this.initialValue = "",
-    this.onChanged = defaultOnChanged,
+    this.onChanged,
     this.isNumeric = false,
     this.placeholder,
     this.width,
