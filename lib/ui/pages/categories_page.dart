@@ -27,7 +27,6 @@ class CategoriesPage extends ConsumerWidget {
     getData(categoryType, ref);
 
     return CategoriesPageTemplate(
-      pageTitle: getTitle(categoryType),
       categoryType: categoryType,
       buttonItems: categories,
       appBarColor: getColor(categoryType),
@@ -48,16 +47,5 @@ Future<void> getData(String categoryType, WidgetRef ref) async {
       notifire.state = shoppingPlaceCategorys;
     default:
       debugPrint("category type error");
-  }
-}
-
-String getTitle(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return "おうちのひきだし";
-    case "shoppingPlace":
-      return "かいものリスト";
-    default:
-      return "";
   }
 }

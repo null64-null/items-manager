@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../atoms/app_bar.dart';
 import '../organisms/button/categories_page/category_button.dart';
 import '../../util/classes/category.dart';
 import '../organisms/button/categories_page/add_category_button.dart';
+import '../../util/functions/get_color.dart';
+import '../../util/functions/get_title.dart';
 
 const List<Category> initialCategorys = [
   Category(id: 0, name: "name", notifications: 0),
 ];
 
 class CategoriesPageTemplate extends ConsumerWidget {
-  final String pageTitle;
   final String categoryType;
   final List<Category> buttonItems;
   final Color appBarColor;
@@ -17,7 +19,6 @@ class CategoriesPageTemplate extends ConsumerWidget {
 
   const CategoriesPageTemplate({
     Key? key,
-    this.pageTitle = 'title',
     this.categoryType = "",
     this.buttonItems = initialCategorys,
     this.appBarColor = Colors.white,
@@ -27,9 +28,9 @@ class CategoriesPageTemplate extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: appbarTitleText(pageTitle),
-        backgroundColor: appBarColor,
+      appBar: CustomAppBar(
+        title: getTitle(categoryType),
+        color: getColor(categoryType),
       ),
       body: CustomScrollView(
         slivers: [
@@ -40,7 +41,6 @@ class CategoriesPageTemplate extends ConsumerWidget {
               for (final buttonItem in buttonItems)
                 CategoryButton(
                   buttonItem: buttonItem,
-                  buttonColor: buttonColor,
                   categoryType: categoryType,
                 )
             ],
@@ -53,14 +53,4 @@ class CategoriesPageTemplate extends ConsumerWidget {
       ),
     );
   }
-}
-
-Widget appbarTitleText(String pageTitle) {
-  return (Text(
-    pageTitle,
-    style: const TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.w600,
-    ),
-  ));
 }

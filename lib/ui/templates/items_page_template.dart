@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../atoms/app_bar.dart';
 import '../organisms/item_status/item_status.dart';
 import '../organisms/button/items_page/add_item_button.dart';
 import '../../util/classes/items.dart';
@@ -22,7 +23,10 @@ class ItemsPageTemplate extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: appBar(pageTitle, categoryType),
+      appBar: CustomAppBar(
+        title: pageTitle,
+        color: getColor(categoryType),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -53,17 +57,4 @@ class ItemsPageTemplate extends ConsumerWidget {
       ),
     );
   }
-}
-
-AppBar appBar(String pageTitle, String categoryType) {
-  return AppBar(
-    title: Text(
-      pageTitle,
-      style: const TextStyle(
-        color: Colors.black,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-    backgroundColor: getColor(categoryType),
-  );
 }
