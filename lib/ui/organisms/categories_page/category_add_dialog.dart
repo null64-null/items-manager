@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'category_button.dart';
-import 'category_add_dialog/_cansel_button.dart';
-import 'category_add_dialog/_insert_button.dart';
+import '../../molecules/categories_page/add_dialog.dart';
+import './category_button.dart';
+import '../../pages/categories_page.dart';
+import '../../../util/classes/category.dart';
+import '../../../util/functions/get_color.dart';
+import '../../../util/functions/get_title.dart';
+import '../../../db/crud.dart';
 
-final registableProvider = StateProvider<bool>((ref) {
+final isAddableProvider = StateProvider<bool>((ref) {
   return false;
 });
 
@@ -20,44 +24,49 @@ class CategoryAddDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AlertDialog(
-      title: Text('${getLabelText(categoryType)}を入力'),
-      content: TextFormField(
-        decoration: textFormFieldDecoration(categoryType),
-        onChanged: (text) {
-          final notifire = ref.read(formTextProvider.notifier);
-          notifire.state = text;
-          setRegistable(text, ref);
-        },
-      ),
-      actions: [
-        const CanselButton(),
-        InsertButton(categoryType: categoryType),
-      ],
+    final isAddable = ref.watch(isAddableProvider);
+    final formText = ref.watch(formTextProvider);
+
+    return AddDialog(
+      title: '${getTitle(categoryType)}を登録',
+      formLabel: '${getTitle(categoryType)}名',
+      buttonColor: getDarkColor(categoryType),
+      isAddable: isAddable,
+      onChanged: (String text) {
+        final notifire = ref.read(formTextProvider.notifier);
+        notifire.state = text;
+        setIsAddable(text, ref);
+      },
+      onTapCancell: () {
+        Navigator.pop(context);
+      },
+      onTapAdd: () async {
+        if (isAddable) {
+          var newCategory = Category(name: formText);
+          await insertData(newCategory, categoryType);
+          await getData(categoryType, ref);
+          Future.delayed(Duration.zero, () {
+            final notifier = ref.read(isAddableProvider.notifier);
+            notifier.state = false;
+            Navigator.pop(context);
+          });
+        }
+      },
     );
   }
 }
 
-InputDecoration textFormFieldDecoration(String categoryType) {
-  return InputDecoration(
-    border: const OutlineInputBorder(),
-    labelText: getLabelText(categoryType),
-  );
-}
-
-String getLabelText(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return "引き出し名";
-    case "shoppingPlace":
-      return "ショップ名";
-    default:
-      return "";
+Future<void> insertData(Category newCategory, String categoryType) async {
+  if (categoryType == "hikidashi") {
+    await insertHikidashi(newCategory);
+  }
+  if (categoryType == "shoppingPlace") {
+    await insertShoppingPlace(newCategory);
   }
 }
 
-void setRegistable(String text, WidgetRef ref) {
-  final notifier = ref.read(registableProvider.notifier);
+void setIsAddable(String text, WidgetRef ref) {
+  final notifier = ref.read(isAddableProvider.notifier);
   if (text == "") {
     notifier.state = false;
   } else {

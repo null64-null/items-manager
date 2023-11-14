@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'category_edit_dialog/_cansel_button.dart';
-import 'category_edit_dialog/_delete_button.dart';
-import 'category_edit_dialog/_update_button.dart';
-import 'category_edit_dialog/_yes_button.dart';
-import 'category_edit_dialog/_no_button.dart';
-import 'category_button.dart';
+import '../../molecules/categories_page/edit_dialog.dart';
+import './category_button.dart';
 import '../../pages/categories_page.dart';
 import '../../../util/classes/category.dart';
+import '../../../util/functions/get_color.dart';
+import '../../../util/functions/get_title.dart';
+import '../../../db/crud.dart';
 
 const Category initialCategory =
     Category(id: 0, name: "name", notifications: 0);
 
-final registableProvider = StateProvider<bool>((ref) {
-  return false;
-});
-
-final isConfirmedProvider = StateProvider<bool>((ref) {
+final isUpdatableProvider = StateProvider<bool>((ref) {
   return false;
 });
 
@@ -32,7 +27,7 @@ class CategoryEditDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isConfirmed = ref.watch(isConfirmedProvider);
+    final isUpdatable = ref.watch(isUpdatableProvider);
     final categories = ref.watch(categoriesProvider);
     final formText = ref.watch(formTextProvider);
     final Category category = categories.firstWhere(
@@ -40,57 +35,70 @@ class CategoryEditDialog extends ConsumerWidget {
       orElse: () => initialCategory,
     );
 
-    return AlertDialog(
-      title: Text('${getLabelText(categoryType)}を編集'),
-      content: TextFormField(
-        initialValue: formText,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: getLabelText(categoryType),
-        ),
-        onChanged: (text) {
-          final notifire = ref.read(formTextProvider.notifier);
-          notifire.state = text;
-          setRegistable(text, ref);
-        },
-      ),
-      actions: actions(isConfirmed, category, categoryType),
+    return EditDialog(
+      title: '${getTitle(categoryType)}を編集',
+      formLabel: '${getTitle(categoryType)}名',
+      buttonColor: getDarkColor(categoryType),
+      initialValue: category.name,
+      isUpdatable: isUpdatable,
+      onChanged: (text) {
+        final notifire = ref.read(formTextProvider.notifier);
+        notifire.state = text;
+        setUpdatable(text, ref);
+      },
+      onTapCancell: () {
+        Navigator.pop(context);
+      },
+      onTapDelete: () async {
+        await deleteData(categoryId, categoryType);
+        await getData(categoryType, ref);
+        Future.delayed(Duration.zero, () {
+          final notifier = ref.read(isUpdatableProvider.notifier);
+          notifier.state = false;
+          Navigator.pop(context);
+        });
+      },
+      onTapUpdate: () async {
+        var newCategory = Category(
+          id: category.id,
+          name: formText,
+          notifications: category.notifications,
+        );
+        await updateData(newCategory, categoryType);
+        await getData(categoryType, ref);
+        Future.delayed(Duration.zero, () {
+          final notifier = ref.read(isUpdatableProvider.notifier);
+          notifier.state = false;
+          Navigator.pop(context);
+        });
+      },
     );
   }
 }
 
-List<Widget> actions(bool isConfirmed, Category category, String categoryType) {
-  if (isConfirmed) {
-    return [
-      const Text("本当に削除しますか？"),
-      const NoButton(),
-      YesButton(categoryId: category.id!, categoryType: categoryType),
-    ];
-  } else {
-    return [
-      const CanselButton(),
-      DeleteButton(categoryId: category.id!, categoryType: categoryType),
-      UpdateButton(editCategory: category, categoryType: categoryType),
-    ];
+Future<void> updateData(Category newCategory, String categoryType) async {
+  if (categoryType == "hikidashi") {
+    await updateHikidashi(newCategory);
+  }
+  if (categoryType == "shoppingPlace") {
+    await updateShoppingPlace(newCategory);
   }
 }
 
-void setRegistable(String text, WidgetRef ref) {
-  final notifier = ref.read(registableProvider.notifier);
+Future<void> deleteData(int categoryId, String categoryType) async {
+  if (categoryType == "hikidashi") {
+    await deleteHikidashi(categoryId);
+  }
+  if (categoryType == "shoppingPlace") {
+    await deleteShoppingPlace(categoryId);
+  }
+}
+
+void setUpdatable(String text, WidgetRef ref) {
+  final notifier = ref.read(isUpdatableProvider.notifier);
   if (text == "") {
     notifier.state = false;
   } else {
     notifier.state = true;
-  }
-}
-
-String getLabelText(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return "引き出し名";
-    case "shoppingPlace":
-      return "ショップ名";
-    default:
-      return "";
   }
 }
