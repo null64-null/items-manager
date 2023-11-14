@@ -27,31 +27,37 @@ class CategoryAddDialog extends ConsumerWidget {
     final isAddable = ref.watch(isAddableProvider);
     final formText = ref.watch(formTextProvider);
 
+    void onChanged(String text) {
+      final notifire = ref.read(formTextProvider.notifier);
+      notifire.state = text;
+      setIsAddable(text, ref);
+    }
+
+    void onTapCancell() {
+      Navigator.pop(context);
+    }
+
+    Future<void> onTapAdd() async {
+      if (isAddable) {
+        var newCategory = Category(name: formText);
+        await insertData(newCategory, categoryType);
+        await getData(categoryType, ref);
+        Future.delayed(Duration.zero, () {
+          final notifier = ref.read(isAddableProvider.notifier);
+          notifier.state = false;
+          Navigator.pop(context);
+        });
+      }
+    }
+
     return AddDialog(
       title: '${getTitle(categoryType)}を登録',
       formLabel: '${getTitle(categoryType)}名',
       buttonColor: getDarkColor(categoryType),
       isAddable: isAddable,
-      onChanged: (String text) {
-        final notifire = ref.read(formTextProvider.notifier);
-        notifire.state = text;
-        setIsAddable(text, ref);
-      },
-      onTapCancell: () {
-        Navigator.pop(context);
-      },
-      onTapAdd: () async {
-        if (isAddable) {
-          var newCategory = Category(name: formText);
-          await insertData(newCategory, categoryType);
-          await getData(categoryType, ref);
-          Future.delayed(Duration.zero, () {
-            final notifier = ref.read(isAddableProvider.notifier);
-            notifier.state = false;
-            Navigator.pop(context);
-          });
-        }
-      },
+      onChanged: onChanged,
+      onTapCancell: onTapCancell,
+      onTapAdd: onTapAdd,
     );
   }
 }

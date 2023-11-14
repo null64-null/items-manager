@@ -35,43 +35,51 @@ class CategoryEditDialog extends ConsumerWidget {
       orElse: () => initialCategory,
     );
 
+    void onChanged(String text) {
+      final notifire = ref.read(formTextProvider.notifier);
+      notifire.state = text;
+      setUpdatable(text, ref);
+    }
+
+    void onTapCancell() {
+      Navigator.pop(context);
+    }
+
+    Future<void> onTapDelete() async {
+      await deleteData(categoryId, categoryType);
+      await getData(categoryType, ref);
+      Future.delayed(Duration.zero, () {
+        final notifier = ref.read(isUpdatableProvider.notifier);
+        notifier.state = false;
+        Navigator.pop(context);
+      });
+    }
+
+    Future<void> onTapUpdate() async {
+      var newCategory = Category(
+        id: category.id,
+        name: formText,
+        notifications: category.notifications,
+      );
+      await updateData(newCategory, categoryType);
+      await getData(categoryType, ref);
+      Future.delayed(Duration.zero, () {
+        final notifier = ref.read(isUpdatableProvider.notifier);
+        notifier.state = false;
+        Navigator.pop(context);
+      });
+    }
+
     return EditDialog(
       title: '${getTitle(categoryType)}を編集',
       formLabel: '${getTitle(categoryType)}名',
       buttonColor: getDarkColor(categoryType),
       initialValue: category.name,
       isUpdatable: isUpdatable,
-      onChanged: (text) {
-        final notifire = ref.read(formTextProvider.notifier);
-        notifire.state = text;
-        setUpdatable(text, ref);
-      },
-      onTapCancell: () {
-        Navigator.pop(context);
-      },
-      onTapDelete: () async {
-        await deleteData(categoryId, categoryType);
-        await getData(categoryType, ref);
-        Future.delayed(Duration.zero, () {
-          final notifier = ref.read(isUpdatableProvider.notifier);
-          notifier.state = false;
-          Navigator.pop(context);
-        });
-      },
-      onTapUpdate: () async {
-        var newCategory = Category(
-          id: category.id,
-          name: formText,
-          notifications: category.notifications,
-        );
-        await updateData(newCategory, categoryType);
-        await getData(categoryType, ref);
-        Future.delayed(Duration.zero, () {
-          final notifier = ref.read(isUpdatableProvider.notifier);
-          notifier.state = false;
-          Navigator.pop(context);
-        });
-      },
+      onChanged: onChanged,
+      onTapCancell: onTapCancell,
+      onTapDelete: onTapDelete,
+      onTapUpdate: onTapUpdate,
     );
   }
 }
