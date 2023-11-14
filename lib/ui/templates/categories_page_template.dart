@@ -5,7 +5,6 @@ import '../organisms/categories_page/category_button.dart';
 import '../organisms/categories_page/add_category_button.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
-import '../../util/functions/get_title.dart';
 
 const List<Category> initialCategorys = [
   Category(id: 0, name: "name", notifications: 0),
@@ -29,7 +28,7 @@ class CategoriesPageTemplate extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: getTitle(categoryType),
+        title: title(categoryType),
         color: getColor(categoryType),
       ),
       body: CustomScrollView(
@@ -52,5 +51,15 @@ class CategoriesPageTemplate extends ConsumerWidget {
         itemsLength: buttonItems.length,
       ),
     );
+  }
+}
+
+String title(String categoryType) {
+  if (categoryType == "hikidashi") {
+    return "ひきだし一覧";
+  } else if (categoryType == "shoppingPlace") {
+    return "買う場所一覧";
+  } else {
+    return "";
   }
 }
