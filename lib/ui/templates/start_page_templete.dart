@@ -18,7 +18,7 @@ class StartPageTemplate extends StatelessWidget {
           Align(
             alignment: const Alignment(0, 0),
             child: LongButton(
-              label: 'おうちのひきだし',
+              label: 'ストックするもの',
               color: const Color(0xFF54D6FF),
               onPressed: () {
                 transferToCategoryPage(context, "hikidashi");
