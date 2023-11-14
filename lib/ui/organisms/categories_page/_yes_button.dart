@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import './category_edit_dialog.dart';
-import '../../../pages/categories_page.dart';
-import '../../../../db/crud.dart';
+import 'category_edit_dialog/category_edit_dialog.dart';
+import '../../pages/categories_page.dart';
+import '../../../db/crud.dart';
 
 class YesButton extends ConsumerWidget {
   final int categoryId;

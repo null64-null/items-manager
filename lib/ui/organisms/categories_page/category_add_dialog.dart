@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../categories_page/category_button.dart';
-import './_cansel_button.dart';
-import './_insert_button.dart';
+import 'category_button.dart';
+import 'category_add_dialog/_cansel_button.dart';
+import 'category_add_dialog/_insert_button.dart';
 
 final registableProvider = StateProvider<bool>((ref) {
   return false;

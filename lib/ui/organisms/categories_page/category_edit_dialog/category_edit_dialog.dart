@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import './_cansel_button.dart';
 import './_delete_button.dart';
 import './_update_button.dart';
-import './_yes_button.dart';
+import '../_yes_button.dart';
 import './_no_button.dart';
 import '../../categories_page/category_button.dart';
 import '../../../pages/categories_page.dart';
