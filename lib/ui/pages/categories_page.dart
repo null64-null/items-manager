@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_app/ui/templates/categories_page_template.dart';
-import '../../db/crud.dart';
+import '../../db/basic_crud.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
 

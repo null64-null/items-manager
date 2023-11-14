@@ -6,7 +6,7 @@ import '../../pages/categories_page.dart';
 import '../../../util/classes/category.dart';
 import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
-import '../../../db/crud.dart';
+import '../../../db/basic_crud.dart';
 
 const Category initialCategory =
     Category(id: 0, name: "name", notifications: 0);

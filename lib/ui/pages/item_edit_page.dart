@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../templates/item_edit_page_template.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
-import '../../db/crud.dart';
+import '../../db/basic_crud.dart';
 
 final hikidashiOptinsProvider = StateProvider<List<Category>>((ref) {
   return [];
