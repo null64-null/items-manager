@@ -7,13 +7,13 @@ void defaultOnChanged(String text) {
 class DialogTextEditor extends StatelessWidget {
   final String formLabel;
   final String? initialValue;
-  final Function onChanged;
+  final ValueChanged<String>? onChanged;
 
   const DialogTextEditor({
     Key? key,
     this.formLabel = "",
     this.initialValue,
-    this.onChanged = defaultOnChanged,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -21,9 +21,7 @@ class DialogTextEditor extends StatelessWidget {
     return TextFormField(
       initialValue: initialValue,
       decoration: textFormFieldDecoration(formLabel),
-      onChanged: (text) {
-        onChanged(text);
-      },
+      onChanged: onChanged,
     );
   }
 }

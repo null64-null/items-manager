@@ -3,10 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../atoms/categories_page/dialog_button.dart';
 import '../../atoms/categories_page/dialog_text_editor.dart';
 
-void defaultOnChanged(String text) {
-  debugPrint(text);
-}
-
 final isConfirmedProvider = StateProvider<bool>((ref) {
   return false;
 });
@@ -17,7 +13,7 @@ class EditDialog extends ConsumerWidget {
   final String? initialValue;
   final Color buttonColor;
   final bool isUpdatable;
-  final Function onChanged;
+  final ValueChanged<String>? onChanged;
   final VoidCallback? onTapCancell;
   final VoidCallback? onTapDelete;
   final VoidCallback? onTapUpdate;
@@ -29,7 +25,7 @@ class EditDialog extends ConsumerWidget {
     this.initialValue,
     this.buttonColor = Colors.white,
     this.isUpdatable = true,
-    this.onChanged = defaultOnChanged,
+    this.onChanged,
     this.onTapCancell,
     this.onTapDelete,
     this.onTapUpdate,

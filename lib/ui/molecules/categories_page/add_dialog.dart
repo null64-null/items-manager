@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import '../../atoms/categories_page/dialog_button.dart';
 import '../../atoms/categories_page/dialog_text_editor.dart';
 
-void defaultOnChanged(String text) {
-  debugPrint(text);
-}
-
 class AddDialog extends StatelessWidget {
   final String title;
   final String formLabel;
   final Color buttonColor;
   final bool isAddable;
-  final Function onChanged;
+  final ValueChanged<String>? onChanged;
   final VoidCallback? onTapCancell;
   final VoidCallback? onTapAdd;
 
@@ -21,7 +17,7 @@ class AddDialog extends StatelessWidget {
     this.formLabel = "",
     this.buttonColor = Colors.white,
     this.isAddable = true,
-    this.onChanged = defaultOnChanged,
+    this.onChanged,
     this.onTapCancell,
     this.onTapAdd,
   }) : super(key: key);
