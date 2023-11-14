@@ -194,6 +194,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
                     },
                     onDeletePressed: () {
                       deleteData(itemEdit.id!);
+                      Navigator.pop(context);
                     },
                     onUpdatePressed: () {
                       updateData(itemEdit);
