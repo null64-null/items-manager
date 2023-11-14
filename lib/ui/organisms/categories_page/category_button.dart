@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../molecules/categories_page/box_botton.dart';
+import '../../atoms/categories_page/box_botton.dart';
 import '../../../../util/classes/category.dart';
 import '../../../../util/functions/get_color.dart';
 
