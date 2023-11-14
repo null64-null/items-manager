@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'notification_badge.dart';
+import '../../atoms/categories_page/notification_badge.dart';
 
-class BoxButton extends StatelessWidget {
+class BadgeButton extends StatelessWidget {
   final String label;
   final Color color;
   final int notifications;
   final VoidCallback? onPressed;
   final VoidCallback? onLongPressed;
 
-  const BoxButton({
+  const BadgeButton({
     Key? key,
     this.label = 'label',
     this.color = Colors.white,

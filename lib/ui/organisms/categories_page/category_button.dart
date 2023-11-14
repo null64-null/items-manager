@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../atoms/categories_page/box_botton.dart';
+import '../../molecules/categories_page/badge_botton.dart';
 import '../../../../util/classes/category.dart';
 import '../../../../util/functions/get_color.dart';
 
@@ -23,7 +23,7 @@ class CategoryButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BoxButton(
+    return BadgeButton(
       label: buttonItem.name,
       color: getColor(categoryType),
       notifications: buttonItem.notifications ?? 0,
