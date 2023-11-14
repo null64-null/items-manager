@@ -9,6 +9,7 @@ import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
 import '../../db/crud.dart';
+import '../../util/functions/get_color.dart';
 
 const Item initialItem = Item(
   name: "",
@@ -180,6 +181,18 @@ class ItemEditPageTemplate extends ConsumerWidget {
                 ? AddButtonsSection(
                     color: getButtonColor(categoryType),
                     onCancellPressed: () {
+                      final snackBar = SnackBar(
+                        content: Text('Snackbarのメッセージ'),
+                        action: SnackBarAction(
+                          label: "action",
+                          onPressed: () {
+                            // アクションが押された時の処理
+                            print('アクションが押されました');
+                          },
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                       Navigator.pop(context);
                     },
                     onAddPressed: () {
@@ -233,26 +246,4 @@ List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
       )
       .toList();
   return optionItems;
-}
-
-Color getColor(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return const Color(0xFF54D6FF);
-    case "shoppingPlace":
-      return const Color(0xFF62FF54);
-    default:
-      return Colors.white;
-  }
-}
-
-Color getButtonColor(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return Colors.blue;
-    case "shoppingPlace":
-      return Colors.green;
-    default:
-      return Colors.white;
-  }
 }

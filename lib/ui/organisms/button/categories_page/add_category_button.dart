@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../dialog/category_add_dialog/category_add_dialog.dart';
 import '../../../atoms/add_button.dart';
+import '../../../../util/functions/get_color.dart';
 
 class AddCategoryButton extends StatelessWidget {
   final String categoryType;
@@ -15,7 +16,7 @@ class AddCategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AddButton(
-      color: getColor(categoryType),
+      color: getDarkColor(categoryType),
       onPressed: () => {
         showDialog(
           context: context,
@@ -29,15 +30,5 @@ class AddCategoryButton extends StatelessWidget {
         ),
       },
     );
-  }
-}
-
-Color getColor(String categoryType) {
-  if (categoryType == "hikidashi") {
-    return Colors.blue;
-  } else if (categoryType == "shoppingPlace") {
-    return Colors.green;
-  } else {
-    return Colors.white;
   }
 }

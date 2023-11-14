@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../organisms/item_status/item_status.dart';
 import '../organisms/button/items_page/add_item_button.dart';
 import '../../util/classes/items.dart';
+import '../../util/functions/get_color.dart';
 
 class ItemsPageTemplate extends ConsumerWidget {
   final String pageTitle;
@@ -65,15 +66,4 @@ AppBar appBar(String pageTitle, String categoryType) {
     ),
     backgroundColor: getColor(categoryType),
   );
-}
-
-Color getColor(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return const Color(0xFF54D6FF);
-    case "shoppingPlace":
-      return const Color(0xFF62FF54);
-    default:
-      return Colors.white;
-  }
 }

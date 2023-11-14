@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_app/ui/templates/categories_page_template.dart';
 import '../../db/crud.dart';
 import '../../util/classes/category.dart';
+import '../../util/functions/get_color.dart';
 
 List<Category> nothig = [
   const Category(id: 1, name: "", notifications: 0),
@@ -58,16 +59,5 @@ String getTitle(String categoryType) {
       return "かいものリスト";
     default:
       return "";
-  }
-}
-
-Color getColor(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return const Color(0xFF54D6FF);
-    case "shoppingPlace":
-      return const Color(0xFF62FF54);
-    default:
-      return Colors.white;
   }
 }

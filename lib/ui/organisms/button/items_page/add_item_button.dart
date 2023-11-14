@@ -4,6 +4,7 @@ import '../../../atoms/add_button.dart';
 import '../../../templates/item_edit_page_template.dart';
 import '../../../pages/item_edit_page.dart';
 import '../../../../util/classes/items.dart';
+import '../../../../util/functions/get_color.dart';
 
 class AddItemButton extends ConsumerWidget {
   final String categoryType;
@@ -18,7 +19,7 @@ class AddItemButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AddButton(
-      color: getColor(categoryType),
+      color: getDarkColor(categoryType),
       onPressed: () => {
         itemEditInitialize(categoryType, categoryId, ref),
         Navigator.push(
@@ -29,16 +30,6 @@ class AddItemButton extends ConsumerWidget {
         ),
       },
     );
-  }
-}
-
-Color getColor(String categoryType) {
-  if (categoryType == "hikidashi") {
-    return Colors.blue;
-  } else if (categoryType == "shoppingPlace") {
-    return Colors.green;
-  } else {
-    return Colors.white;
   }
 }
 

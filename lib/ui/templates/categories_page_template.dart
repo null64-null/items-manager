@@ -64,14 +64,3 @@ Widget appbarTitleText(String pageTitle) {
     ),
   ));
 }
-
-Color getColor(String categoryType) {
-  switch (categoryType) {
-    case "hikidashi":
-      return const Color(0xFF54D6FF);
-    case "shoppingPlace":
-      return const Color(0xFF62FF54);
-    default:
-      return Colors.white;
-  }
-}
