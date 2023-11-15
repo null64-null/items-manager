@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../templates/items_page_template.dart';
 import '../../util/classes/items.dart';
+import '../../util/values.dart/initial_values.dart';
 import '../../db/basic_crud.dart';
 
 final itemsProvider = StateProvider<List<Item>>((ref) {
-  return [];
+  return itemsInit;
 });
 
 class ItemsPage extends ConsumerWidget {

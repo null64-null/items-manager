@@ -4,13 +4,7 @@ import '../../molecules/items_page/status_button.dart';
 import '../../templates/item_edit_page_template.dart';
 import '../../pages/item_edit_page.dart';
 import '../../../util/classes/items.dart';
-
-const Item initialItem = Item(
-  name: "",
-  remainingValue: 0,
-  maxValue: 0,
-  unit: "",
-);
+import '../../../util/values.dart/initial_values.dart';
 
 class ItemStatusButton extends ConsumerWidget {
   final Item item;
@@ -19,7 +13,7 @@ class ItemStatusButton extends ConsumerWidget {
 
   const ItemStatusButton({
     Key? key,
-    this.item = initialItem,
+    this.item = itemInit,
     this.categoryType = "",
     this.categoryId = 0,
   }) : super(key: key);

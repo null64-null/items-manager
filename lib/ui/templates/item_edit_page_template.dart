@@ -9,17 +9,11 @@ import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
+import '../../util/values.dart/initial_values.dart';
 import '../../db/basic_crud.dart';
 
-const Item initialItem = Item(
-  name: "",
-  remainingValue: 0,
-  maxValue: 0,
-  unit: "",
-);
-
 final itemEditProvider = StateProvider<Item>((ref) {
-  return initialItem;
+  return itemInit;
 });
 
 class ItemEditPageTemplate extends ConsumerWidget {
@@ -207,20 +201,3 @@ List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
       .toList();
   return optionItems;
 }
-
-/*
-
-final snackBar = SnackBar(
-                        content: Text('Snackbarのメッセージ'),
-                        action: SnackBarAction(
-                          label: "action",
-                          onPressed: () {
-                            // アクションが押された時の処理
-                            print('アクションが押されました');
-                          },
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-
-*/

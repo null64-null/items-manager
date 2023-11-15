@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_app/util/values.dart/initial_values.dart';
 import '../../molecules/categories_page/edit_dialog.dart';
 import './category_button.dart';
 import '../../pages/categories_page.dart';
@@ -7,9 +8,6 @@ import '../../../util/classes/category.dart';
 import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
 import '../../../db/basic_crud.dart';
-
-const Category initialCategory =
-    Category(id: 0, name: "name", notifications: 0);
 
 final isUpdatableProvider = StateProvider<bool>((ref) {
   return false;
@@ -32,7 +30,7 @@ class CategoryEditDialog extends ConsumerWidget {
     final formText = ref.watch(formTextProvider);
     final Category category = categories.firstWhere(
       (category) => category.id == categoryId,
-      orElse: () => initialCategory,
+      orElse: () => categoryInit,
     );
 
     void onChanged(String text) {

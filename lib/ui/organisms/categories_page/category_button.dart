@@ -5,9 +5,7 @@ import './category_edit_dialog.dart';
 import '../../pages/items_page.dart';
 import '../../../../util/classes/category.dart';
 import '../../../../util/functions/get_color.dart';
-
-const Category initialCategory =
-    Category(id: 0, name: "name", notifications: 0);
+import '../../../util/values.dart/initial_values.dart';
 
 final formTextProvider = StateProvider<String>((ref) {
   return "";
@@ -19,7 +17,7 @@ class CategoryButton extends ConsumerWidget {
 
   const CategoryButton({
     Key? key,
-    this.category = initialCategory,
+    this.category = categoryInit,
     this.categoryType = "",
   }) : super(key: key);
 

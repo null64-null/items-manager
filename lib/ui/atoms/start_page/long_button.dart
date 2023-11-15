@@ -17,7 +17,6 @@ class LongButton extends StatelessWidget {
     return Container(
       width: 320,
       height: 81,
-      //padding: const EdgeInsets.all(10),
       decoration: ShapeDecoration(
         color: color,
         shape: RoundedRectangleBorder(

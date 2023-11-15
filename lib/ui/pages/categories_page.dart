@@ -4,13 +4,10 @@ import 'package:test_app/ui/templates/categories_page_template.dart';
 import '../../db/basic_crud.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
-
-List<Category> nothig = [
-  const Category(id: 1, name: "", notifications: 0),
-];
+import '../../util/values.dart/initial_values.dart';
 
 final categoriesProvider = StateProvider<List<Category>>((ref) {
-  return [];
+  return categoriesInit;
 });
 
 class CategoriesPage extends ConsumerWidget {

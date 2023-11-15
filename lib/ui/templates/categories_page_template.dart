@@ -5,10 +5,7 @@ import '../organisms/categories_page/category_button.dart';
 import '../organisms/categories_page/add_category_button.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
-
-const List<Category> initialCategorys = [
-  Category(id: 0, name: "name", notifications: 0),
-];
+import '../../util/values.dart/initial_values.dart';
 
 class CategoriesPageTemplate extends ConsumerWidget {
   final String categoryType;
@@ -19,7 +16,7 @@ class CategoriesPageTemplate extends ConsumerWidget {
   const CategoriesPageTemplate({
     Key? key,
     this.categoryType = "",
-    this.categories = initialCategorys,
+    this.categories = categoriesInit,
     this.appBarColor = Colors.white,
     this.buttonColor = Colors.white,
   }) : super(key: key);
