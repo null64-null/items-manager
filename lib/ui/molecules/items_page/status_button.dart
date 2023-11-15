@@ -3,7 +3,7 @@ import '../../atoms/items_page/gage.dart';
 import '../../atoms/items_page/content_button.dart';
 import '../../atoms/items_page/sized_text.dart';
 
-class ItemStatus extends StatelessWidget {
+class StatusButton extends StatelessWidget {
   final String title;
   final Color backgroundColor;
   final VoidCallback? onPressed;
@@ -11,7 +11,7 @@ class ItemStatus extends StatelessWidget {
   final double maxValue;
   final String unit;
 
-  const ItemStatus({
+  const StatusButton({
     Key? key,
     this.title = "",
     this.backgroundColor = Colors.white,
