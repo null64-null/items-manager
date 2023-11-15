@@ -38,9 +38,43 @@ class ItemEditPageTemplate extends ConsumerWidget {
     final hikidashiOptins = ref.watch(hikidashiOptinsProvider);
     final shoppingPlaceOptions = ref.watch(shoppingPlaceOptinsProvider);
 
+    void onNameChanged(String text) {
+      final notifire = ref.read(itemEditProvider.notifier);
+      notifire.state = itemEdit.copyWith(name: text);
+    }
+
+    void onHikidashiChanged(int value) {
+      final notifier = ref.read(itemEditProvider.notifier);
+      notifier.state = itemEdit.copyWith(hikidashiId: value);
+    }
+
+    void onShoppingPlaceChanged(int value) {
+      final notifier = ref.read(itemEditProvider.notifier);
+      notifier.state = itemEdit.copyWith(shoppingPlaceId: value);
+    }
+
+    void onMaxValueChanged(String text) {
+      if (text != "") {
+        final notifire = ref.read(itemEditProvider.notifier);
+        notifire.state = itemEdit.copyWith(maxValue: double.parse(text));
+      }
+    }
+
+    void onRemainingValueChanged(String text) {
+      if (text != "") {
+        final notifire = ref.read(itemEditProvider.notifier);
+        notifire.state = itemEdit.copyWith(remainingValue: double.parse(text));
+      }
+    }
+
+    void onUnitChanged(String text) {
+      final notifire = ref.read(itemEditProvider.notifier);
+      notifire.state = itemEdit.copyWith(unit: text);
+    }
+
     return Scaffold(
       appBar: CustomAppBar(
-        title: itemEdit.name == "" ? "アイテムを追加" : "${itemEdit.name}を編集",
+        title: itemEdit.id == null ? "アイテムを追加" : "${itemEdit.name}を編集",
         color: getColor(categoryType),
       ),
       body: Stack(
@@ -54,10 +88,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
               initialValue: itemEdit.name,
               isNumeric: false,
               placeholder: "名前を入力",
-              onChanged: (text) {
-                final notifire = ref.read(itemEditProvider.notifier);
-                notifire.state = itemEdit.copyWith(name: text);
-              },
+              onChanged: onNameChanged,
             ),
           ),
           Align(
@@ -65,10 +96,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
             child: LabeledSelectForm(
               title: "ひきだし",
               options: optionItems(hikidashiOptins),
-              onChanged: (value) {
-                final notifier = ref.read(itemEditProvider.notifier);
-                notifier.state = itemEdit.copyWith(hikidashiId: value);
-              },
+              onChanged: onHikidashiChanged,
               value: itemEdit.hikidashiId,
             ),
           ),
@@ -77,10 +105,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
             child: LabeledSelectForm(
               title: "買う場所",
               options: optionItems(shoppingPlaceOptions),
-              onChanged: (value) {
-                final notifier = ref.read(itemEditProvider.notifier);
-                notifier.state = itemEdit.copyWith(shoppingPlaceId: value);
-              },
+              onChanged: onShoppingPlaceChanged,
               value: itemEdit.shoppingPlaceId,
             ),
           ),
@@ -91,13 +116,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
               initialValue: itemEdit.maxValue.toString(),
               isNumeric: true,
               placeholder: "必要量を入力",
-              onChanged: (text) {
-                if (text != "") {
-                  final notifire = ref.read(itemEditProvider.notifier);
-                  notifire.state =
-                      itemEdit.copyWith(maxValue: double.parse(text));
-                }
-              },
+              onChanged: onMaxValueChanged,
             ),
           ),
           Align(
@@ -107,13 +126,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
               initialValue: itemEdit.remainingValue.toString(),
               isNumeric: true,
               placeholder: "残りの量を入力",
-              onChanged: (text) {
-                if (text != "") {
-                  final notifire = ref.read(itemEditProvider.notifier);
-                  notifire.state =
-                      itemEdit.copyWith(remainingValue: double.parse(text));
-                }
-              },
+              onChanged: onRemainingValueChanged,
             ),
           ),
           Align(
@@ -123,10 +136,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
               initialValue: itemEdit.unit,
               isNumeric: false,
               placeholder: "単位を入力",
-              onChanged: (text) {
-                final notifire = ref.read(itemEditProvider.notifier);
-                notifire.state = itemEdit.copyWith(unit: text);
-              },
+              onChanged: onUnitChanged,
             ),
           ),
           Align(
@@ -135,18 +145,6 @@ class ItemEditPageTemplate extends ConsumerWidget {
                 ? AddButtonsSection(
                     color: getDarkColor(categoryType),
                     onCancellPressed: () {
-                      final snackBar = SnackBar(
-                        content: Text('Snackbarのメッセージ'),
-                        action: SnackBarAction(
-                          label: "action",
-                          onPressed: () {
-                            // アクションが押された時の処理
-                            print('アクションが押されました');
-                          },
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
                       Navigator.pop(context);
                     },
                     onAddPressed: () {
@@ -201,3 +199,20 @@ List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
       .toList();
   return optionItems;
 }
+
+/*
+
+final snackBar = SnackBar(
+                        content: Text('Snackbarのメッセージ'),
+                        action: SnackBarAction(
+                          label: "action",
+                          onPressed: () {
+                            // アクションが押された時の処理
+                            print('アクションが押されました');
+                          },
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+
+*/
