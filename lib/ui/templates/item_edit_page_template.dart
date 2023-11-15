@@ -8,8 +8,8 @@ import '../molecules/item_edit_page/update_buttons.section.dart';
 import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
-import '../../db/basic_crud.dart';
 import '../../util/functions/get_color.dart';
+import '../../db/basic_crud.dart';
 
 const Item initialItem = Item(
   name: "",
