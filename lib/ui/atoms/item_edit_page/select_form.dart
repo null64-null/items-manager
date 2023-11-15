@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 
-void defaultOnChanged(String text) {
-  debugPrint(text);
-}
-
 class SelectForm extends StatelessWidget {
   final List<DropdownMenuItem<dynamic>>? options;
-  final Function onChanged;
+  final ValueChanged<dynamic>? onChanged;
   final dynamic value;
 
   const SelectForm({
     Key? key,
     this.options,
-    this.onChanged = defaultOnChanged,
+    this.onChanged,
     this.value,
   }) : super(key: key);
 
@@ -22,9 +18,7 @@ class SelectForm extends StatelessWidget {
       height: 50,
       child: DropdownButton(
         items: options,
-        onChanged: (value) {
-          onChanged(value);
-        },
+        onChanged: onChanged,
         value: value,
       ),
     );

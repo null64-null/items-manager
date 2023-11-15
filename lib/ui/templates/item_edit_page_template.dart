@@ -39,12 +39,12 @@ class ItemEditPageTemplate extends ConsumerWidget {
       notifire.state = itemEdit.copyWith(name: text);
     }
 
-    void onHikidashiChanged(int value) {
+    void onHikidashiChanged(value) {
       final notifier = ref.read(itemEditProvider.notifier);
       notifier.state = itemEdit.copyWith(hikidashiId: value);
     }
 
-    void onShoppingPlaceChanged(int value) {
+    void onShoppingPlaceChanged(value) {
       final notifier = ref.read(itemEditProvider.notifier);
       notifier.state = itemEdit.copyWith(shoppingPlaceId: value);
     }

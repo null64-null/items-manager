@@ -2,21 +2,17 @@ import 'package:flutter/material.dart';
 import '../../atoms/item_edit_page/form_title.dart';
 import '../../atoms/item_edit_page/select_form.dart';
 
-void defaultOnChanged(String text) {
-  debugPrint(text);
-}
-
 class LabeledSelectForm extends StatelessWidget {
   final String title;
   final List<DropdownMenuItem<dynamic>>? options;
-  final Function onChanged;
+  final ValueChanged<dynamic>? onChanged;
   final dynamic value;
 
   const LabeledSelectForm({
     Key? key,
     this.title = "",
     this.options,
-    this.onChanged = defaultOnChanged,
+    this.onChanged,
     this.value,
   }) : super(key: key);
 
