@@ -25,11 +25,13 @@ final itemEditProvider = StateProvider<Item>((ref) {
 class ItemEditPageTemplate extends ConsumerWidget {
   final int categoryId;
   final String categoryType;
+  final Item? initialItem;
 
   const ItemEditPageTemplate({
     Key? key,
     this.categoryId = 0,
     this.categoryType = "",
+    this.initialItem,
   }) : super(key: key);
 
   @override
@@ -93,7 +95,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: itemEdit.id == null ? "アイテムを追加" : "${itemEdit.name}を編集",
+        title: initialItem == null ? "アイテムを追加" : "${initialItem?.name}を編集",
         color: getColor(categoryType),
       ),
       body: Stack(
