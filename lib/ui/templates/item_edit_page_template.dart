@@ -72,6 +72,25 @@ class ItemEditPageTemplate extends ConsumerWidget {
       notifire.state = itemEdit.copyWith(unit: text);
     }
 
+    void onCancellPressed() {
+      Navigator.pop(context);
+    }
+
+    void onAddPressed() {
+      addData(itemEdit);
+      Navigator.pop(context);
+    }
+
+    void onDeletePressed() {
+      deleteData(itemEdit.id!);
+      Navigator.pop(context);
+    }
+
+    void onUpdatePressed() {
+      updateData(itemEdit);
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       appBar: CustomAppBar(
         title: itemEdit.id == null ? "アイテムを追加" : "${itemEdit.name}を編集",
@@ -144,27 +163,14 @@ class ItemEditPageTemplate extends ConsumerWidget {
             child: itemEdit.id == null
                 ? AddButtonsSection(
                     color: getDarkColor(categoryType),
-                    onCancellPressed: () {
-                      Navigator.pop(context);
-                    },
-                    onAddPressed: () {
-                      addData(itemEdit);
-                      Navigator.pop(context);
-                    },
+                    onCancellPressed: onCancellPressed,
+                    onAddPressed: onAddPressed,
                   )
                 : UpdateButtonsSection(
                     color: getDarkColor(categoryType),
-                    onCancellPressed: () {
-                      Navigator.pop(context);
-                    },
-                    onDeletePressed: () {
-                      deleteData(itemEdit.id!);
-                      Navigator.pop(context);
-                    },
-                    onUpdatePressed: () {
-                      updateData(itemEdit);
-                      Navigator.pop(context);
-                    },
+                    onCancellPressed: onCancellPressed,
+                    onDeletePressed: onDeletePressed,
+                    onUpdatePressed: onUpdatePressed,
                   ),
           ),
         ],
