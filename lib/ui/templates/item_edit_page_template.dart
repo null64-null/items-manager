@@ -56,15 +56,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
               placeholder: "名前を入力",
               onChanged: (text) {
                 final notifire = ref.read(itemEditProvider.notifier);
-                notifire.state = Item(
-                  id: itemEdit.id,
-                  name: text,
-                  remainingValue: itemEdit.remainingValue,
-                  maxValue: itemEdit.maxValue,
-                  unit: itemEdit.unit,
-                  hikidashiId: itemEdit.hikidashiId,
-                  shoppingPlaceId: itemEdit.shoppingPlaceId,
-                );
+                notifire.state = itemEdit.copyWith(name: text);
               },
             ),
           ),
@@ -75,15 +67,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
               options: optionItems(hikidashiOptins),
               onChanged: (value) {
                 final notifier = ref.read(itemEditProvider.notifier);
-                notifier.state = Item(
-                  id: itemEdit.id,
-                  name: itemEdit.name,
-                  remainingValue: itemEdit.remainingValue,
-                  maxValue: itemEdit.maxValue,
-                  unit: itemEdit.unit,
-                  hikidashiId: value,
-                  shoppingPlaceId: itemEdit.shoppingPlaceId,
-                );
+                notifier.state = itemEdit.copyWith(hikidashiId: value);
               },
               value: itemEdit.hikidashiId,
             ),
@@ -95,15 +79,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
               options: optionItems(shoppingPlaceOptions),
               onChanged: (value) {
                 final notifier = ref.read(itemEditProvider.notifier);
-                notifier.state = Item(
-                  id: itemEdit.id,
-                  name: itemEdit.name,
-                  remainingValue: itemEdit.remainingValue,
-                  maxValue: itemEdit.maxValue,
-                  unit: itemEdit.unit,
-                  hikidashiId: itemEdit.hikidashiId,
-                  shoppingPlaceId: value,
-                );
+                notifier.state = itemEdit.copyWith(shoppingPlaceId: value);
               },
               value: itemEdit.shoppingPlaceId,
             ),
@@ -118,15 +94,8 @@ class ItemEditPageTemplate extends ConsumerWidget {
               onChanged: (text) {
                 if (text != "") {
                   final notifire = ref.read(itemEditProvider.notifier);
-                  notifire.state = Item(
-                    id: itemEdit.id,
-                    name: itemEdit.name,
-                    remainingValue: itemEdit.remainingValue,
-                    maxValue: double.parse(text),
-                    unit: itemEdit.unit,
-                    hikidashiId: itemEdit.hikidashiId,
-                    shoppingPlaceId: itemEdit.shoppingPlaceId,
-                  );
+                  notifire.state =
+                      itemEdit.copyWith(maxValue: double.parse(text));
                 }
               },
             ),
@@ -141,15 +110,8 @@ class ItemEditPageTemplate extends ConsumerWidget {
               onChanged: (text) {
                 if (text != "") {
                   final notifire = ref.read(itemEditProvider.notifier);
-                  notifire.state = Item(
-                    id: itemEdit.id,
-                    name: itemEdit.name,
-                    remainingValue: double.parse(text),
-                    maxValue: itemEdit.maxValue,
-                    unit: itemEdit.unit,
-                    hikidashiId: itemEdit.hikidashiId,
-                    shoppingPlaceId: itemEdit.shoppingPlaceId,
-                  );
+                  notifire.state =
+                      itemEdit.copyWith(remainingValue: double.parse(text));
                 }
               },
             ),
@@ -163,15 +125,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
               placeholder: "単位を入力",
               onChanged: (text) {
                 final notifire = ref.read(itemEditProvider.notifier);
-                notifire.state = Item(
-                  id: itemEdit.id,
-                  name: itemEdit.name,
-                  remainingValue: itemEdit.remainingValue,
-                  maxValue: itemEdit.maxValue,
-                  unit: text,
-                  hikidashiId: itemEdit.hikidashiId,
-                  shoppingPlaceId: itemEdit.shoppingPlaceId,
-                );
+                notifire.state = itemEdit.copyWith(unit: text);
               },
             ),
           ),

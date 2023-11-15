@@ -17,6 +17,26 @@ class Item {
     this.shoppingPlaceId,
   });
 
+  Item copyWith({
+    int? id,
+    String? name,
+    double? remainingValue,
+    double? maxValue,
+    String? unit,
+    int? hikidashiId,
+    int? shoppingPlaceId,
+  }) {
+    return Item(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      remainingValue: remainingValue ?? this.remainingValue,
+      maxValue: maxValue ?? this.maxValue,
+      unit: unit ?? this.unit,
+      hikidashiId: hikidashiId ?? this.hikidashiId,
+      shoppingPlaceId: shoppingPlaceId ?? this.shoppingPlaceId,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
