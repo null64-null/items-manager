@@ -18,48 +18,39 @@ class AddItemButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void onPressed() {
+      itemEditInitialize(categoryType, categoryId, ref);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ItemEditPage(categoryType: categoryType),
+        ),
+      );
+    }
+
     return AddButton(
       color: getDarkColor(categoryType),
-      onPressed: () => {
-        itemEditInitialize(categoryType, categoryId, ref),
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ItemEditPage(categoryType: categoryType),
-          ),
-        ),
-      },
+      onPressed: onPressed,
     );
   }
 }
 
 void itemEditInitialize(String categoryType, int categoryId, WidgetRef ref) {
   final notifier = ref.read(itemEditProvider.notifier);
+  const initialValue = Item(
+    name: "",
+    remainingValue: 0,
+    maxValue: 0,
+    unit: "",
+  );
   if (categoryType == "hikidashi") {
-    final initialItem = Item(
-      name: "",
-      remainingValue: 0,
-      maxValue: 0,
-      unit: "",
-      hikidashiId: categoryId,
-    );
+    final initialItem = initialValue.copyWith(hikidashiId: categoryId);
     notifier.state = initialItem;
   } else if (categoryType == "shoppingPlace") {
-    final initialItem = Item(
-      name: "",
-      remainingValue: 0,
-      maxValue: 0,
-      unit: "",
-      shoppingPlaceId: categoryId,
-    );
+    final initialItem = initialValue.copyWith(shoppingPlaceId: categoryId);
     notifier.state = initialItem;
   } else {
-    const initialItem = Item(
-      name: "",
-      remainingValue: 0,
-      maxValue: 0,
-      unit: "",
-    );
+    const initialItem = initialValue;
     notifier.state = initialItem;
   }
 }

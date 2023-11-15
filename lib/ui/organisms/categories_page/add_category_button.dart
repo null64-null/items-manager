@@ -15,20 +15,22 @@ class AddCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void onPressed() {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          return CategoryAddDialog(
+            categoryType: categoryType,
+            newCategoryId: itemsLength + 1,
+          );
+        },
+      );
+    }
+
     return AddButton(
       color: getDarkColor(categoryType),
-      onPressed: () => {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) {
-            return CategoryAddDialog(
-              categoryType: categoryType,
-              newCategoryId: itemsLength + 1,
-            );
-          },
-        ),
-      },
+      onPressed: onPressed,
     );
   }
 }

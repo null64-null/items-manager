@@ -23,20 +23,24 @@ class CategoryButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void onPressed() {
+      final notifire = ref.read(formTextProvider.notifier);
+      notifire.state = "";
+      buttonItem.onPressed(context, categoryType);
+    }
+
+    void onLongPressed() {
+      final notifire = ref.read(formTextProvider.notifier);
+      notifire.state = buttonItem.name;
+      buttonItem.onLongPressed(context, categoryType);
+    }
+
     return BadgeButton(
       label: buttonItem.name,
       color: getColor(categoryType),
       notifications: buttonItem.notifications ?? 0,
-      onPressed: () {
-        final notifire = ref.read(formTextProvider.notifier);
-        notifire.state = "";
-        buttonItem.onPressed(context, categoryType);
-      },
-      onLongPressed: () {
-        final notifire = ref.read(formTextProvider.notifier);
-        notifire.state = buttonItem.name;
-        buttonItem.onLongPressed(context, categoryType);
-      },
+      onPressed: onPressed,
+      onLongPressed: onLongPressed,
     );
   }
 }
