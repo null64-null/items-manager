@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../atoms/app_bar.dart';
-import '../organisms/items_page/item_status.dart';
+import '../organisms/items_page/item_status_button.dart';
 import '../organisms/items_page/add_item_button.dart';
 import '../../util/classes/items.dart';
 import '../../util/functions/get_color.dart';
@@ -39,7 +39,7 @@ class ItemsPageTemplate extends ConsumerWidget {
                     ),
                     Container(
                       alignment: Alignment.center,
-                      child: ItemStatus(
+                      child: ItemStatusButton(
                         item: item,
                         categoryType: categoryType,
                         categoryId: categoryId,

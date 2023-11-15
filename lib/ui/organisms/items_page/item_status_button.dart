@@ -12,12 +12,12 @@ const Item initialItem = Item(
   unit: "",
 );
 
-class ItemStatus extends ConsumerWidget {
+class ItemStatusButton extends ConsumerWidget {
   final Item item;
   final String categoryType;
   final int categoryId;
 
-  const ItemStatus({
+  const ItemStatusButton({
     Key? key,
     this.item = initialItem,
     this.categoryType = "",
