@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../molecules/categories_page/badge_botton.dart';
+import './category_edit_dialog.dart';
+import '../../pages/items_page.dart';
 import '../../../../util/classes/category.dart';
 import '../../../../util/functions/get_color.dart';
 
@@ -12,12 +14,12 @@ final formTextProvider = StateProvider<String>((ref) {
 });
 
 class CategoryButton extends ConsumerWidget {
-  final Category buttonItem;
+  final Category category;
   final String categoryType;
 
   const CategoryButton({
     Key? key,
-    this.buttonItem = initialCategory,
+    this.category = initialCategory,
     this.categoryType = "",
   }) : super(key: key);
 
@@ -26,19 +28,51 @@ class CategoryButton extends ConsumerWidget {
     void onPressed() {
       final notifire = ref.read(formTextProvider.notifier);
       notifire.state = "";
-      buttonItem.onPressed(context, categoryType);
+      if (categoryType == "hikidashi") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemsPage(
+              categoryType: "hikidashi",
+              categoryId: category.id!,
+              categoryName: category.name,
+            ),
+          ),
+        );
+      }
+      if (categoryType == "shoppingPlace") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemsPage(
+              categoryType: "shoppingPlace",
+              categoryId: category.id!,
+              categoryName: category.name,
+            ),
+          ),
+        );
+      }
     }
 
     void onLongPressed() {
       final notifire = ref.read(formTextProvider.notifier);
-      notifire.state = buttonItem.name;
-      buttonItem.onLongPressed(context, categoryType);
+      notifire.state = category.name;
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          return CategoryEditDialog(
+            categoryType: categoryType,
+            categoryId: category.id!,
+          );
+        },
+      );
     }
 
     return BadgeButton(
-      label: buttonItem.name,
+      label: category.name,
       color: getColor(categoryType),
-      notifications: buttonItem.notifications ?? 0,
+      notifications: category.notifications ?? 0,
       onPressed: onPressed,
       onLongPressed: onLongPressed,
     );

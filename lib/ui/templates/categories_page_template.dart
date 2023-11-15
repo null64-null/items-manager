@@ -12,14 +12,14 @@ const List<Category> initialCategorys = [
 
 class CategoriesPageTemplate extends ConsumerWidget {
   final String categoryType;
-  final List<Category> buttonItems;
+  final List<Category> categories;
   final Color appBarColor;
   final Color buttonColor;
 
   const CategoriesPageTemplate({
     Key? key,
     this.categoryType = "",
-    this.buttonItems = initialCategorys,
+    this.categories = initialCategorys,
     this.appBarColor = Colors.white,
     this.buttonColor = Colors.white,
   }) : super(key: key);
@@ -37,9 +37,9 @@ class CategoriesPageTemplate extends ConsumerWidget {
           SliverGrid.count(
             crossAxisCount: 2,
             children: [
-              for (final buttonItem in buttonItems)
+              for (final category in categories)
                 CategoryButton(
-                  buttonItem: buttonItem,
+                  category: category,
                   categoryType: categoryType,
                 )
             ],
@@ -48,7 +48,7 @@ class CategoriesPageTemplate extends ConsumerWidget {
       ),
       floatingActionButton: AddCategoryButton(
         categoryType: categoryType,
-        itemsLength: buttonItems.length,
+        itemsLength: categories.length,
       ),
     );
   }

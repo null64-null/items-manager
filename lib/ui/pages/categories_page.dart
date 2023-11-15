@@ -28,7 +28,7 @@ class CategoriesPage extends ConsumerWidget {
 
     return CategoriesPageTemplate(
       categoryType: categoryType,
-      buttonItems: categories,
+      categories: categories,
       appBarColor: getColor(categoryType),
       buttonColor: getColor(categoryType),
     );
