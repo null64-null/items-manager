@@ -10,6 +10,7 @@ import '../../util/values.dart/initial_values.dart';
 class CategoriesPageTemplate extends ConsumerWidget {
   final String categoryType;
   final List<Category> categories;
+  final List<int> notificationsArray;
   final Color appBarColor;
   final Color buttonColor;
 
@@ -17,6 +18,7 @@ class CategoriesPageTemplate extends ConsumerWidget {
     Key? key,
     this.categoryType = "",
     this.categories = categoriesInit,
+    this.notificationsArray = const [],
     this.appBarColor = Colors.white,
     this.buttonColor = Colors.white,
   }) : super(key: key);
@@ -33,13 +35,15 @@ class CategoriesPageTemplate extends ConsumerWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 20)),
           SliverGrid.count(
             crossAxisCount: 2,
-            children: [
-              for (final category in categories)
-                CategoryButton(
-                  category: category,
-                  categoryType: categoryType,
-                )
-            ],
+            children: List.generate(categories.length, (index) {
+              final category = categories[index];
+              final notifications = notificationsArray[index];
+              return CategoryButton(
+                category: category,
+                categoryType: categoryType,
+                notifications: notifications,
+              );
+            }),
           )
         ],
       ),

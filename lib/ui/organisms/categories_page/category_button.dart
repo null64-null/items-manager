@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../molecules/categories_page/badge_botton.dart';
 import './category_edit_dialog.dart';
 import '../../pages/items_page.dart';
-import '../../../../util/classes/category.dart';
-import '../../../../util/functions/get_color.dart';
+import '../../../util/classes/category.dart';
+import '../../../util/functions/get_color.dart';
 import '../../../util/values.dart/initial_values.dart';
 
 final formTextProvider = StateProvider<String>((ref) {
@@ -14,11 +14,13 @@ final formTextProvider = StateProvider<String>((ref) {
 class CategoryButton extends ConsumerWidget {
   final Category category;
   final String categoryType;
+  final int notifications;
 
   const CategoryButton({
     Key? key,
     this.category = categoryInit,
     this.categoryType = "",
+    this.notifications = 0,
   }) : super(key: key);
 
   @override
@@ -70,7 +72,7 @@ class CategoryButton extends ConsumerWidget {
     return BadgeButton(
       label: category.name,
       color: getColor(categoryType),
-      notifications: category.notifications ?? 0,
+      notifications: notifications,
       onPressed: onPressed,
       onLongPressed: onLongPressed,
     );
