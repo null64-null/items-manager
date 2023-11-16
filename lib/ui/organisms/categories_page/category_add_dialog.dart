@@ -29,9 +29,16 @@ class CategoryAddDialog extends ConsumerWidget {
     final formText = ref.watch(formTextProvider);
 
     void onChanged(String text) {
-      final notifire = ref.read(formTextProvider.notifier);
-      notifire.state = text;
-      setIsAddable(text, ref);
+      final notifireText = ref.read(formTextProvider.notifier);
+      notifireText.state = text;
+      final notifierIsAddable = ref.read(isAddableProvider.notifier);
+      if (text == "") {
+        notifierIsAddable.state = false;
+      } else if (text.length > textLengthLimit) {
+        notifierIsAddable.state = false;
+      } else {
+        notifierIsAddable.state = true;
+      }
     }
 
     void onTapCancell() {
@@ -52,15 +59,12 @@ class CategoryAddDialog extends ConsumerWidget {
     }
 
     String? validator(String? value) {
-      final notifire = ref.read(isAddableProvider.notifier);
+      debugPrint("validate");
       if (value == "" || value == null) {
-        notifire.state = false;
         return "名前を入力してください";
       } else if (value.length > textLengthLimit) {
-        notifire.state = false;
         return '${(textLengthLimit)}文字以下で入力してください';
       } else {
-        notifire.state = true;
         return null;
       }
     }
