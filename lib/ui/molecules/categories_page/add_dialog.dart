@@ -10,6 +10,7 @@ class AddDialog extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback? onTapCancell;
   final VoidCallback? onTapAdd;
+  final String? Function(String?)? validator;
 
   const AddDialog({
     Key? key,
@@ -20,6 +21,7 @@ class AddDialog extends StatelessWidget {
     this.onChanged,
     this.onTapCancell,
     this.onTapAdd,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class AddDialog extends StatelessWidget {
       content: DialogTextEditor(
         formLabel: formLabel,
         onChanged: onChanged,
+        validator: validator,
       ),
       actions: [
         DialogButton(

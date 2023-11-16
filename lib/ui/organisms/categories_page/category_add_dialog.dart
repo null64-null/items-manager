@@ -6,6 +6,7 @@ import '../../pages/categories_page.dart';
 import '../../../util/classes/category.dart';
 import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
+import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
 
 final isAddableProvider = StateProvider<bool>((ref) {
@@ -50,6 +51,20 @@ class CategoryAddDialog extends ConsumerWidget {
       }
     }
 
+    String? validator(String? value) {
+      final notifire = ref.read(isAddableProvider.notifier);
+      if (value == "" || value == null) {
+        notifire.state = false;
+        return "名前を入力してください";
+      } else if (value.length > textLengthLimit) {
+        notifire.state = false;
+        return '${(textLengthLimit)}文字以下で入力してください';
+      } else {
+        notifire.state = true;
+        return null;
+      }
+    }
+
     return AddDialog(
       title: '${getTitle(categoryType)}を登録',
       formLabel: '${getTitle(categoryType)}名',
@@ -58,6 +73,7 @@ class CategoryAddDialog extends ConsumerWidget {
       onChanged: onChanged,
       onTapCancell: onTapCancell,
       onTapAdd: onTapAdd,
+      validator: validator,
     );
   }
 }

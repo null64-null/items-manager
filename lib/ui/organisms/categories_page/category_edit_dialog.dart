@@ -7,6 +7,7 @@ import '../../pages/categories_page.dart';
 import '../../../util/classes/category.dart';
 import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
+import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
 
 final isUpdatableProvider = StateProvider<bool>((ref) {
@@ -68,6 +69,20 @@ class CategoryEditDialog extends ConsumerWidget {
       });
     }
 
+    String? validator(String? value) {
+      final notifire = ref.read(isUpdatableProvider.notifier);
+      if (value == "" || value == null) {
+        notifire.state = false;
+        return "名前を入力してください";
+      } else if (value.length > textLengthLimit) {
+        notifire.state = false;
+        return '${(textLengthLimit)}文字以下で入力してください';
+      } else {
+        notifire.state = true;
+        return null;
+      }
+    }
+
     return EditDialog(
       title: '${getTitle(categoryType)}を編集',
       formLabel: '${getTitle(categoryType)}名',
@@ -78,6 +93,7 @@ class CategoryEditDialog extends ConsumerWidget {
       onTapCancell: onTapCancell,
       onTapDelete: onTapDelete,
       onTapUpdate: onTapUpdate,
+      validator: validator,
     );
   }
 }

@@ -17,6 +17,7 @@ class EditDialog extends ConsumerWidget {
   final VoidCallback? onTapCancell;
   final VoidCallback? onTapDelete;
   final VoidCallback? onTapUpdate;
+  final String? Function(String?)? validator;
 
   const EditDialog({
     Key? key,
@@ -29,6 +30,7 @@ class EditDialog extends ConsumerWidget {
     this.onTapCancell,
     this.onTapDelete,
     this.onTapUpdate,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -57,6 +59,7 @@ class EditDialog extends ConsumerWidget {
         formLabel: formLabel,
         initialValue: initialValue,
         onChanged: onChanged,
+        validator: validator,
       ),
       actions: isConfirmed
           ? [
