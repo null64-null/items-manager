@@ -23,9 +23,9 @@ class DialogButton extends StatelessWidget {
   }
 }
 
-TextStyle style(Color buttonColor, bool registable) {
+TextStyle style(Color buttonColor, bool isActive) {
   return TextStyle(
-    color: registable ? buttonColor : Colors.black26,
+    color: isActive ? buttonColor : Colors.black26,
     fontWeight: FontWeight.w600,
   );
 }
