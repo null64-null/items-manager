@@ -11,7 +11,7 @@ import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
 
 final isUpdatableProvider = StateProvider<bool>((ref) {
-  return false;
+  return true;
 });
 
 class CategoryEditDialog extends ConsumerWidget {
@@ -35,9 +35,16 @@ class CategoryEditDialog extends ConsumerWidget {
     );
 
     void onChanged(String text) {
-      final notifire = ref.read(formTextProvider.notifier);
-      notifire.state = text;
-      setUpdatable(text, ref);
+      final notifireText = ref.read(formTextProvider.notifier);
+      notifireText.state = text;
+      final notifireIsUpdatable = ref.read(isUpdatableProvider.notifier);
+      if (text == "") {
+        notifireIsUpdatable.state = false;
+      } else if (text.length > textLengthLimit) {
+        notifireIsUpdatable.state = false;
+      } else {
+        notifireIsUpdatable.state = true;
+      }
     }
 
     void onTapCancell() {
@@ -55,30 +62,26 @@ class CategoryEditDialog extends ConsumerWidget {
     }
 
     Future<void> onTapUpdate() async {
-      var newCategory = Category(
-        id: category.id,
-        name: formText,
-        notifications: category.notifications,
-      );
-      await updateData(newCategory, categoryType);
-      await getData(categoryType, ref);
-      Future.delayed(Duration.zero, () {
-        final notifier = ref.read(isUpdatableProvider.notifier);
-        notifier.state = false;
-        Navigator.pop(context);
-      });
+      if (isUpdatable) {
+        var newCategory = Category(
+          id: category.id,
+          name: formText,
+          notifications: category.notifications,
+        );
+        await updateData(newCategory, categoryType);
+        await getData(categoryType, ref);
+        Future.delayed(Duration.zero, () {
+          Navigator.pop(context);
+        });
+      }
     }
 
     String? validator(String? value) {
-      final notifire = ref.read(isUpdatableProvider.notifier);
       if (value == "" || value == null) {
-        notifire.state = false;
         return "名前を入力してください";
       } else if (value.length > textLengthLimit) {
-        notifire.state = false;
         return '${(textLengthLimit)}文字以下で入力してください';
       } else {
-        notifire.state = true;
         return null;
       }
     }
