@@ -37,11 +37,12 @@ class CategoriesPageTemplate extends ConsumerWidget {
             crossAxisCount: 2,
             children: List.generate(categories.length, (index) {
               final category = categories[index];
-              final notifications = notificationsArray[index];
+              // error now
+              //final notifications = notificationsArray[index];
               return CategoryButton(
                 category: category,
                 categoryType: categoryType,
-                notifications: notifications,
+                notifications: 0,
               );
             }),
           )
