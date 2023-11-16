@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../atoms/long_button.dart';
-import '../pages/categories_list_page.dart';
+import '../atoms/start_page/long_button.dart';
+import '../pages/categories_page.dart';
 
 class StartPageTemplate extends StatelessWidget {
   const StartPageTemplate({super.key});
@@ -11,29 +11,17 @@ class StartPageTemplate extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          const Align(
-            alignment: Alignment(0, -0.6),
-            child: Text(
-              "ざいこくん",
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
+          Align(
+            alignment: const Alignment(0, -0.6),
+            child: Text("ざいこくん", style: titleTextStyle),
           ),
           Align(
             alignment: const Alignment(0, 0),
             child: LongButton(
-              label: 'おうちのひきだし',
+              label: 'ストックするもの',
               color: const Color(0xFF54D6FF),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const CategoriesListPage(categoryType: "hikidashi"),
-                  ),
-                );
+                transferToCategoryPage(context, "hikidashi");
               },
             ),
           ),
@@ -43,13 +31,7 @@ class StartPageTemplate extends StatelessWidget {
               label: 'かいものリスト',
               color: const Color(0xFF62FF54),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const CategoriesListPage(categoryType: "shoppingPlace"),
-                  ),
-                );
+                transferToCategoryPage(context, "shoppingPlace");
               },
             ),
           ),
@@ -58,3 +40,17 @@ class StartPageTemplate extends StatelessWidget {
     );
   }
 }
+
+void transferToCategoryPage(BuildContext context, String categoryType) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => CategoriesPage(categoryType: categoryType),
+    ),
+  );
+}
+
+TextStyle titleTextStyle = const TextStyle(
+  fontSize: 50,
+  fontWeight: FontWeight.w400,
+);
