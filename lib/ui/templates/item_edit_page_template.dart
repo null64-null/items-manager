@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_app/util/snack_bar/item_edit_page/after_item_edit_page_snack_bar.dart';
 import '../atoms/app_bar.dart';
 import '../molecules/item_edit_page/add_buttons_section.dart';
 import '../molecules/item_edit_page/labeled_select_form.dart';
 import '../molecules/item_edit_page/labeled_text_editor.dart';
 import '../molecules/item_edit_page/update_buttons.section.dart';
+import '../pages/categories_page.dart';
 import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/values.dart/initial_values.dart';
+import '../../util/snack_bar/snack_bar.dart';
 import '../../db/basic_crud.dart';
 
 final itemEditProvider = StateProvider<Item>((ref) {
@@ -19,13 +22,13 @@ final itemEditProvider = StateProvider<Item>((ref) {
 class ItemEditPageTemplate extends ConsumerWidget {
   final int categoryId;
   final String categoryType;
-  final Item? initialItem;
+  final Item initialItem;
 
   const ItemEditPageTemplate({
     Key? key,
     this.categoryId = 0,
     this.categoryType = "",
-    this.initialItem,
+    this.initialItem = itemInit,
   }) : super(key: key);
 
   @override
@@ -33,6 +36,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
     final itemEdit = ref.watch(itemEditProvider);
     final hikidashiOptins = ref.watch(hikidashiOptinsProvider);
     final shoppingPlaceOptions = ref.watch(shoppingPlaceOptinsProvider);
+    final categories = ref.watch(categoriesProvider);
 
     void onNameChanged(String text) {
       final notifire = ref.read(itemEditProvider.notifier);
@@ -74,6 +78,14 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onAddPressed() {
       addData(itemEdit);
+      afterItemAddSnackBar(
+        newItem: itemEdit,
+        initialItem: initialItem,
+        categoryType: categoryType,
+        categories: categories,
+        backgroundColor: Colors.blue,
+        context: context,
+      );
       Navigator.pop(context);
     }
 
@@ -84,12 +96,20 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onUpdatePressed() {
       updateData(itemEdit);
+      afterItemEditSnackBar(
+        newItem: itemEdit,
+        initialItem: initialItem,
+        categoryType: categoryType,
+        categories: categories,
+        backgroundColor: Colors.blue,
+        context: context,
+      );
       Navigator.pop(context);
     }
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: initialItem == null ? "アイテムを追加" : "${initialItem?.name}を編集",
+        title: initialItem.id == null ? "アイテムを追加" : "${initialItem.name}を編集",
         color: getColor(categoryType),
       ),
       body: Stack(

@@ -15,13 +15,13 @@ final shoppingPlaceOptinsProvider = StateProvider<List<Category>>((ref) {
 });
 
 class ItemEditPage extends ConsumerWidget {
-  final Item? initialItem;
+  final Item initialItem;
   final int categoryId;
   final String categoryType;
 
   const ItemEditPage({
     Key? key,
-    this.initialItem,
+    this.initialItem = itemInit,
     this.categoryId = 0,
     this.categoryType = "",
   }) : super(key: key);

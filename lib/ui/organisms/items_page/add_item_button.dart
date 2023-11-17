@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../atoms/add_button.dart';
 import '../../templates/item_edit_page_template.dart';
 import '../../pages/item_edit_page.dart';
-import '../../../../util/classes/items.dart';
-import '../../../../util/functions/get_color.dart';
+import '../../../util/classes/items.dart';
+import '../../../util/functions/get_color.dart';
+import '../../../util/values.dart/initial_values.dart';
 
 class AddItemButton extends ConsumerWidget {
   final String categoryType;
@@ -23,7 +24,10 @@ class AddItemButton extends ConsumerWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ItemEditPage(categoryType: categoryType),
+          builder: (context) => ItemEditPage(
+            categoryType: categoryType,
+            initialItem: initialItem(categoryType, categoryId),
+          ),
         ),
       );
     }
@@ -53,4 +57,14 @@ void itemEditInitialize(String categoryType, int categoryId, WidgetRef ref) {
     const initialItem = initialValue;
     notifier.state = initialItem;
   }
+}
+
+Item initialItem(String categoryType, int categoryId) {
+  if (categoryType == "hikidashi") {
+    return itemInit.copyWith(hikidashiId: categoryId);
+  }
+  if (categoryType == "shoppingPlace") {
+    return itemInit.copyWith(shoppingPlaceId: categoryId);
+  }
+  return itemInit;
 }
