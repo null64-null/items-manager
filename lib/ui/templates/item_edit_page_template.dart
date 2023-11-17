@@ -12,7 +12,6 @@ import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/values.dart/initial_values.dart';
-import '../../util/snack_bar/snack_bar.dart';
 import '../../db/basic_crud.dart';
 
 final itemEditProvider = StateProvider<Item>((ref) {
