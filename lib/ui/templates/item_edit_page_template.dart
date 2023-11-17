@@ -90,6 +90,11 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onDeletePressed() {
       deleteData(itemEdit.id!);
+      afterItemDeleteSnackBar(
+        newItem: itemEdit,
+        context: context,
+        backgroundColor: Colors.blue,
+      );
       Navigator.pop(context);
     }
 

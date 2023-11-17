@@ -3,6 +3,7 @@ import './_item_add_snack_bar.dart';
 import './_item_add_snack_bar_moved.dart';
 import './_item_edit_snack_bar.dart';
 import './_item_edit_snack_bar_moved.dart';
+import './_item_delete_snack_bar.dart';
 import '../../classes/items.dart';
 import '../../classes/category.dart';
 
@@ -85,4 +86,16 @@ void afterItemEditSnackBar({
       backgroundColor: backgroundColor,
     );
   }
+}
+
+void afterItemDeleteSnackBar({
+  required Item newItem,
+  required BuildContext context,
+  required Color backgroundColor,
+}) {
+  itemDeleteSnackBar(
+    newItem: newItem,
+    context: context,
+    backgroundColor: backgroundColor,
+  );
 }
