@@ -9,6 +9,8 @@ import '../../../util/functions/get_title.dart';
 import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 final isAddableProvider = StateProvider<bool>((ref) {
   return false;
 });
@@ -39,6 +41,7 @@ class CategoryAddDialog extends ConsumerWidget {
       } else {
         notifierIsAddable.state = true;
       }
+      _formKey.currentState!.validate();
     }
 
     void onTapCancell() {
@@ -69,15 +72,18 @@ class CategoryAddDialog extends ConsumerWidget {
       }
     }
 
-    return AddDialog(
-      title: '${getTitle(categoryType)}を登録',
-      formLabel: '${getTitle(categoryType)}名',
-      buttonColor: getDarkColor(categoryType),
-      isAddable: isAddable,
-      onChanged: onChanged,
-      onTapCancell: onTapCancell,
-      onTapAdd: onTapAdd,
-      validator: validator,
+    return Form(
+      key: _formKey,
+      child: AddDialog(
+        title: '${getTitle(categoryType)}を登録',
+        formLabel: '${getTitle(categoryType)}名',
+        buttonColor: getDarkColor(categoryType),
+        isAddable: isAddable,
+        onChanged: onChanged,
+        onTapCancell: onTapCancell,
+        onTapAdd: onTapAdd,
+        validator: validator,
+      ),
     );
   }
 }

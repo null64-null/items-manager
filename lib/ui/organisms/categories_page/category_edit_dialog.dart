@@ -10,6 +10,8 @@ import '../../../util/functions/get_title.dart';
 import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 final isUpdatableProvider = StateProvider<bool>((ref) {
   return true;
 });
@@ -45,6 +47,7 @@ class CategoryEditDialog extends ConsumerWidget {
       } else {
         notifireIsUpdatable.state = true;
       }
+      _formKey.currentState!.validate();
     }
 
     void onTapCancell() {
@@ -86,17 +89,20 @@ class CategoryEditDialog extends ConsumerWidget {
       }
     }
 
-    return EditDialog(
-      title: '${getTitle(categoryType)}を編集',
-      formLabel: '${getTitle(categoryType)}名',
-      buttonColor: getDarkColor(categoryType),
-      initialValue: category.name,
-      isUpdatable: isUpdatable,
-      onChanged: onChanged,
-      onTapCancell: onTapCancell,
-      onTapDelete: onTapDelete,
-      onTapUpdate: onTapUpdate,
-      validator: validator,
+    return Form(
+      key: _formKey,
+      child: EditDialog(
+        title: '${getTitle(categoryType)}を編集',
+        formLabel: '${getTitle(categoryType)}名',
+        buttonColor: getDarkColor(categoryType),
+        initialValue: category.name,
+        isUpdatable: isUpdatable,
+        onChanged: onChanged,
+        onTapCancell: onTapCancell,
+        onTapDelete: onTapDelete,
+        onTapUpdate: onTapUpdate,
+        validator: validator,
+      ),
     );
   }
 }

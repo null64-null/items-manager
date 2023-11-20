@@ -5,14 +5,17 @@ import '../atoms/app_bar.dart';
 import '../molecules/item_edit_page/add_buttons_section.dart';
 import '../molecules/item_edit_page/labeled_select_form.dart';
 import '../molecules/item_edit_page/labeled_text_editor.dart';
-import '../molecules/item_edit_page/update_buttons.section.dart';
+import '../molecules/item_edit_page/update_buttons_section.dart';
 import '../pages/categories_page.dart';
 import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/values.dart/initial_values.dart';
+import '../../util/developper_setting/values.dart';
 import '../../db/basic_crud.dart';
+
+final _formKey = GlobalKey<FormState>();
 
 final itemEditProvider = StateProvider<Item>((ref) {
   return itemInit;
@@ -40,6 +43,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
     void onNameChanged(String text) {
       final notifire = ref.read(itemEditProvider.notifier);
       notifire.state = itemEdit.copyWith(name: text);
+      _formKey.currentState!.validate();
     }
 
     void onHikidashiChanged(value) {
@@ -53,22 +57,33 @@ class ItemEditPageTemplate extends ConsumerWidget {
     }
 
     void onMaxValueChanged(String text) {
-      if (text != "") {
+      if (text == "") {
+        debugPrint("0! max");
+        final notifire = ref.read(itemEditProvider.notifier);
+        notifire.state = itemEdit.copyWith(maxValue: 0);
+      } else {
         final notifire = ref.read(itemEditProvider.notifier);
         notifire.state = itemEdit.copyWith(maxValue: double.parse(text));
       }
+      _formKey.currentState!.validate();
     }
 
     void onRemainingValueChanged(String text) {
-      if (text != "") {
+      if (text == "") {
+        debugPrint("0! rem");
+        final notifire = ref.read(itemEditProvider.notifier);
+        notifire.state = itemEdit.copyWith(remainingValue: 0);
+      } else {
         final notifire = ref.read(itemEditProvider.notifier);
         notifire.state = itemEdit.copyWith(remainingValue: double.parse(text));
       }
+      _formKey.currentState!.validate();
     }
 
     void onUnitChanged(String text) {
       final notifire = ref.read(itemEditProvider.notifier);
       notifire.state = itemEdit.copyWith(unit: text);
+      _formKey.currentState!.validate();
     }
 
     void onCancellPressed() {
@@ -111,89 +126,133 @@ class ItemEditPageTemplate extends ConsumerWidget {
       Navigator.pop(context);
     }
 
+    String? validatorString(String? value) {
+      if (value == "" || value == null) {
+        return "入力してください";
+      }
+      if (value.length > textLengthLimit) {
+        return '${(textLengthLimit)}文字以下で入力してください';
+      }
+      return null;
+    }
+
+    String? validatorMaxValue(String? value) {
+      if (value == "" || value == null) {
+        return '値を入力してください';
+      } else if (double.parse(value) > 99) {
+        return '100未満の値を入力してください';
+      } else if (double.parse(value) < itemEdit.remainingValue) {
+        return '残りの量 < 必要量 としてください';
+      } else {
+        return null;
+      }
+    }
+
+    String? validatorRemainingValue(String? value) {
+      if (value == "" || value == null) {
+        return '値を入力してください';
+      } else if (double.parse(value) > 99) {
+        return '100未満の値を入力してください';
+      } else if (double.parse(value) > itemEdit.maxValue) {
+        return '残りの量 < 必要量 としてください';
+      } else {
+        return null;
+      }
+    }
+
     return Scaffold(
       appBar: CustomAppBar(
         title: initialItem.id == null ? "アイテムを追加" : "${initialItem.name}を編集",
         color: getColor(categoryType),
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Align(
-            alignment: const Alignment(0, -0.8),
-            child: LabeledTextEditor(
-              width: 210,
-              title: "名前",
-              initialValue: itemEdit.name,
-              isNumeric: false,
-              placeholder: "名前を入力",
-              onChanged: onNameChanged,
+      body: Form(
+        key: _formKey,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Align(
+              alignment: const Alignment(0, -0.9),
+              child: LabeledTextEditor(
+                width: 210,
+                title: "名前",
+                initialValue: itemEdit.name,
+                isNumeric: false,
+                placeholder: "名前を入力",
+                onChanged: onNameChanged,
+                validator: validatorString,
+              ),
             ),
-          ),
-          Align(
-            alignment: const Alignment(0, -0.5),
-            child: LabeledSelectForm(
-              title: "ひきだし",
-              options: optionItems(hikidashiOptins),
-              onChanged: onHikidashiChanged,
-              value: itemEdit.hikidashiId,
+            Align(
+              alignment: const Alignment(0, -0.6),
+              child: LabeledSelectForm(
+                title: "ひきだし",
+                options: optionItems(hikidashiOptins),
+                onChanged: onHikidashiChanged,
+                value: itemEdit.hikidashiId,
+              ),
             ),
-          ),
-          Align(
-            alignment: const Alignment(0, -0.28),
-            child: LabeledSelectForm(
-              title: "買う場所",
-              options: optionItems(shoppingPlaceOptions),
-              onChanged: onShoppingPlaceChanged,
-              value: itemEdit.shoppingPlaceId,
+            Align(
+              alignment: const Alignment(0, -0.38),
+              child: LabeledSelectForm(
+                title: "買う場所",
+                options: optionItems(shoppingPlaceOptions),
+                onChanged: onShoppingPlaceChanged,
+                value: itemEdit.shoppingPlaceId,
+              ),
             ),
-          ),
-          Align(
-            alignment: const Alignment(0, 0),
-            child: LabeledTextEditor(
-              title: "必要量",
-              initialValue: itemEdit.maxValue.toString(),
-              isNumeric: true,
-              placeholder: "必要量を入力",
-              onChanged: onMaxValueChanged,
+            Align(
+              alignment: const Alignment(0, -0.1),
+              child: LabeledTextEditor(
+                width: 210,
+                title: "必要量",
+                initialValue: itemEdit.maxValue.toString(),
+                isNumeric: true,
+                placeholder: "必要量を入力",
+                onChanged: onMaxValueChanged,
+                validator: validatorMaxValue,
+              ),
             ),
-          ),
-          Align(
-            alignment: const Alignment(0, 0.20),
-            child: LabeledTextEditor(
-              title: "残りの量",
-              initialValue: itemEdit.remainingValue.toString(),
-              isNumeric: true,
-              placeholder: "残りの量を入力",
-              onChanged: onRemainingValueChanged,
+            Align(
+              alignment: const Alignment(0, 0.25),
+              child: LabeledTextEditor(
+                width: 210,
+                title: "残りの量",
+                initialValue: itemEdit.remainingValue.toString(),
+                isNumeric: true,
+                placeholder: "残りの量を入力",
+                onChanged: onRemainingValueChanged,
+                validator: validatorRemainingValue,
+              ),
             ),
-          ),
-          Align(
-            alignment: const Alignment(0, 0.4),
-            child: LabeledTextEditor(
-              title: "単位",
-              initialValue: itemEdit.unit,
-              isNumeric: false,
-              placeholder: "単位を入力",
-              onChanged: onUnitChanged,
+            Align(
+              alignment: const Alignment(0, 0.6),
+              child: LabeledTextEditor(
+                width: 210,
+                title: "単位",
+                initialValue: itemEdit.unit,
+                isNumeric: false,
+                placeholder: "単位を入力",
+                onChanged: onUnitChanged,
+                validator: validatorString,
+              ),
             ),
-          ),
-          Align(
-            alignment: const Alignment(0, 0.75),
-            child: itemEdit.id == null
-                ? AddButtonsSection(
-                    color: getDarkColor(categoryType),
-                    onCancellPressed: onCancellPressed,
-                    onAddPressed: onAddPressed,
-                  )
-                : UpdateButtonsSection(
-                    color: getDarkColor(categoryType),
-                    onCancellPressed: onCancellPressed,
-                    onDeletePressed: onDeletePressed,
-                    onUpdatePressed: onUpdatePressed,
-                  ),
-          ),
-        ],
+            Align(
+              alignment: const Alignment(0, 0.85),
+              child: itemEdit.id == null
+                  ? AddButtonsSection(
+                      color: getDarkColor(categoryType),
+                      onCancellPressed: onCancellPressed,
+                      onAddPressed: onAddPressed,
+                    )
+                  : UpdateButtonsSection(
+                      color: getDarkColor(categoryType),
+                      onCancellPressed: onCancellPressed,
+                      onDeletePressed: onDeletePressed,
+                      onUpdatePressed: onUpdatePressed,
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }
