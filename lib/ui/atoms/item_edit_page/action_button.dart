@@ -4,12 +4,14 @@ class ActionButton extends StatelessWidget {
   final String label;
   final Color color;
   final VoidCallback? onPressed;
+  final bool isActive;
 
   const ActionButton({
     Key? key,
     this.label = "",
     this.color = Colors.white,
     this.onPressed,
+    this.isActive = false,
   }) : super(key: key);
 
   @override
@@ -19,16 +21,19 @@ class ActionButton extends StatelessWidget {
       height: 45,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color, // 例: Colors.blue
-        ),
-        child: Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        style: buttonStyle(color, isActive),
+        child: Text(label, style: textStyle),
       ),
     );
   }
 }
+
+ButtonStyle buttonStyle(Color color, bool isActive) {
+  return ElevatedButton.styleFrom(
+    backgroundColor: isActive ? color : Colors.black26, // 例: Colors.blue
+  );
+}
+
+TextStyle textStyle = const TextStyle(
+  fontWeight: FontWeight.bold,
+);

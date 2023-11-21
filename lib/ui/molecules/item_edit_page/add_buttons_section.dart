@@ -5,12 +5,14 @@ class AddButtonsSection extends StatelessWidget {
   final Color color;
   final VoidCallback? onCancellPressed;
   final VoidCallback? onAddPressed;
+  final bool isActive;
 
   const AddButtonsSection({
     Key? key,
     this.color = Colors.white,
     this.onCancellPressed,
     this.onAddPressed,
+    this.isActive = false,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class AddButtonsSection extends StatelessWidget {
           label: "キャンセル",
           color: color,
           onPressed: onCancellPressed,
+          isActive: true,
         ),
         const SizedBox(
           width: 55,
@@ -31,6 +34,7 @@ class AddButtonsSection extends StatelessWidget {
           label: "保存",
           color: color,
           onPressed: onAddPressed,
+          isActive: isActive,
         ),
       ],
     );

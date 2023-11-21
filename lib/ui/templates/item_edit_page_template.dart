@@ -21,6 +21,10 @@ final itemEditProvider = StateProvider<Item>((ref) {
   return itemInit;
 });
 
+final isActiveProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 class ItemEditPageTemplate extends ConsumerWidget {
   final int categoryId;
   final String categoryType;
@@ -39,11 +43,13 @@ class ItemEditPageTemplate extends ConsumerWidget {
     final hikidashiOptins = ref.watch(hikidashiOptinsProvider);
     final shoppingPlaceOptions = ref.watch(shoppingPlaceOptinsProvider);
     final categories = ref.watch(categoriesProvider);
+    final isActive = ref.watch(isActiveProvider);
 
     void onNameChanged(String text) {
       final notifire = ref.read(itemEditProvider.notifier);
       notifire.state = itemEdit.copyWith(name: text);
       _formKey.currentState!.validate();
+      setIsActive(itemEdit.copyWith(name: text), ref);
     }
 
     void onHikidashiChanged(value) {
@@ -58,24 +64,28 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onMaxValueChanged(String text) {
       if (text == "") {
-        debugPrint("0! max");
         final notifire = ref.read(itemEditProvider.notifier);
-        notifire.state = itemEdit.copyWith(maxValue: 0);
+        notifire.state = itemEdit.copyWith(maxValue: -1);
+        setIsActive(itemEdit.copyWith(maxValue: -1), ref);
       } else {
+        final value = double.parse(text);
         final notifire = ref.read(itemEditProvider.notifier);
-        notifire.state = itemEdit.copyWith(maxValue: double.parse(text));
+        notifire.state = itemEdit.copyWith(maxValue: value);
+        setIsActive(itemEdit.copyWith(maxValue: value), ref);
       }
       _formKey.currentState!.validate();
     }
 
     void onRemainingValueChanged(String text) {
       if (text == "") {
-        debugPrint("0! rem");
         final notifire = ref.read(itemEditProvider.notifier);
-        notifire.state = itemEdit.copyWith(remainingValue: 0);
+        notifire.state = itemEdit.copyWith(remainingValue: -1);
+        setIsActive(itemEdit.copyWith(remainingValue: -1), ref);
       } else {
+        final value = double.parse(text);
         final notifire = ref.read(itemEditProvider.notifier);
-        notifire.state = itemEdit.copyWith(remainingValue: double.parse(text));
+        notifire.state = itemEdit.copyWith(remainingValue: value);
+        setIsActive(itemEdit.copyWith(remainingValue: value), ref);
       }
       _formKey.currentState!.validate();
     }
@@ -84,6 +94,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
       final notifire = ref.read(itemEditProvider.notifier);
       notifire.state = itemEdit.copyWith(unit: text);
       _formKey.currentState!.validate();
+      setIsActive(itemEdit.copyWith(unit: text), ref);
     }
 
     void onCancellPressed() {
@@ -91,16 +102,20 @@ class ItemEditPageTemplate extends ConsumerWidget {
     }
 
     void onAddPressed() {
-      addData(itemEdit);
-      afterItemAddSnackBar(
-        newItem: itemEdit,
-        initialItem: initialItem,
-        categoryType: categoryType,
-        categories: categories,
-        backgroundColor: Colors.blue,
-        context: context,
-      );
-      Navigator.pop(context);
+      if (isActive) {
+        addData(itemEdit);
+        afterItemAddSnackBar(
+          newItem: itemEdit,
+          initialItem: initialItem,
+          categoryType: categoryType,
+          categories: categories,
+          backgroundColor: Colors.blue,
+          context: context,
+        );
+        final notifire = ref.read(isActiveProvider.notifier);
+        notifire.state = false;
+        Navigator.pop(context);
+      }
     }
 
     void onDeletePressed() {
@@ -114,16 +129,20 @@ class ItemEditPageTemplate extends ConsumerWidget {
     }
 
     void onUpdatePressed() {
-      updateData(itemEdit);
-      afterItemEditSnackBar(
-        newItem: itemEdit,
-        initialItem: initialItem,
-        categoryType: categoryType,
-        categories: categories,
-        backgroundColor: Colors.blue,
-        context: context,
-      );
-      Navigator.pop(context);
+      if (isActive) {
+        updateData(itemEdit);
+        afterItemEditSnackBar(
+          newItem: itemEdit,
+          initialItem: initialItem,
+          categoryType: categoryType,
+          categories: categories,
+          backgroundColor: Colors.blue,
+          context: context,
+        );
+        final notifire = ref.read(isActiveProvider.notifier);
+        notifire.state = false;
+        Navigator.pop(context);
+      }
     }
 
     String? validatorString(String? value) {
@@ -243,12 +262,14 @@ class ItemEditPageTemplate extends ConsumerWidget {
                       color: getDarkColor(categoryType),
                       onCancellPressed: onCancellPressed,
                       onAddPressed: onAddPressed,
+                      isActive: isActive,
                     )
                   : UpdateButtonsSection(
                       color: getDarkColor(categoryType),
                       onCancellPressed: onCancellPressed,
                       onDeletePressed: onDeletePressed,
                       onUpdatePressed: onUpdatePressed,
+                      isActive: isActive,
                     ),
             ),
           ],
@@ -283,4 +304,47 @@ List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
       )
       .toList();
   return optionItems;
+}
+
+void initializeIsActive(int? id, WidgetRef ref) {
+  if (id == null) {
+    final notifire = ref.read(isActiveProvider.notifier);
+    notifire.state = false;
+  } else {
+    final notifire = ref.read(isActiveProvider.notifier);
+    notifire.state = true;
+  }
+}
+
+void setIsActive(Item itemEdit, WidgetRef ref) {
+  final notifire = ref.read(isActiveProvider.notifier);
+  var isActive = true;
+
+  // string empty check
+  if (itemEdit.name == "" || itemEdit.unit == "") {
+    isActive = false;
+  }
+
+  // string length check
+  if (itemEdit.name.length > textLengthLimit ||
+      itemEdit.unit.length > textLengthLimit) {
+    isActive = false;
+  }
+
+  // numeric empth check
+  if (itemEdit.remainingValue < 0 || itemEdit.remainingValue < 0) {
+    isActive = false;
+  }
+
+  // numeric < 99 check
+  if (itemEdit.remainingValue > 99 || itemEdit.maxValue > 99) {
+    isActive = false;
+  }
+
+  // maxValue > remainingValue check
+  if (itemEdit.maxValue < itemEdit.remainingValue) {
+    isActive = false;
+  }
+
+  notifire.state = isActive;
 }
