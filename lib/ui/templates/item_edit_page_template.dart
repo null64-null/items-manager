@@ -296,9 +296,15 @@ List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
       .map(
         (e) => DropdownMenuItem(
           value: e.id,
-          child: Text(
-            e.name,
-            style: const TextStyle(fontSize: 25),
+          child: SizedBox(
+            width: 160,
+            child: Text(
+              e.name,
+              style: const TextStyle(
+                fontSize: 20,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
         ),
       )
