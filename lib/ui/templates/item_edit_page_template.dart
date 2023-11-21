@@ -109,7 +109,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
           initialItem: initialItem,
           categoryType: categoryType,
           categories: categories,
-          backgroundColor: Colors.blue,
+          backgroundColor: getDarkColor(categoryType),
           context: context,
         );
         final notifire = ref.read(isActiveProvider.notifier);
@@ -123,7 +123,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
       afterItemDeleteSnackBar(
         newItem: itemEdit,
         context: context,
-        backgroundColor: Colors.blue,
+        backgroundColor: getDarkColor(categoryType),
       );
       Navigator.pop(context);
     }
@@ -136,7 +136,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
           initialItem: initialItem,
           categoryType: categoryType,
           categories: categories,
-          backgroundColor: Colors.blue,
+          backgroundColor: getDarkColor(categoryType),
           context: context,
         );
         final notifire = ref.read(isActiveProvider.notifier);
