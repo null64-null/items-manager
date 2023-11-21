@@ -25,18 +25,48 @@ class CategoriesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categories = ref.watch(categoriesProvider);
-    final notificationsArray = ref.watch(notificationsArrayProvider);
-    getData(categoryType, ref);
-    getNotificationsArray(categories, categoryType, ref);
+    return FutureBuilder<void>(
+      future: fetchData(ref),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          final categories = ref.watch(categoriesProvider);
+          final notificationsArray = ref.watch(notificationsArrayProvider);
 
-    return CategoriesPageTemplate(
-      categoryType: categoryType,
-      categories: categories,
-      notificationsArray: notificationsArray,
-      appBarColor: getColor(categoryType),
-      buttonColor: getColor(categoryType),
+          return CategoriesPageTemplate(
+            categoryType: categoryType,
+            categories: categories,
+            notificationsArray: notificationsArray,
+            appBarColor: getColor(categoryType),
+            buttonColor: getColor(categoryType),
+          );
+        }
+      },
     );
+  }
+
+  Future<void> fetchData(WidgetRef ref) async {
+    switch (categoryType) {
+      case "hikidashi":
+        final hikidashiCategorys = await getHikidashis();
+        final notifier = ref.read(categoriesProvider.notifier);
+        notifier.state = hikidashiCategorys;
+        break;
+      case "shoppingPlace":
+        final shoppingPlaceCategorys = await getShoppingPlaces();
+        final notifier = ref.read(categoriesProvider.notifier);
+        notifier.state = shoppingPlaceCategorys;
+        break;
+      default:
+        debugPrint("category type error");
+    }
+
+    final categories = ref.watch(categoriesProvider);
+    final notifier = ref.read(notificationsArrayProvider.notifier);
+    notifier.state = await getNotifications(categories, categoryType);
   }
 }
 
@@ -46,20 +76,13 @@ Future<void> getData(String categoryType, WidgetRef ref) async {
       final hikidashiCategorys = await getHikidashis();
       final notifire = ref.read(categoriesProvider.notifier);
       notifire.state = hikidashiCategorys;
+      break;
     case "shoppingPlace":
       final shoppingPlaceCategorys = await getShoppingPlaces();
       final notifire = ref.read(categoriesProvider.notifier);
       notifire.state = shoppingPlaceCategorys;
+      break;
     default:
       debugPrint("category type error");
   }
-}
-
-Future<void> getNotificationsArray(
-  List<Category> categories,
-  String categoryType,
-  WidgetRef ref,
-) async {
-  final notifire = ref.read(notificationsArrayProvider.notifier);
-  notifire.state = await getNotifications(categories, categoryType);
 }

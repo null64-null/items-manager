@@ -38,11 +38,11 @@ class CategoriesPageTemplate extends ConsumerWidget {
             children: List.generate(categories.length, (index) {
               final category = categories[index];
               // error now
-              //final notifications = notificationsArray[index];
+              final notifications = notificationsArray[index];
               return CategoryButton(
                 category: category,
                 categoryType: categoryType,
-                notifications: 0,
+                notifications: notifications,
               );
             }),
           )
