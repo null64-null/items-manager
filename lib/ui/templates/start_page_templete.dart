@@ -54,3 +54,34 @@ TextStyle titleTextStyle = const TextStyle(
   fontSize: 50,
   fontWeight: FontWeight.w400,
 );
+
+// for new page check
+/*
+void transferToCategoryPage(BuildContext context, String categoryType) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const LoadingErrorPage(
+        appBarColor: Colors.blue,
+        title: "sample",
+        errorMessage: "erroe!",
+      ),
+    ),
+  );
+}
+*/
+
+/*
+void transferToCategoryPage(BuildContext context, String categoryType) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const LoadingPage(
+        appBarColor: Colors.blue,
+        title: "sample",
+        indicatorColor: Colors.blue,
+      ),
+    ),
+  );
+}
+*/

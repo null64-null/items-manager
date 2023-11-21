@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_app/util/functions/get_title.dart';
+import './loading_page.dart';
+import './loading_error_page.dart';
 import 'package:test_app/ui/templates/categories_page_template.dart';
 import '../../db/basic_crud.dart';
 import '../../db/category_notification_setting.dart';
@@ -29,9 +32,17 @@ class CategoriesPage extends ConsumerWidget {
       future: fetchData(ref),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return LoadingPage(
+            title: getTitle(categoryType),
+            appBarColor: getColor(categoryType),
+            indicatorColor: getDarkColor(categoryType),
+          );
         } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+          return LoadingErrorPage(
+            title: getTitle(categoryType),
+            appBarColor: getColor(categoryType),
+            errorMessage: 'Error: ${snapshot.error}',
+          );
         } else {
           final categories = ref.watch(categoriesProvider);
           final notificationsArray = ref.watch(notificationsArrayProvider);
