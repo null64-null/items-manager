@@ -73,7 +73,7 @@ class CategoryButton extends ConsumerWidget {
 
     return BadgeButton(
       label: category.name,
-      color: getColor(categoryType),
+      color: category.id == null ? Colors.grey[300]! : getColor(categoryType),
       notifications: notifications,
       onPressed: onPressed,
       onLongPressed: onLongPressed,
