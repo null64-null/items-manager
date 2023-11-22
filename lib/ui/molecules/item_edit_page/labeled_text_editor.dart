@@ -7,6 +7,7 @@ class LabeledTextEditor extends StatelessWidget {
   final String initialValue;
   final ValueChanged<String>? onChanged;
   final bool isNumeric;
+  final String? Function(String?)? validator;
   final String? placeholder;
   final double? width;
 
@@ -16,6 +17,7 @@ class LabeledTextEditor extends StatelessWidget {
     this.initialValue = "",
     this.onChanged,
     this.isNumeric = false,
+    this.validator,
     this.placeholder,
     this.width,
   }) : super(key: key);
@@ -37,6 +39,7 @@ class LabeledTextEditor extends StatelessWidget {
           initialValue: initialValue,
           onChanged: onChanged,
           isNumeric: isNumeric,
+          validator: validator,
           placeholder: placeholder,
           width: width,
         ),

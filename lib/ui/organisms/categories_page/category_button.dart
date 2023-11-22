@@ -5,7 +5,7 @@ import './category_edit_dialog.dart';
 import '../../pages/items_page.dart';
 import '../../../util/classes/category.dart';
 import '../../../util/functions/get_color.dart';
-import '../../../util/values.dart/initial_values.dart';
+import '../../../util/values/initial_values.dart';
 
 final formTextProvider = StateProvider<String>((ref) {
   return "";
@@ -34,7 +34,7 @@ class CategoryButton extends ConsumerWidget {
           MaterialPageRoute(
             builder: (context) => ItemsPage(
               categoryType: "hikidashi",
-              categoryId: category.id!,
+              categoryId: category.id,
               categoryName: category.name,
             ),
           ),
@@ -46,7 +46,7 @@ class CategoryButton extends ConsumerWidget {
           MaterialPageRoute(
             builder: (context) => ItemsPage(
               categoryType: "shoppingPlace",
-              categoryId: category.id!,
+              categoryId: category.id,
               categoryName: category.name,
             ),
           ),
@@ -55,23 +55,25 @@ class CategoryButton extends ConsumerWidget {
     }
 
     void onLongPressed() {
-      final notifire = ref.read(formTextProvider.notifier);
-      notifire.state = category.name;
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) {
-          return CategoryEditDialog(
-            categoryType: categoryType,
-            categoryId: category.id!,
-          );
-        },
-      );
+      if (category.id != null) {
+        final notifire = ref.read(formTextProvider.notifier);
+        notifire.state = category.name;
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) {
+            return CategoryEditDialog(
+              categoryType: categoryType,
+              categoryId: category.id!,
+            );
+          },
+        );
+      }
     }
 
     return BadgeButton(
       label: category.name,
-      color: getColor(categoryType),
+      color: category.id == null ? Colors.grey[300]! : getColor(categoryType),
       notifications: notifications,
       onPressed: onPressed,
       onLongPressed: onLongPressed,

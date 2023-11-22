@@ -5,7 +5,7 @@ import '../organisms/categories_page/category_button.dart';
 import '../organisms/categories_page/add_category_button.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
-import '../../util/values.dart/initial_values.dart';
+import '../../util/values/initial_values.dart';
 
 class CategoriesPageTemplate extends ConsumerWidget {
   final String categoryType;
@@ -37,12 +37,11 @@ class CategoriesPageTemplate extends ConsumerWidget {
             crossAxisCount: 2,
             children: List.generate(categories.length, (index) {
               final category = categories[index];
-              // error now
-              //final notifications = notificationsArray[index];
+              final notifications = notificationsArray[index];
               return CategoryButton(
                 category: category,
                 categoryType: categoryType,
-                notifications: 0,
+                notifications: notifications,
               );
             }),
           )

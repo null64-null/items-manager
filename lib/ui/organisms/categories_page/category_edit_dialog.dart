@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_app/util/values.dart/initial_values.dart';
+import 'package:test_app/util/values/initial_values.dart';
 import '../../molecules/categories_page/edit_dialog.dart';
 import './category_button.dart';
 import '../../pages/categories_page.dart';
@@ -9,6 +9,9 @@ import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
 import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
+import '../../../db/delete_category_id.dart';
+
+final _formKey = GlobalKey<FormState>();
 
 final isUpdatableProvider = StateProvider<bool>((ref) {
   return true;
@@ -45,6 +48,7 @@ class CategoryEditDialog extends ConsumerWidget {
       } else {
         notifireIsUpdatable.state = true;
       }
+      _formKey.currentState!.validate();
     }
 
     void onTapCancell() {
@@ -52,11 +56,11 @@ class CategoryEditDialog extends ConsumerWidget {
     }
 
     Future<void> onTapDelete() async {
-      await deleteData(categoryId, categoryType);
-      await getData(categoryType, ref);
+      await deleteData(categoryId, categoryType, ref);
       Future.delayed(Duration.zero, () {
         final notifier = ref.read(isUpdatableProvider.notifier);
         notifier.state = false;
+
         Navigator.pop(context);
       });
     }
@@ -68,8 +72,7 @@ class CategoryEditDialog extends ConsumerWidget {
           name: formText,
           notifications: category.notifications,
         );
-        await updateData(newCategory, categoryType);
-        await getData(categoryType, ref);
+        await updateData(newCategory, categoryType, ref);
         Future.delayed(Duration.zero, () {
           Navigator.pop(context);
         });
@@ -86,36 +89,62 @@ class CategoryEditDialog extends ConsumerWidget {
       }
     }
 
-    return EditDialog(
-      title: '${getTitle(categoryType)}を編集',
-      formLabel: '${getTitle(categoryType)}名',
-      buttonColor: getDarkColor(categoryType),
-      initialValue: category.name,
-      isUpdatable: isUpdatable,
-      onChanged: onChanged,
-      onTapCancell: onTapCancell,
-      onTapDelete: onTapDelete,
-      onTapUpdate: onTapUpdate,
-      validator: validator,
+    return Form(
+      key: _formKey,
+      child: EditDialog(
+        title: '${getTitle(categoryType)}を編集',
+        formLabel: '${getTitle(categoryType)}名',
+        buttonColor: getDarkColor(categoryType),
+        initialValue: category.name,
+        isUpdatable: isUpdatable,
+        onChanged: onChanged,
+        onTapCancell: onTapCancell,
+        onTapDelete: onTapDelete,
+        onTapUpdate: onTapUpdate,
+        validator: validator,
+      ),
     );
   }
 }
 
-Future<void> updateData(Category newCategory, String categoryType) async {
+Future<void> updateData(
+    Category newCategory, String categoryType, WidgetRef ref) async {
   if (categoryType == "hikidashi") {
     await updateHikidashi(newCategory);
   }
   if (categoryType == "shoppingPlace") {
     await updateShoppingPlace(newCategory);
   }
+
+  fetchData(categoryType, ref);
 }
 
-Future<void> deleteData(int categoryId, String categoryType) async {
+Future<void> deleteData(
+    int categoryId, String categoryType, WidgetRef ref) async {
   if (categoryType == "hikidashi") {
     await deleteHikidashi(categoryId);
   }
   if (categoryType == "shoppingPlace") {
     await deleteShoppingPlace(categoryId);
+  }
+  await deleteCategoryId(categoryId, categoryType);
+  await fetchData(categoryType, ref);
+}
+
+Future<void> fetchData(String categoryType, WidgetRef ref) async {
+  switch (categoryType) {
+    case "hikidashi":
+      final hikidashiCategorys = await getHikidashis();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = hikidashiCategorys;
+      break;
+    case "shoppingPlace":
+      final shoppingPlaceCategorys = await getShoppingPlaces();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = shoppingPlaceCategorys;
+      break;
+    default:
+      debugPrint("category type error");
   }
 }
 

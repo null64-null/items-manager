@@ -6,6 +6,7 @@ class UpdateButtonsSection extends StatelessWidget {
   final VoidCallback? onCancellPressed;
   final VoidCallback? onDeletePressed;
   final VoidCallback? onUpdatePressed;
+  final bool isActive;
 
   const UpdateButtonsSection({
     Key? key,
@@ -13,6 +14,7 @@ class UpdateButtonsSection extends StatelessWidget {
     this.onCancellPressed,
     this.onDeletePressed,
     this.onUpdatePressed,
+    this.isActive = false,
   }) : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class UpdateButtonsSection extends StatelessWidget {
           label: "キャンセル",
           color: color,
           onPressed: onCancellPressed,
+          isActive: true,
         ),
         const SizedBox(
           width: 20,
@@ -33,6 +36,7 @@ class UpdateButtonsSection extends StatelessWidget {
           label: "削除",
           color: Colors.red,
           onPressed: onDeletePressed,
+          isActive: true,
         ),
         const SizedBox(
           width: 20,
@@ -41,6 +45,7 @@ class UpdateButtonsSection extends StatelessWidget {
           label: "保存",
           color: color,
           onPressed: onUpdatePressed,
+          isActive: isActive,
         ),
       ],
     );
