@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import '../../util/classes/category.dart';
+import '../util/classes/category.dart';
 
 Future<List<int>> getNotifications(
   List<Category> categories,

@@ -55,8 +55,7 @@ class CategoryEditDialog extends ConsumerWidget {
     }
 
     Future<void> onTapDelete() async {
-      await deleteData(categoryId, categoryType);
-      await getData(categoryType, ref);
+      await deleteData(categoryId, categoryType, ref);
       Future.delayed(Duration.zero, () {
         final notifier = ref.read(isUpdatableProvider.notifier);
         notifier.state = false;
@@ -71,8 +70,7 @@ class CategoryEditDialog extends ConsumerWidget {
           name: formText,
           notifications: category.notifications,
         );
-        await updateData(newCategory, categoryType);
-        await getData(categoryType, ref);
+        await updateData(newCategory, categoryType, ref);
         Future.delayed(Duration.zero, () {
           Navigator.pop(context);
         });
@@ -107,21 +105,44 @@ class CategoryEditDialog extends ConsumerWidget {
   }
 }
 
-Future<void> updateData(Category newCategory, String categoryType) async {
+Future<void> updateData(
+    Category newCategory, String categoryType, WidgetRef ref) async {
   if (categoryType == "hikidashi") {
     await updateHikidashi(newCategory);
   }
   if (categoryType == "shoppingPlace") {
     await updateShoppingPlace(newCategory);
   }
+
+  fetchData(categoryType, ref);
 }
 
-Future<void> deleteData(int categoryId, String categoryType) async {
+Future<void> deleteData(
+    int categoryId, String categoryType, WidgetRef ref) async {
   if (categoryType == "hikidashi") {
     await deleteHikidashi(categoryId);
   }
   if (categoryType == "shoppingPlace") {
     await deleteShoppingPlace(categoryId);
+  }
+
+  fetchData(categoryType, ref);
+}
+
+Future<void> fetchData(String categoryType, WidgetRef ref) async {
+  switch (categoryType) {
+    case "hikidashi":
+      final hikidashiCategorys = await getHikidashis();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = hikidashiCategorys;
+      break;
+    case "shoppingPlace":
+      final shoppingPlaceCategorys = await getShoppingPlaces();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = shoppingPlaceCategorys;
+      break;
+    default:
+      debugPrint("category type error");
   }
 }
 

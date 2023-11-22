@@ -5,7 +5,7 @@ import './loading/loading_page.dart';
 import './loading/loading_error_page.dart';
 import 'package:test_app/ui/templates/categories_page_template.dart';
 import '../../db/basic_crud.dart';
-import '../../db/category/get_notifications.dart';
+import '../../db/get_notifications.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/values.dart/initial_values.dart';
@@ -78,22 +78,5 @@ class CategoriesPage extends ConsumerWidget {
     final categories = ref.watch(categoriesProvider);
     final notifier = ref.read(notificationsArrayProvider.notifier);
     notifier.state = await getNotifications(categories, categoryType);
-  }
-}
-
-Future<void> getData(String categoryType, WidgetRef ref) async {
-  switch (categoryType) {
-    case "hikidashi":
-      final hikidashiCategorys = await getHikidashis();
-      final notifire = ref.read(categoriesProvider.notifier);
-      notifire.state = hikidashiCategorys;
-      break;
-    case "shoppingPlace":
-      final shoppingPlaceCategorys = await getShoppingPlaces();
-      final notifire = ref.read(categoriesProvider.notifier);
-      notifire.state = shoppingPlaceCategorys;
-      break;
-    default:
-      debugPrint("category type error");
   }
 }

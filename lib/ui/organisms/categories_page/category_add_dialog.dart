@@ -51,8 +51,7 @@ class CategoryAddDialog extends ConsumerWidget {
     Future<void> onTapAdd() async {
       if (isAddable) {
         var newCategory = Category(name: formText);
-        await insertData(newCategory, categoryType);
-        await getData(categoryType, ref);
+        await addData(newCategory, categoryType, ref);
         Future.delayed(Duration.zero, () {
           final notifier = ref.read(isAddableProvider.notifier);
           notifier.state = false;
@@ -88,12 +87,32 @@ class CategoryAddDialog extends ConsumerWidget {
   }
 }
 
-Future<void> insertData(Category newCategory, String categoryType) async {
+Future<void> addData(
+    Category newCategory, String categoryType, WidgetRef ref) async {
   if (categoryType == "hikidashi") {
     await insertHikidashi(newCategory);
   }
   if (categoryType == "shoppingPlace") {
     await insertShoppingPlace(newCategory);
+  }
+
+  fetchData(categoryType, ref);
+}
+
+Future<void> fetchData(String categoryType, WidgetRef ref) async {
+  switch (categoryType) {
+    case "hikidashi":
+      final hikidashiCategorys = await getHikidashis();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = hikidashiCategorys;
+      break;
+    case "shoppingPlace":
+      final shoppingPlaceCategorys = await getShoppingPlaces();
+      final notifire = ref.read(categoriesProvider.notifier);
+      notifire.state = shoppingPlaceCategorys;
+      break;
+    default:
+      debugPrint("category type error");
   }
 }
 

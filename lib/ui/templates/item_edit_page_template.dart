@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_app/util/snack_bar/item_edit_page/after_item_edit_page_snack_bar.dart';
 import '../atoms/app_bar.dart';
 import '../molecules/item_edit_page/add_buttons_section.dart';
 import '../molecules/item_edit_page/labeled_select_form.dart';
 import '../molecules/item_edit_page/labeled_text_editor.dart';
 import '../molecules/item_edit_page/update_buttons_section.dart';
 import '../pages/categories_page.dart';
+import '../pages/items_page.dart';
 import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/values.dart/initial_values.dart';
 import '../../util/developper_setting/values.dart';
+import '../../util/snack_bar/item_edit_page/after_item_edit_page_snack_bar.dart';
 import '../../db/basic_crud.dart';
 
 final _formKey = GlobalKey<FormState>();
@@ -103,7 +104,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onAddPressed() {
       if (isActive) {
-        addData(itemEdit);
+        addData(itemEdit, ref);
         afterItemAddSnackBar(
           newItem: itemEdit,
           initialItem: initialItem,
@@ -119,7 +120,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
     }
 
     void onDeletePressed() {
-      deleteData(itemEdit.id!);
+      deleteData(itemEdit.id!, ref);
       afterItemDeleteSnackBar(
         newItem: itemEdit,
         context: context,
@@ -130,7 +131,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onUpdatePressed() {
       if (isActive) {
-        updateData(itemEdit);
+        updateData(itemEdit, ref);
         afterItemEditSnackBar(
           newItem: itemEdit,
           initialItem: initialItem,
@@ -279,16 +280,25 @@ class ItemEditPageTemplate extends ConsumerWidget {
   }
 }
 
-Future<void> addData(Item item) async {
+Future<void> addData(Item item, WidgetRef ref) async {
   await insertItem(item);
+  await fetchData(ref);
 }
 
-Future<void> updateData(Item item) async {
+Future<void> updateData(Item item, WidgetRef ref) async {
   await updateItem(item);
+  await fetchData(ref);
 }
 
-Future<void> deleteData(int id) async {
+Future<void> deleteData(int id, WidgetRef ref) async {
   await deleteItem(id);
+  await fetchData(ref);
+}
+
+Future<void> fetchData(WidgetRef ref) async {
+  final notifire = ref.read(itemsProvider.notifier);
+  final newItems = await getItems();
+  notifire.state = newItems;
 }
 
 List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {
