@@ -5,6 +5,7 @@ import '../molecules/item_edit_page/add_buttons_section.dart';
 import '../molecules/item_edit_page/labeled_select_form.dart';
 import '../molecules/item_edit_page/labeled_text_editor.dart';
 import '../molecules/item_edit_page/update_buttons_section.dart';
+import '../organisms/item_edit_page/delete_confirmation_dialog.dart';
 import '../pages/categories_page.dart';
 import '../pages/items_page.dart';
 import '../pages/item_edit_page.dart';
@@ -120,13 +121,29 @@ class ItemEditPageTemplate extends ConsumerWidget {
     }
 
     void onDeletePressed() {
-      deleteData(itemEdit.id!, ref);
-      afterItemDeleteSnackBar(
-        newItem: itemEdit,
+      showDialog(
         context: context,
-        backgroundColor: getDarkColor(categoryType),
+        barrierDismissible: false,
+        builder: (_) {
+          return DeleteConfirmationDialog(
+            itemName: initialItem.name,
+            buttonColor: getDarkColor(categoryType),
+            onTapCancell: () {
+              Navigator.pop(context);
+            },
+            onTapDelete: () {
+              deleteData(itemEdit.id!, ref);
+              afterItemDeleteSnackBar(
+                newItem: itemEdit,
+                context: context,
+                backgroundColor: getDarkColor(categoryType),
+              );
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+          );
+        },
       );
-      Navigator.pop(context);
     }
 
     void onUpdatePressed() {
