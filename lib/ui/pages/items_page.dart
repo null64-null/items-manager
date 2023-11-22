@@ -4,7 +4,7 @@ import './loading/loading_page.dart';
 import './loading/loading_error_page.dart';
 import '../templates/items_page_template.dart';
 import '../../util/classes/items.dart';
-import '../../util/values_dart/initial_values.dart';
+import '../../util/values/initial_values.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/functions/get_title.dart';
 import '../../db/basic_crud.dart';

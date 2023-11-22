@@ -5,7 +5,7 @@ import './category_edit_dialog.dart';
 import '../../pages/items_page.dart';
 import '../../../util/classes/category.dart';
 import '../../../util/functions/get_color.dart';
-import '../../../util/values_dart/initial_values.dart';
+import '../../../util/values/initial_values.dart';
 
 final formTextProvider = StateProvider<String>((ref) {
   return "";

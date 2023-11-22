@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_app/util/values_dart/initial_values.dart';
+import 'package:test_app/util/values/initial_values.dart';
 import '../../molecules/categories_page/edit_dialog.dart';
 import './category_button.dart';
 import '../../pages/categories_page.dart';

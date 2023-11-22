@@ -7,7 +7,7 @@ import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/functions/get_title.dart';
-import '../../util/values_dart/initial_values.dart';
+import '../../util/values/initial_values.dart';
 import '../../db/basic_crud.dart';
 
 final hikidashiOptinsProvider = StateProvider<List<Category>>((ref) {
