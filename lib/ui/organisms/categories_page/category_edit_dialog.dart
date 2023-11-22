@@ -9,6 +9,7 @@ import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
 import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
+import '../../../db/delete_category_id.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -59,6 +60,7 @@ class CategoryEditDialog extends ConsumerWidget {
       Future.delayed(Duration.zero, () {
         final notifier = ref.read(isUpdatableProvider.notifier);
         notifier.state = false;
+
         Navigator.pop(context);
       });
     }
@@ -125,8 +127,8 @@ Future<void> deleteData(
   if (categoryType == "shoppingPlace") {
     await deleteShoppingPlace(categoryId);
   }
-
-  fetchData(categoryType, ref);
+  await deleteCategoryId(categoryId, categoryType);
+  await fetchData(categoryType, ref);
 }
 
 Future<void> fetchData(String categoryType, WidgetRef ref) async {
