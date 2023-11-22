@@ -34,7 +34,7 @@ class CategoryButton extends ConsumerWidget {
           MaterialPageRoute(
             builder: (context) => ItemsPage(
               categoryType: "hikidashi",
-              categoryId: category.id!,
+              categoryId: category.id,
               categoryName: category.name,
             ),
           ),
@@ -46,7 +46,7 @@ class CategoryButton extends ConsumerWidget {
           MaterialPageRoute(
             builder: (context) => ItemsPage(
               categoryType: "shoppingPlace",
-              categoryId: category.id!,
+              categoryId: category.id,
               categoryName: category.name,
             ),
           ),
@@ -55,18 +55,20 @@ class CategoryButton extends ConsumerWidget {
     }
 
     void onLongPressed() {
-      final notifire = ref.read(formTextProvider.notifier);
-      notifire.state = category.name;
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) {
-          return CategoryEditDialog(
-            categoryType: categoryType,
-            categoryId: category.id!,
-          );
-        },
-      );
+      if (category.id != null) {
+        final notifire = ref.read(formTextProvider.notifier);
+        notifire.state = category.name;
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) {
+            return CategoryEditDialog(
+              categoryType: categoryType,
+              categoryId: category.id!,
+            );
+          },
+        );
+      }
     }
 
     return BadgeButton(

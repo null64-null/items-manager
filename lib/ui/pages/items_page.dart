@@ -15,13 +15,13 @@ final itemsProvider = StateProvider<List<Item>>((ref) {
 
 class ItemsPage extends ConsumerWidget {
   final String categoryType;
-  final int categoryId;
+  final int? categoryId;
   final String categoryName;
 
   const ItemsPage({
     Key? key,
     this.categoryType = "",
-    this.categoryId = 0,
+    this.categoryId,
     this.categoryName = "",
   }) : super(key: key);
 

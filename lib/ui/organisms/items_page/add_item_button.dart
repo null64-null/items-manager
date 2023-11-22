@@ -9,12 +9,12 @@ import '../../../util/values.dart/initial_values.dart';
 
 class AddItemButton extends ConsumerWidget {
   final String categoryType;
-  final int categoryId;
+  final int? categoryId;
 
   const AddItemButton({
     Key? key,
     this.categoryType = "",
-    this.categoryId = 0,
+    this.categoryId,
   }) : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class AddItemButton extends ConsumerWidget {
   }
 }
 
-void itemEditInitialize(String categoryType, int categoryId, WidgetRef ref) {
+void itemEditInitialize(String categoryType, int? categoryId, WidgetRef ref) {
   final notifier = ref.read(itemEditProvider.notifier);
   const initialValue = Item(
     name: "",
@@ -59,7 +59,7 @@ void itemEditInitialize(String categoryType, int categoryId, WidgetRef ref) {
   }
 }
 
-Item initialItem(String categoryType, int categoryId) {
+Item initialItem(String categoryType, int? categoryId) {
   if (categoryType == "hikidashi") {
     return itemInit.copyWith(hikidashiId: categoryId);
   }

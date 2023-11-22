@@ -9,14 +9,14 @@ import '../../util/functions/get_color.dart';
 class ItemsPageTemplate extends ConsumerWidget {
   final String pageTitle;
   final String categoryType;
-  final int categoryId;
+  final int? categoryId;
   final List<Item>? items;
 
   const ItemsPageTemplate({
     Key? key,
     this.pageTitle = "",
     this.categoryType = "",
-    this.categoryId = 0,
+    this.categoryId,
     this.items,
   }) : super(key: key);
 

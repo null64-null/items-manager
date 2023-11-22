@@ -9,13 +9,13 @@ import '../../../util/values.dart/initial_values.dart';
 class ItemStatusButton extends ConsumerWidget {
   final Item item;
   final String categoryType;
-  final int categoryId;
+  final int? categoryId;
 
   const ItemStatusButton({
     Key? key,
     this.item = itemInit,
     this.categoryType = "",
-    this.categoryId = 0,
+    this.categoryId,
   }) : super(key: key);
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_app/util/dummy_data/dummy_data.dart';
 import 'package:test_app/util/functions/get_title.dart';
 import './loading/loading_page.dart';
 import './loading/loading_error_page.dart';

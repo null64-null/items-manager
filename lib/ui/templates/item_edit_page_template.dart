@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_app/db/get_notifications.dart';
 import '../atoms/app_bar.dart';
 import '../molecules/item_edit_page/add_buttons_section.dart';
 import '../molecules/item_edit_page/labeled_select_form.dart';
@@ -28,13 +29,11 @@ final isActiveProvider = StateProvider<bool>((ref) {
 });
 
 class ItemEditPageTemplate extends ConsumerWidget {
-  final int categoryId;
   final String categoryType;
   final Item initialItem;
 
   const ItemEditPageTemplate({
     Key? key,
-    this.categoryId = 0,
     this.categoryType = "",
     this.initialItem = itemInit,
   }) : super(key: key);
@@ -105,7 +104,12 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onAddPressed() {
       if (isActive) {
-        addData(itemEdit, ref);
+        addData(
+          item: itemEdit,
+          categories: categories,
+          categoryType: categoryType,
+          ref: ref,
+        );
         afterItemAddSnackBar(
           newItem: itemEdit,
           initialItem: initialItem,
@@ -132,7 +136,12 @@ class ItemEditPageTemplate extends ConsumerWidget {
               Navigator.pop(context);
             },
             onTapDelete: () {
-              deleteData(itemEdit.id!, ref);
+              deleteData(
+                id: itemEdit.id!,
+                categories: categories,
+                categoryType: categoryType,
+                ref: ref,
+              );
               afterItemDeleteSnackBar(
                 newItem: itemEdit,
                 context: context,
@@ -148,7 +157,12 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onUpdatePressed() {
       if (isActive) {
-        updateData(itemEdit, ref);
+        updateData(
+          item: itemEdit,
+          categories: categories,
+          categoryType: categoryType,
+          ref: ref,
+        );
         afterItemEditSnackBar(
           newItem: itemEdit,
           initialItem: initialItem,
@@ -297,25 +311,62 @@ class ItemEditPageTemplate extends ConsumerWidget {
   }
 }
 
-Future<void> addData(Item item, WidgetRef ref) async {
+Future<void> addData({
+  required Item item,
+  required List<Category> categories,
+  required String categoryType,
+  required WidgetRef ref,
+}) async {
   await insertItem(item);
-  await fetchData(ref);
+  await fetchData(
+    categories: categories,
+    categoryType: categoryType,
+    ref: ref,
+  );
 }
 
-Future<void> updateData(Item item, WidgetRef ref) async {
+Future<void> updateData({
+  required Item item,
+  required List<Category> categories,
+  required String categoryType,
+  required WidgetRef ref,
+}) async {
   await updateItem(item);
-  await fetchData(ref);
+  await fetchData(
+    categories: categories,
+    categoryType: categoryType,
+    ref: ref,
+  );
 }
 
-Future<void> deleteData(int id, WidgetRef ref) async {
+Future<void> deleteData({
+  required id,
+  required List<Category> categories,
+  required String categoryType,
+  required WidgetRef ref,
+}) async {
   await deleteItem(id);
-  await fetchData(ref);
+  await fetchData(
+    categories: categories,
+    categoryType: categoryType,
+    ref: ref,
+  );
 }
 
-Future<void> fetchData(WidgetRef ref) async {
-  final notifire = ref.read(itemsProvider.notifier);
+Future<void> fetchData({
+  required List<Category> categories,
+  required String categoryType,
+  required WidgetRef ref,
+}) async {
+  final itemsNotifire = ref.read(itemsProvider.notifier);
   final newItems = await getItems();
-  notifire.state = newItems;
+  itemsNotifire.state = newItems;
+
+  final notificationsArrayNotifire =
+      ref.read(notificationsArrayProvider.notifier);
+  final newNotificationsArray =
+      await getNotifications(categories, categoryType);
+  notificationsArrayNotifire.state = newNotificationsArray;
 }
 
 List<DropdownMenuItem<dynamic>>? optionItems(List<Category> options) {

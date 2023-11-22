@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../util/classes/category.dart';
@@ -18,13 +19,15 @@ Future<List<Category>> getHikidashis() async {
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query('hikidashis');
-  return List.generate(maps.length, (index) {
+  final categories = List.generate(maps.length, (index) {
     return Category(
       id: maps[index]['id'],
       name: maps[index]['name'],
       notifications: maps[index]['notifications'],
     );
   });
+  categories.add(const Category(name: "未分類"));
+  return categories;
 }
 
 // edit
@@ -79,13 +82,15 @@ Future<List<Category>> getShoppingPlaces() async {
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query('shopping_places');
-  return List.generate(maps.length, (index) {
+  final categories = List.generate(maps.length, (index) {
     return Category(
       id: maps[index]['id'],
       name: maps[index]['name'],
       notifications: maps[index]['notifications'],
     );
   });
+  categories.add(const Category(name: "未分類"));
+  return categories;
 }
 
 // edit
@@ -154,14 +159,14 @@ Future<List<Item>> getItems() async {
 }
 
 // get (from hikidashis page)
-Future<List<Item>> getItemsFromHikidashi(int hikidashiId) async {
+Future<List<Item>> getItemsFromHikidashi(int? hikidashiId) async {
   final Database db = await openDatabase(
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query(
     'items',
-    where: 'hikidashi_id = ?',
-    whereArgs: [hikidashiId],
+    where: hikidashiId == null ? 'hikidashi_id IS NULL' : 'hikidashi_id = ?',
+    whereArgs: hikidashiId == null ? null : [hikidashiId],
   );
   return List.generate(maps.length, (index) {
     return Item(
@@ -176,15 +181,17 @@ Future<List<Item>> getItemsFromHikidashi(int hikidashiId) async {
   });
 }
 
-// get (from hikidashis page)
-Future<List<Item>> getItemsFromShoppingPlace(int shoppingPlaceId) async {
+// get (from shopping place page)
+Future<List<Item>> getItemsFromShoppingPlace(int? shoppingPlaceId) async {
   final Database db = await openDatabase(
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query(
     'items',
-    where: 'shopping_place_id = ?',
-    whereArgs: [shoppingPlaceId],
+    where: shoppingPlaceId == null
+        ? 'shopping_place_id IS NULL'
+        : 'shopping_place_id = ?',
+    whereArgs: shoppingPlaceId == null ? null : [shoppingPlaceId],
   );
   return List.generate(maps.length, (index) {
     return Item(
