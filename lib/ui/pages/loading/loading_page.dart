@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '../atoms/app_bar.dart';
+import '../../atoms/app_bar.dart';
 
-class LoadingErrorPage extends StatelessWidget {
-  final String errorMessage;
+class LoadingPage extends StatelessWidget {
   final String title;
   final Color appBarColor;
+  final Color indicatorColor;
 
-  const LoadingErrorPage({
+  const LoadingPage({
     Key? key,
-    this.errorMessage = "",
     this.title = "",
     this.appBarColor = Colors.white,
+    this.indicatorColor = Colors.white,
   }) : super(key: key);
 
   @override
@@ -21,9 +21,13 @@ class LoadingErrorPage extends StatelessWidget {
         color: appBarColor,
       ),
       body: Center(
-        child: Text(
-          errorMessage,
-          style: const TextStyle(fontSize: 25),
+        child: SizedBox(
+          width: 50,
+          height: 50,
+          child: CircularProgressIndicator(
+            strokeWidth: 8.0,
+            color: indicatorColor,
+          ),
         ),
       ),
     );

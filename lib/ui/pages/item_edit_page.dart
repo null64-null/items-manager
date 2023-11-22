@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'loading/loading_page.dart';
-import './loading_error_page.dart';
+import './loading/loading_error_page.dart';
 import '../templates/item_edit_page_template.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
