@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import './loading_page.dart';
+import './loading_error_page.dart';
 import '../templates/items_page_template.dart';
 import '../../util/classes/items.dart';
 import '../../util/values.dart/initial_values.dart';
+import '../../util/functions/get_color.dart';
+import '../../util/functions/get_title.dart';
 import '../../db/basic_crud.dart';
 
 final itemsProvider = StateProvider<List<Item>>((ref) {
@@ -23,28 +27,46 @@ class ItemsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(itemsProvider);
-    getData(categoryType, categoryId, ref);
+    return FutureBuilder<void>(
+      future: fetchData(ref),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return LoadingPage(
+            title: getTitle(categoryType),
+            appBarColor: getColor(categoryType),
+            indicatorColor: getDarkColor(categoryType),
+          );
+        } else if (snapshot.hasError) {
+          return LoadingErrorPage(
+            title: getTitle(categoryType),
+            appBarColor: getColor(categoryType),
+            errorMessage: 'Error: ${snapshot.error}',
+          );
+        } else {
+          final items = ref.watch(itemsProvider);
 
-    return ItemsPageTemplate(
-      items: items,
-      pageTitle: categoryName,
-      categoryType: categoryType,
-      categoryId: categoryId,
+          return ItemsPageTemplate(
+            items: items,
+            pageTitle: categoryName,
+            categoryType: categoryType,
+            categoryId: categoryId,
+          );
+        }
+      },
     );
   }
-}
 
-Future<void> getData(String categoryType, int categoryId, WidgetRef ref) async {
-  final notifire = ref.read(itemsProvider.notifier);
-  if (categoryType == "hikidashi") {
-    final hikidashiId = categoryId;
-    final selectedItems = await getItemsFromHikidashi(hikidashiId);
-    notifire.state = selectedItems;
-  }
-  if (categoryType == "shoppingPlace") {
-    final shopingPlaceId = categoryId;
-    final selectedItems = await getItemsFromShoppingPlace(shopingPlaceId);
-    notifire.state = selectedItems;
+  Future<void> fetchData(WidgetRef ref) async {
+    final notifire = ref.read(itemsProvider.notifier);
+    if (categoryType == "hikidashi") {
+      final hikidashiId = categoryId;
+      final selectedItems = await getItemsFromHikidashi(hikidashiId);
+      notifire.state = selectedItems;
+    }
+    if (categoryType == "shoppingPlace") {
+      final shopingPlaceId = categoryId;
+      final selectedItems = await getItemsFromShoppingPlace(shopingPlaceId);
+      notifire.state = selectedItems;
+    }
   }
 }

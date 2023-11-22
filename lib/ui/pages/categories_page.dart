@@ -5,7 +5,7 @@ import './loading_page.dart';
 import './loading_error_page.dart';
 import 'package:test_app/ui/templates/categories_page_template.dart';
 import '../../db/basic_crud.dart';
-import '../../db/category_notification_setting.dart';
+import '../../db/category/get_notifications.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
 import '../../util/values.dart/initial_values.dart';
