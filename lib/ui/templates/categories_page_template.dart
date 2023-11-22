@@ -5,7 +5,7 @@ import '../organisms/categories_page/category_button.dart';
 import '../organisms/categories_page/add_category_button.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
-import '../../util/values.dart/initial_values.dart';
+import '../../util/values_dart/initial_values.dart';
 
 class CategoriesPageTemplate extends ConsumerWidget {
   final String categoryType;

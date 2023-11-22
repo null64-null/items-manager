@@ -4,7 +4,7 @@ import '../../molecules/items_page/status_button.dart';
 import '../../templates/item_edit_page_template.dart';
 import '../../pages/item_edit_page.dart';
 import '../../../util/classes/items.dart';
-import '../../../util/values.dart/initial_values.dart';
+import '../../../util/values_dart/initial_values.dart';
 
 class ItemStatusButton extends ConsumerWidget {
   final Item item;

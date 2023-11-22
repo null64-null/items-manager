@@ -13,7 +13,7 @@ import '../pages/item_edit_page.dart';
 import '../../util/classes/items.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
-import '../../util/values.dart/initial_values.dart';
+import '../../util/values_dart/initial_values.dart';
 import '../../util/developper_setting/values.dart';
 import '../../util/snack_bar/item_edit_page/after_item_edit_page_snack_bar.dart';
 import '../../db/basic_crud.dart';

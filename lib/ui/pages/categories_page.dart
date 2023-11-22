@@ -8,7 +8,7 @@ import '../../db/basic_crud.dart';
 import '../../db/get_notifications.dart';
 import '../../util/classes/category.dart';
 import '../../util/functions/get_color.dart';
-import '../../util/values.dart/initial_values.dart';
+import '../../util/values_dart/initial_values.dart';
 
 final categoriesProvider = StateProvider<List<Category>>((ref) {
   return categoriesInit;
