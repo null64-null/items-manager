@@ -406,6 +406,8 @@ void setIsActive(Item itemEdit, WidgetRef ref) {
   final notifire = ref.read(isActiveProvider.notifier);
   var isActive = true;
 
+  debugPrint(itemEdit.remainingValue.toString());
+
   // string empty check
   if (itemEdit.name == "" || itemEdit.unit == "") {
     isActive = false;
@@ -418,7 +420,8 @@ void setIsActive(Item itemEdit, WidgetRef ref) {
   }
 
   // numeric empth check
-  if (itemEdit.remainingValue <= 0 || itemEdit.remainingValue < 0) {
+  if (itemEdit.remainingValue < 0 || itemEdit.maxValue <= 0) {
+    debugPrint("aa");
     isActive = false;
   }
 
