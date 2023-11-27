@@ -418,7 +418,7 @@ void setIsActive(Item itemEdit, WidgetRef ref) {
   }
 
   // numeric empth check
-  if (itemEdit.remainingValue < 0 || itemEdit.maxValue <= 0) {
+  if (itemEdit.remainingValue <= 0 || itemEdit.remainingValue < 0) {
     isActive = false;
   }
 

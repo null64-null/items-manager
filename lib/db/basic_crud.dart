@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../util/classes/category.dart';
@@ -6,16 +5,11 @@ import '../util/classes/items.dart';
 
 // Hikidashi
 // create
-Future<String?> insertHikidashi(Category hikidashi) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.insert('hikidashis', hikidashi.toMap());
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> insertHikidashi(Category hikidashi) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.insert('hikidashis', hikidashi.toMap());
 }
 
 // get (all)
@@ -36,52 +30,49 @@ Future<List<Category>> getHikidashis() async {
 }
 
 // edit
-Future<String?> updateHikidashi(Category hikidashi) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.update(
-      'hikidashis',
-      hikidashi.toMap(),
-      where: 'id = ?',
-      whereArgs: [hikidashi.id],
-    );
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> updateHikidashi(Category hikidashi) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.update(
+    'hikidashis',
+    hikidashi.toMap(),
+    where: 'id = ?',
+    whereArgs: [hikidashi.id],
+  );
 }
 
 // delete
-Future<String?> deleteHikidashi(int id) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.delete(
-      'hikidashis',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> deleteHikidashi(int id) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete(
+    'hikidashis',
+    where: 'id = ?',
+    whereArgs: [id],
+  );
+}
+
+// delete (select)
+Future<void> deleteHikidashis(List<int> ids) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete(
+    'hikidashis',
+    where: 'id IN (${ids.map((_) => '?').join(', ')})',
+    whereArgs: ids,
+  );
 }
 
 // shopping place
 // create
-Future<String?> insertShoppingPlace(Category shoppingPlace) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.insert('shopping_places', shoppingPlace.toMap());
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> insertShoppingPlace(Category shoppingPlace) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.insert('shopping_places', shoppingPlace.toMap());
 }
 
 // get (all)
@@ -102,52 +93,49 @@ Future<List<Category>> getShoppingPlaces() async {
 }
 
 // edit
-Future<String?> updateShoppingPlace(Category shoppingPlace) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.update(
-      'shopping_places',
-      shoppingPlace.toMap(),
-      where: 'id = ?',
-      whereArgs: [shoppingPlace.id],
-    );
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> updateShoppingPlace(Category shoppingPlace) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.update(
+    'shopping_places',
+    shoppingPlace.toMap(),
+    where: 'id = ?',
+    whereArgs: [shoppingPlace.id],
+  );
 }
 
 // delete
-Future<String?> deleteShoppingPlace(int id) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.delete(
-      'shopping_places',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> deleteShoppingPlace(int id) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete(
+    'shopping_places',
+    where: 'id = ?',
+    whereArgs: [id],
+  );
+}
+
+// delete (select)
+Future<void> deleteShoppingPlaces(List<int> ids) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete(
+    'shopping_places',
+    where: 'id IN (${ids.map((_) => '?').join(', ')})',
+    whereArgs: ids,
+  );
 }
 
 //items
 // create
-Future<String?> insertItem(Item item) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.insert('items', item.toMap());
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> insertItem(Item item) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.insert('items', item.toMap());
 }
 
 // get (all)
@@ -218,36 +206,38 @@ Future<List<Item>> getItemsFromShoppingPlace(int? shoppingPlaceId) async {
 }
 
 // edit
-Future<String?> updateItem(Item item) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.update(
-      'items',
-      item.toMap(),
-      where: 'id = ?',
-      whereArgs: [item.id],
-    );
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> updateItem(Item item) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.update(
+    'items',
+    item.toMap(),
+    where: 'id = ?',
+    whereArgs: [item.id],
+  );
 }
 
 // delete
-Future<String?> deleteItem(int id) async {
-  try {
-    final Database db = await openDatabase(
-      join(await getDatabasesPath(), 'zaiko_databases.db'),
-    );
-    await db.delete(
-      'items',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    return null;
-  } catch (e) {
-    return '保存に失敗しました : $e';
-  }
+Future<void> deleteItem(int id) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete(
+    'items',
+    where: 'id = ?',
+    whereArgs: [id],
+  );
+}
+
+// delete (select)
+Future<void> deleteItems(List<int> ids) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete(
+    'items',
+    where: 'id IN (${ids.map((_) => '?').join(', ')})',
+    whereArgs: ids,
+  );
 }

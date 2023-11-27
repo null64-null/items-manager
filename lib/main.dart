@@ -5,7 +5,11 @@ import './db/migrate.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDatabase();
+  try {
+    await initializeDatabase();
+  } catch (e) {
+    debugPrint('マイグレーションに失敗しました: $e');
+  }
 
   const app = MaterialApp(home: StartPage());
   const scope = ProviderScope(child: app);
