@@ -21,8 +21,10 @@ class ItemStatusButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void onPressed() {
-      final notifier = ref.read(itemEditProvider.notifier);
-      notifier.state = item;
+      final notifierItemEdit = ref.read(itemEditProvider.notifier);
+      notifierItemEdit.state = item;
+      final notifireIsActive = ref.read(isActiveProvider.notifier);
+      notifireIsActive.state = true;
       Navigator.push(
         context,
         MaterialPageRoute(

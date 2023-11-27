@@ -20,6 +20,8 @@ class AddItemButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void onPressed() {
+      final notifire = ref.read(isActiveProvider.notifier);
+      notifire.state = false;
       itemEditInitialize(categoryType, categoryId, ref);
       Navigator.push(
         context,
