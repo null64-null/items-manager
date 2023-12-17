@@ -214,6 +214,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
         title: initialItem.id == null ? "アイテムを追加" : "${initialItem.name}を編集",
         color: getColor(categoryType),
@@ -417,8 +418,8 @@ void setIsActive(Item itemEdit, WidgetRef ref) {
     isActive = false;
   }
 
-  // numeric empth check
-  if (itemEdit.remainingValue <= 0 || itemEdit.remainingValue < 0) {
+  // numeric empty check
+  if (itemEdit.remainingValue < 0 || itemEdit.maxValue <= 0) {
     isActive = false;
   }
 
