@@ -26,7 +26,7 @@ class TextEditor extends StatelessWidget {
       width: width ?? 150,
       child: TextFormField(
         initialValue: initialValue,
-        keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
+        keyboardType: TextInputType.text,
         inputFormatters: isNumeric
             ? [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))]
             : null,
