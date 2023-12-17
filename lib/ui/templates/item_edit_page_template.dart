@@ -214,6 +214,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
         title: initialItem.id == null ? "アイテムを追加" : "${initialItem.name}を編集",
         color: getColor(categoryType),
