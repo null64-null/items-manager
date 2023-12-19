@@ -12,6 +12,19 @@ Future<void> insertHikidashi(Category hikidashi) async {
   await db.insert('hikidashis', hikidashi.toMap());
 }
 
+// create　multiple
+Future<void> insertHikidashis(List<Category> hikidashis) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+
+  await db.transaction((txn) async {
+    for (var hikidashi in hikidashis) {
+      await txn.insert('hikidashis', hikidashi.toMap());
+    }
+  });
+}
+
 // get (all)
 Future<List<Category>> getHikidashis() async {
   final Database db = await openDatabase(
@@ -54,6 +67,14 @@ Future<void> deleteHikidashi(int id) async {
   );
 }
 
+// delete all
+Future<void> deleteAllHikidashi(int id) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete('hikidashis');
+}
+
 // delete (select)
 Future<void> deleteHikidashis(List<int> ids) async {
   final Database db = await openDatabase(
@@ -73,6 +94,19 @@ Future<void> insertShoppingPlace(Category shoppingPlace) async {
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
   await db.insert('shopping_places', shoppingPlace.toMap());
+}
+
+// create　multiple
+Future<void> insertShoppingPlaces(List<Category> shoppingPlaces) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+
+  await db.transaction((txn) async {
+    for (var shoppingPlace in shoppingPlaces) {
+      await txn.insert('shoppingPlaces', shoppingPlace.toMap());
+    }
+  });
 }
 
 // get (all)
@@ -115,6 +149,14 @@ Future<void> deleteShoppingPlace(int id) async {
     where: 'id = ?',
     whereArgs: [id],
   );
+}
+
+// delete all
+Future<void> deleteAllShoppingPlace(int id) async {
+  final Database db = await openDatabase(
+    join(await getDatabasesPath(), 'zaiko_databases.db'),
+  );
+  await db.delete('shopping_places');
 }
 
 // delete (select)
