@@ -68,7 +68,7 @@ Future<void> deleteHikidashi(int id) async {
 }
 
 // delete all
-Future<void> deleteAllHikidashi(int id) async {
+Future<void> deleteAllHikidashi() async {
   final Database db = await openDatabase(
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
@@ -152,7 +152,7 @@ Future<void> deleteShoppingPlace(int id) async {
 }
 
 // delete all
-Future<void> deleteAllShoppingPlace(int id) async {
+Future<void> deleteAllShoppingPlace() async {
   final Database db = await openDatabase(
     join(await getDatabasesPath(), 'zaiko_databases.db'),
   );
