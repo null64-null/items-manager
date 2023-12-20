@@ -103,6 +103,7 @@ class CategoriesPageTemplate extends ConsumerWidget {
                 ),
                 EndReorderButton(
                   categoryType: categoryType,
+                  categories: categories,
                 ),
                 const SizedBox(
                   width: 15,
@@ -140,24 +141,3 @@ String title(String categoryType) {
     return "";
   }
 }
-
-/*
-CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
-          SliverGrid.count(
-            crossAxisCount: 2,
-            children: List.generate(categories.length, (index) {
-              final category = categories[index];
-              final notifications = notificationsArray[index];
-              return CategoryButton(
-                category: category,
-                categoryType: categoryType,
-                notifications: notifications,
-              );
-            }),
-          )
-        ],
-      ),
-
- */

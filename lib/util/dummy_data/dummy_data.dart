@@ -3,23 +3,23 @@ import '../classes/items.dart';
 
 // category list page
 List<Category> hikidashiCategorys = [
-  const Category(id: 1, name: "冷蔵庫", notifications: 1),
-  const Category(id: 2, name: "冷凍庫", notifications: 0),
-  const Category(id: 3, name: "野菜室", notifications: 0),
-  const Category(id: 4, name: "調味料棚", notifications: 2),
-  const Category(id: 5, name: "日用品", notifications: 2),
-  const Category(id: 6, name: "その他", notifications: 1),
+  const Category(id: 1, name: "冷蔵庫", num: 0),
+  const Category(id: 2, name: "冷凍庫", num: 1),
+  const Category(id: 3, name: "野菜室", num: 2),
+  const Category(id: 4, name: "調味料棚", num: 3),
+  const Category(id: 5, name: "日用品", num: 4),
+  const Category(id: 6, name: "その他", num: 5),
 ];
 List<Category> shoppingPlaceCategorys = [
-  const Category(id: 1, name: "業スー", notifications: 1),
-  const Category(id: 2, name: "ベルクス", notifications: 0),
-  const Category(id: 3, name: "オーケー", notifications: 2),
-  const Category(id: 4, name: "セイムズ", notifications: 2),
-  const Category(id: 5, name: "楽天市場", notifications: 0),
+  const Category(id: 1, name: "業スー", num: 0),
+  const Category(id: 2, name: "ベルクス", num: 1),
+  const Category(id: 3, name: "オーケー", num: 2),
+  const Category(id: 4, name: "セイムズ", num: 3),
+  const Category(id: 5, name: "楽天市場", num: 4),
 ];
 
 // item list page
-List<Item> items = [
+const List<Item> items = [
   Item(
     id: 1,
     name: "にんじん",

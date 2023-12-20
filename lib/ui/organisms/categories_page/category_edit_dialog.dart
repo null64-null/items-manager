@@ -70,7 +70,7 @@ class CategoryEditDialog extends ConsumerWidget {
         var newCategory = Category(
           id: category.id,
           name: formText,
-          notifications: category.notifications,
+          num: category.num,
         );
         await updateData(newCategory, categoryType, ref);
         Future.delayed(Duration.zero, () {
