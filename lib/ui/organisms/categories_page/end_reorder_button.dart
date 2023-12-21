@@ -23,15 +23,23 @@ class EndReorderButton extends ConsumerWidget {
       if (categoryType == "hikidashi") {
         try {
           await deleteAllHikidashi();
-          await insertHikidashis(categories);
+          List<Category> newCategories = [];
+          for (int i = 0; i < categories.length - 1; i++) {
+            newCategories.add(categories[i].copyWith(num: i));
+          }
+          await insertHikidashis(newCategories);
         } catch (e) {
           debugPrint('Error: $e');
         }
       }
       if (categoryType == "shoppingPlace") {
         try {
-          await deleteAllHikidashi();
-          await insertHikidashis(categories);
+          await deleteAllShoppingPlace();
+          List<Category> newCategories = [];
+          for (int i = 0; i < categories.length - 1; i++) {
+            newCategories.add(categories[i].copyWith(num: i));
+          }
+          await insertShoppingPlaces(newCategories);
         } catch (e) {
           debugPrint('Error: $e');
         }

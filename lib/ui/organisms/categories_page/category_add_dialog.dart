@@ -29,6 +29,7 @@ class CategoryAddDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isAddable = ref.watch(isAddableProvider);
     final formText = ref.watch(formTextProvider);
+    final categories = ref.watch(categoriesProvider);
 
     void onChanged(String text) {
       final notifireText = ref.read(formTextProvider.notifier);
@@ -50,7 +51,7 @@ class CategoryAddDialog extends ConsumerWidget {
 
     Future<void> onTapAdd() async {
       if (isAddable) {
-        var newCategory = Category(name: formText);
+        var newCategory = Category(name: formText, num: categories.length);
         await addData(newCategory, categoryType, ref);
         Future.delayed(Duration.zero, () {
           final notifier = ref.read(isAddableProvider.notifier);

@@ -38,8 +38,15 @@ Future<List<Category>> getHikidashis() async {
       num: maps[index]['num'],
     );
   });
-  categories.add(const Category(name: "未分類"));
-  return categories;
+
+  List<Category> sortedCategories = [];
+  for (int i = 0; i < categories.length; i++) {
+    Category? sortedCategory =
+        categories.firstWhere((category) => category.num == i);
+    sortedCategories.add(sortedCategory);
+  }
+  sortedCategories.add(const Category(name: "未分類"));
+  return sortedCategories;
 }
 
 // edit
@@ -122,8 +129,15 @@ Future<List<Category>> getShoppingPlaces() async {
       num: maps[index]['num'],
     );
   });
-  categories.add(const Category(name: "未分類"));
-  return categories;
+
+  List<Category> sortedCategories = [];
+  for (int i = 0; i < categories.length; i++) {
+    Category? sortedCategory =
+        categories.firstWhere((category) => category.num == i);
+    sortedCategories.add(sortedCategory);
+  }
+  sortedCategories.add(const Category(name: "未分類"));
+  return sortedCategories;
 }
 
 // edit

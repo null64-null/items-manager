@@ -56,7 +56,7 @@ class CategoryEditDialog extends ConsumerWidget {
     }
 
     Future<void> onTapDelete() async {
-      await deleteData(categoryId, categoryType, ref);
+      await deleteData(category, categories, categoryType, ref);
       Future.delayed(Duration.zero, () {
         final notifier = ref.read(isUpdatableProvider.notifier);
         notifier.state = false;
@@ -120,14 +120,26 @@ Future<void> updateData(
 }
 
 Future<void> deleteData(
-    int categoryId, String categoryType, WidgetRef ref) async {
+  Category category,
+  List<Category> categories,
+  String categoryType,
+  WidgetRef ref,
+) async {
   if (categoryType == "hikidashi") {
-    await deleteHikidashi(categoryId);
+    for (int i = category.num! + 1; i < categories.length - 1; i++) {
+      await updateHikidashi(
+          categories[i].copyWith(num: categories[i].num! - 1));
+    }
+    await deleteHikidashi(category.id!);
   }
   if (categoryType == "shoppingPlace") {
-    await deleteShoppingPlace(categoryId);
+    for (int i = category.num! + 1; i < categories.length - 1; i++) {
+      await updateShoppingPlace(
+          categories[i].copyWith(num: categories[i].num! - 1));
+    }
+    await deleteShoppingPlace(category.id!);
   }
-  await deleteCategoryId(categoryId, categoryType);
+  await deleteCategoryId(category.id!, categoryType);
   await fetchData(categoryType, ref);
 }
 
