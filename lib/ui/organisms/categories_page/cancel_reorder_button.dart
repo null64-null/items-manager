@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_app/ui/organisms/categories_page/category_edit_dialog.dart';
 import '../../atoms/custom_floating_action_button.dart';
 import '../../../../util/functions/get_color.dart';
 import '../../templates/categories_page_template.dart';
@@ -15,14 +16,11 @@ class CancelReorderButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    void onPressed() {
-      final notifierIsBeingReorderd =
-          ref.read(isBeingReorderdProvider.notifier);
-      notifierIsBeingReorderd.state = false;
+    void onPressed() async {
+      final notifier = ref.read(isBeingReorderdProvider.notifier);
+      notifier.state = false;
 
-      final categories = ref.watch(categoriesProvider);
-      final notifireCategories = ref.read(categoriesProvider.notifier);
-      notifireCategories.state = categories;
+      await fetchData(categoryType, ref);
     }
 
     return CustomFloatingActionButton(
