@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_app/ui/organisms/categories_page/category_edit_dialog.dart';
 import '../../atoms/custom_floating_action_button.dart';
 import '../../templates/categories_page_template.dart';
 import '../../../../util/functions/get_color.dart';
@@ -28,6 +29,7 @@ class EndReorderButton extends ConsumerWidget {
             newCategories.add(categories[i].copyWith(num: i));
           }
           await insertHikidashis(newCategories);
+          await fetchData(categoryType, ref);
         } catch (e) {
           debugPrint('Error: $e');
         }
@@ -40,6 +42,7 @@ class EndReorderButton extends ConsumerWidget {
             newCategories.add(categories[i].copyWith(num: i));
           }
           await insertShoppingPlaces(newCategories);
+          await fetchData(categoryType, ref);
         } catch (e) {
           debugPrint('Error: $e');
         }
@@ -48,11 +51,6 @@ class EndReorderButton extends ConsumerWidget {
       final notifier = ref.read(isBeingReorderdProvider.notifier);
       notifier.state = false;
     }
-
-    debugPrint(categories[0].id.toString());
-    debugPrint(categories[0].name.toString());
-    debugPrint(categories[1].id.toString());
-    debugPrint(categories[1].name.toString());
 
     return CustomFloatingActionButton(
       color: getDarkColor(categoryType),

@@ -51,7 +51,7 @@ class CategoryAddDialog extends ConsumerWidget {
 
     Future<void> onTapAdd() async {
       if (isAddable) {
-        var newCategory = Category(name: formText, num: categories.length);
+        var newCategory = Category(name: formText, num: categories.length - 1);
         await addData(newCategory, categoryType, ref);
         Future.delayed(Duration.zero, () {
           final notifier = ref.read(isAddableProvider.notifier);
@@ -62,7 +62,6 @@ class CategoryAddDialog extends ConsumerWidget {
     }
 
     String? validator(String? value) {
-      debugPrint("validate");
       if (value == "" || value == null) {
         return "名前を入力してください";
       } else if (value.length > textLengthLimit) {

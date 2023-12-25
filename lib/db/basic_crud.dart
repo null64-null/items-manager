@@ -3,6 +3,8 @@ import 'package:sqflite/sqflite.dart';
 import '../util/classes/category.dart';
 import '../util/classes/items.dart';
 
+import 'package:flutter/material.dart';
+
 // Hikidashi
 // create
 Future<void> insertHikidashi(Category hikidashi) async {
@@ -40,11 +42,13 @@ Future<List<Category>> getHikidashis() async {
   });
 
   List<Category> sortedCategories = [];
+
   for (int i = 0; i < categories.length; i++) {
     Category? sortedCategory =
         categories.firstWhere((category) => category.num == i);
     sortedCategories.add(sortedCategory);
   }
+
   sortedCategories.add(const Category(name: "未分類"));
   return sortedCategories;
 }
