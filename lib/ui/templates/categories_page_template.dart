@@ -62,6 +62,7 @@ class CategoriesPageTemplate extends ConsumerWidget {
                             category: categories[index],
                             categoryType: categoryType,
                             notifications: notificationsArray[index],
+                            disabled: true,
                           ),
                   ),
                   itemCount: categories.length - 1,
@@ -89,6 +90,7 @@ class CategoriesPageTemplate extends ConsumerWidget {
                       category: category,
                       categoryType: categoryType,
                       notifications: notifications,
+                      disabled: false,
                     );
                   }),
                 )

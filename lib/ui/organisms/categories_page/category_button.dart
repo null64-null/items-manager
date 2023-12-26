@@ -15,12 +15,14 @@ class CategoryButton extends ConsumerWidget {
   final Category category;
   final String categoryType;
   final int notifications;
+  final bool disabled;
 
   const CategoryButton({
     Key? key,
     this.category = categoryInit,
     this.categoryType = "",
     this.notifications = 0,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -77,6 +79,7 @@ class CategoryButton extends ConsumerWidget {
       notifications: notifications,
       onPressed: onPressed,
       onLongPressed: onLongPressed,
+      disabled: disabled,
     );
   }
 }

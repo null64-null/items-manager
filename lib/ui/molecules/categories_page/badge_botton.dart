@@ -8,6 +8,7 @@ class BadgeButton extends StatelessWidget {
   final int notifications;
   final VoidCallback? onPressed;
   final VoidCallback? onLongPressed;
+  final bool disabled;
 
   const BadgeButton({
     Key? key,
@@ -16,6 +17,7 @@ class BadgeButton extends StatelessWidget {
     this.notifications = 0,
     this.onPressed,
     this.onLongPressed,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class BadgeButton extends StatelessWidget {
               onLongPressed: onLongPressed,
               color: color,
               label: label,
+              disabled: disabled,
             ),
           ),
           if (notifications != 0)
