@@ -23,8 +23,8 @@ class BadgeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      //width: 100,
-      height: 100,
+      height: 130,
+      width: 130,
       child: Stack(
         fit: StackFit.expand,
         children: [
