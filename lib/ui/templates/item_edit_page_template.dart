@@ -45,6 +45,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
     final shoppingPlaceOptions = ref.watch(shoppingPlaceOptinsProvider);
     final categories = ref.watch(categoriesProvider);
     final isActive = ref.watch(isActiveProvider);
+    final items = ref.watch(itemsProvider);
 
     void onNameChanged(String text) {
       final notifire = ref.read(itemEditProvider.notifier);
@@ -104,20 +105,39 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onAddPressed() {
       if (isActive) {
-        addData(
-          item: itemEdit,
-          categories: categories,
-          categoryType: categoryType,
-          ref: ref,
-        );
-        afterItemAddSnackBar(
-          newItem: itemEdit,
-          initialItem: initialItem,
-          categoryType: categoryType,
-          categories: categories,
-          backgroundColor: getDarkColor(categoryType),
-          context: context,
-        );
+        if (categoryType == "hikidashi") {
+          addData(
+            item: itemEdit.copyWith(hikidashiNum: items.length),
+            categories: categories,
+            categoryType: categoryType,
+            ref: ref,
+          );
+          afterItemAddSnackBar(
+            newItem: itemEdit.copyWith(hikidashiNum: items.length),
+            initialItem: initialItem,
+            categoryType: categoryType,
+            categories: categories,
+            backgroundColor: getDarkColor(categoryType),
+            context: context,
+          );
+        }
+        if (categoryType == "shoppingPlace") {
+          addData(
+            item: itemEdit.copyWith(shoppingPlaceNum: items.length),
+            categories: categories,
+            categoryType: categoryType,
+            ref: ref,
+          );
+          afterItemAddSnackBar(
+            newItem: itemEdit.copyWith(shoppingPlaceNum: items.length),
+            initialItem: initialItem,
+            categoryType: categoryType,
+            categories: categories,
+            backgroundColor: getDarkColor(categoryType),
+            context: context,
+          );
+        }
+
         final notifire = ref.read(isActiveProvider.notifier);
         notifire.state = false;
         Navigator.pop(context);
@@ -137,7 +157,8 @@ class ItemEditPageTemplate extends ConsumerWidget {
             },
             onTapDelete: () {
               deleteData(
-                id: itemEdit.id!,
+                item: itemEdit,
+                items: items,
                 categories: categories,
                 categoryType: categoryType,
                 ref: ref,
@@ -343,12 +364,26 @@ Future<void> updateData({
 }
 
 Future<void> deleteData({
-  required id,
+  required Item item,
+  required List<Item> items,
   required List<Category> categories,
   required String categoryType,
   required WidgetRef ref,
 }) async {
-  await deleteItem(id);
+  if (categoryType == "hikidashi") {
+    for (int i = item.hikidashiNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(hikidashiNum: items[i].hikidashiNum! - 1));
+    }
+    await deleteItem(item.id!);
+  }
+  if (categoryType == "shoppingPlace") {
+    for (int i = item.shoppingPlaceNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(shoppingPlaceNum: items[i].shoppingPlaceNum! - 1));
+    }
+    await deleteItem(item.id!);
+  }
   await fetchData(
     categories: categories,
     categoryType: categoryType,

@@ -25,7 +25,7 @@ class EndReorderButton extends ConsumerWidget {
 
       List<Item> newItems = [];
       for (int i = 0; i < items.length; i++) {
-        if (categoryType == "hikidashis") {
+        if (categoryType == "hikidashi") {
           newItems.add(items[i].copyWith(id: null, hikidashiNum: i));
         }
         if (categoryType == "shoppingPlace") {
