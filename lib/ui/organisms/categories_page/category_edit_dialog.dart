@@ -10,7 +10,6 @@ import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
 import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
-import '../../../db/delete_category_id.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -129,14 +128,20 @@ Future<void> deleteData(
   if (categoryType == "hikidashi") {
     List<Item> itemsNotCategorized = await getItemsFromHikidashi(null);
     List<Item> items = await getItemsFromHikidashi(category.id);
-    List<Item> itemsToNotcategorized = [];
     for (int i = 0; i < items.length; i++) {
-      itemsToNotcategorized.add(items[i]
-          .copyWith(id: null, hikidashiNum: itemsNotCategorized.length + i));
+      Item updatedItem = Item(
+        id: items[i].id,
+        name: items[i].name,
+        remainingValue: items[i].remainingValue,
+        maxValue: items[i].maxValue,
+        unit: items[i].unit,
+        hikidashiId: null,
+        shoppingPlaceId: items[i].shoppingPlaceId,
+        hikidashiNum: itemsNotCategorized.length + i,
+        shoppingPlaceNum: items[i].shoppingPlaceNum,
+      );
+      await updateItem(updatedItem);
     }
-    await insertItems(itemsToNotcategorized);
-    List<int> itemIds = items.map((item) => item.id!).toList();
-    await deleteItems(itemIds);
 
     for (int i = category.num! + 1; i < categories.length - 1; i++) {
       await updateHikidashi(
@@ -147,14 +152,20 @@ Future<void> deleteData(
   if (categoryType == "shoppingPlace") {
     List<Item> itemsNotCategorized = await getItemsFromShoppingPlace(null);
     List<Item> items = await getItemsFromShoppingPlace(category.id);
-    List<Item> itemsToNotcategorized = [];
     for (int i = 0; i < items.length; i++) {
-      itemsToNotcategorized.add(items[i].copyWith(
-          id: null, shoppingPlaceNum: itemsNotCategorized.length + i));
+      Item updatedItem = Item(
+        id: items[i].id,
+        name: items[i].name,
+        remainingValue: items[i].remainingValue,
+        maxValue: items[i].maxValue,
+        unit: items[i].unit,
+        hikidashiId: items[i].hikidashiId,
+        shoppingPlaceId: null,
+        hikidashiNum: items[i].hikidashiNum,
+        shoppingPlaceNum: itemsNotCategorized.length + i,
+      );
+      await updateItem(updatedItem);
     }
-    await insertItems(itemsToNotcategorized);
-    List<int> itemIds = items.map((item) => item.id!).toList();
-    await deleteItems(itemIds);
 
     for (int i = category.num! + 1; i < categories.length - 1; i++) {
       await updateShoppingPlace(
