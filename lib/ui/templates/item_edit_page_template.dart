@@ -105,13 +105,15 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onAddPressed() {
       if (isActive) {
+        addData(
+          item: itemEdit,
+          items: items,
+          initialItem: initialItem,
+          categories: categories,
+          categoryType: categoryType,
+          ref: ref,
+        );
         if (categoryType == "hikidashi") {
-          addData(
-            item: itemEdit.copyWith(hikidashiNum: items.length),
-            categories: categories,
-            categoryType: categoryType,
-            ref: ref,
-          );
           afterItemAddSnackBar(
             newItem: itemEdit.copyWith(hikidashiNum: items.length),
             initialItem: initialItem,
@@ -122,12 +124,6 @@ class ItemEditPageTemplate extends ConsumerWidget {
           );
         }
         if (categoryType == "shoppingPlace") {
-          addData(
-            item: itemEdit.copyWith(shoppingPlaceNum: items.length),
-            categories: categories,
-            categoryType: categoryType,
-            ref: ref,
-          );
           afterItemAddSnackBar(
             newItem: itemEdit.copyWith(shoppingPlaceNum: items.length),
             initialItem: initialItem,
@@ -180,6 +176,8 @@ class ItemEditPageTemplate extends ConsumerWidget {
       if (isActive) {
         updateData(
           item: itemEdit,
+          initialItem: initialItem,
+          items: items,
           categories: categories,
           categoryType: categoryType,
           ref: ref,
@@ -337,11 +335,21 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
 Future<void> addData({
   required Item item,
+  required Item initialItem,
+  required List<Item> items,
   required List<Category> categories,
   required String categoryType,
   required WidgetRef ref,
 }) async {
-  await insertItem(item);
+  List<Item> itemsInNewHikidashi =
+      await getItemsFromHikidashi(item.hikidashiId);
+  List<Item> itemsInNewShoppingPlace =
+      await getItemsFromShoppingPlace(item.shoppingPlaceId);
+  final itemAdd = item.copyWith(
+    hikidashiNum: itemsInNewHikidashi.length,
+    shoppingPlaceNum: itemsInNewShoppingPlace.length,
+  );
+  await insertItem(itemAdd);
   await fetchData(
     categories: categories,
     categoryType: categoryType,
@@ -351,11 +359,69 @@ Future<void> addData({
 
 Future<void> updateData({
   required Item item,
+  required Item initialItem,
+  required List<Item> items,
   required List<Category> categories,
   required String categoryType,
   required WidgetRef ref,
 }) async {
-  await updateItem(item);
+  if (item.hikidashiId != initialItem.hikidashiId &&
+      item.shoppingPlaceId == initialItem.shoppingPlaceId) {
+    for (int i = item.hikidashiNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(hikidashiNum: items[i].hikidashiNum! - 1));
+    }
+
+    List<Item> itemsInNewHikidashi =
+        await getItemsFromHikidashi(item.hikidashiId);
+    Item newItem = item.copyWith(hikidashiNum: itemsInNewHikidashi.length);
+
+    updateItem(newItem);
+  }
+
+  if (item.hikidashiId == initialItem.hikidashiId &&
+      item.shoppingPlaceId != initialItem.shoppingPlaceId) {
+    for (int i = item.shoppingPlaceNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(shoppingPlaceNum: items[i].shoppingPlaceNum! - 1));
+    }
+
+    List<Item> itemsInNewShoppingPlace =
+        await getItemsFromShoppingPlace(item.shoppingPlaceId);
+    Item newItem =
+        item.copyWith(shoppingPlaceNum: itemsInNewShoppingPlace.length);
+
+    updateItem(newItem);
+  }
+
+  if (item.hikidashiId != initialItem.hikidashiId &&
+      item.shoppingPlaceId != initialItem.shoppingPlaceId) {
+    for (int i = item.hikidashiNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(hikidashiNum: items[i].hikidashiNum! - 1));
+    }
+    for (int i = item.shoppingPlaceNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(shoppingPlaceNum: items[i].shoppingPlaceNum! - 1));
+    }
+
+    List<Item> itemsInNewHikidashi =
+        await getItemsFromHikidashi(item.hikidashiId);
+    List<Item> itemsInNewShoppingPlace =
+        await getItemsFromShoppingPlace(item.shoppingPlaceId);
+    Item newItem = item.copyWith(
+      hikidashiNum: itemsInNewHikidashi.length,
+      shoppingPlaceNum: itemsInNewShoppingPlace.length,
+    );
+
+    updateItem(newItem);
+  }
+
+  if (item.hikidashiId == initialItem.hikidashiId &&
+      item.shoppingPlaceId == initialItem.shoppingPlaceId) {
+    await updateItem(item);
+  }
+
   await fetchData(
     categories: categories,
     categoryType: categoryType,

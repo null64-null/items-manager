@@ -3,13 +3,11 @@ import 'package:sqflite/sqflite.dart';
 import '../util/classes/category.dart';
 import '../util/classes/items.dart';
 
-import 'package:flutter/material.dart';
-
 // Hikidashi
 // create
 Future<void> insertHikidashi(Category hikidashi) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.insert('hikidashis', hikidashi.toMap());
 }
@@ -17,7 +15,7 @@ Future<void> insertHikidashi(Category hikidashi) async {
 // create　multiple
 Future<void> insertHikidashis(List<Category> hikidashis) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
 
   await db.transaction((txn) async {
@@ -30,7 +28,7 @@ Future<void> insertHikidashis(List<Category> hikidashis) async {
 // get (all)
 Future<List<Category>> getHikidashis() async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query('hikidashis');
   final categories = List.generate(maps.length, (index) {
@@ -40,14 +38,8 @@ Future<List<Category>> getHikidashis() async {
       num: maps[index]['num'],
     );
   });
-  //debugPrint(categories[0].name);
-  //debugPrint(categories[0].num.toString());
-  //debugPrint(categories[1].name);
-  //debugPrint(categories[1].num.toString());
   List<Category> sortedCategories = [];
-
   for (int i = 0; i < categories.length; i++) {
-    debugPrint(i.toString());
     Category? sortedCategory =
         categories.firstWhere((category) => category.num == i);
     sortedCategories.add(sortedCategory);
@@ -59,7 +51,7 @@ Future<List<Category>> getHikidashis() async {
 // edit
 Future<void> updateHikidashi(Category hikidashi) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.update(
     'hikidashis',
@@ -72,7 +64,7 @@ Future<void> updateHikidashi(Category hikidashi) async {
 // delete
 Future<void> deleteHikidashi(int id) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.delete(
     'hikidashis',
@@ -84,7 +76,7 @@ Future<void> deleteHikidashi(int id) async {
 // delete all
 Future<void> deleteAllHikidashi() async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.delete('hikidashis');
 }
@@ -92,7 +84,7 @@ Future<void> deleteAllHikidashi() async {
 // delete (select)
 Future<void> deleteHikidashis(List<int> ids) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.delete(
     'hikidashis',
@@ -105,7 +97,7 @@ Future<void> deleteHikidashis(List<int> ids) async {
 // create
 Future<void> insertShoppingPlace(Category shoppingPlace) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.insert('shopping_places', shoppingPlace.toMap());
 }
@@ -113,7 +105,7 @@ Future<void> insertShoppingPlace(Category shoppingPlace) async {
 // create　multiple
 Future<void> insertShoppingPlaces(List<Category> shoppingPlaces) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
 
   await db.transaction((txn) async {
@@ -126,7 +118,7 @@ Future<void> insertShoppingPlaces(List<Category> shoppingPlaces) async {
 // get (all)
 Future<List<Category>> getShoppingPlaces() async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query('shopping_places');
   final categories = List.generate(maps.length, (index) {
@@ -150,7 +142,7 @@ Future<List<Category>> getShoppingPlaces() async {
 // edit
 Future<void> updateShoppingPlace(Category shoppingPlace) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.update(
     'shopping_places',
@@ -163,7 +155,7 @@ Future<void> updateShoppingPlace(Category shoppingPlace) async {
 // delete
 Future<void> deleteShoppingPlace(int id) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.delete(
     'shopping_places',
@@ -175,7 +167,7 @@ Future<void> deleteShoppingPlace(int id) async {
 // delete all
 Future<void> deleteAllShoppingPlace() async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.delete('shopping_places');
 }
@@ -183,7 +175,7 @@ Future<void> deleteAllShoppingPlace() async {
 // delete (select)
 Future<void> deleteShoppingPlaces(List<int> ids) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.delete(
     'shopping_places',
@@ -196,7 +188,7 @@ Future<void> deleteShoppingPlaces(List<int> ids) async {
 // create
 Future<void> insertItem(Item item) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.insert('items', item.toMap());
 }
@@ -204,7 +196,7 @@ Future<void> insertItem(Item item) async {
 // create multiple
 Future<void> insertItems(List<Item> items) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
 
   await db.transaction((txn) async {
@@ -219,7 +211,7 @@ Future<void> insertItems(List<Item> items) async {
 // get (all)
 Future<List<Item>> getItems() async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query('items');
   return List.generate(maps.length, (index) {
@@ -238,14 +230,13 @@ Future<List<Item>> getItems() async {
 // get (from hikidashis page)
 Future<List<Item>> getItemsFromHikidashi(int? hikidashiId) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query(
     'items',
     where: hikidashiId == null ? 'hikidashi_id IS NULL' : 'hikidashi_id = ?',
     whereArgs: hikidashiId == null ? null : [hikidashiId],
   );
-  debugPrint(hikidashiId.toString());
   List<Item> items = List.generate(maps.length, (index) {
     return Item(
       id: maps[index]['id'],
@@ -259,7 +250,6 @@ Future<List<Item>> getItemsFromHikidashi(int? hikidashiId) async {
       shoppingPlaceNum: maps[index]['shopping_place_num'],
     );
   });
-  debugPrint(items.toString());
   List<Item> sortedItems = [];
   for (int i = 0; i < items.length; i++) {
     Item? sortedItem = items.firstWhere((item) => item.hikidashiNum == i);
@@ -272,7 +262,7 @@ Future<List<Item>> getItemsFromHikidashi(int? hikidashiId) async {
 // get (from shopping place page)
 Future<List<Item>> getItemsFromShoppingPlace(int? shoppingPlaceId) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   final List<Map<String, dynamic>> maps = await db.query(
     'items',
@@ -291,9 +281,10 @@ Future<List<Item>> getItemsFromShoppingPlace(int? shoppingPlaceId) async {
       unit: maps[index]['unit'],
       hikidashiId: maps[index]['hikidashi_id'],
       shoppingPlaceId: maps[index]['shopping_place_id'],
+      hikidashiNum: maps[index]['hikidashi_num'],
+      shoppingPlaceNum: maps[index]['shopping_place_num'],
     );
   });
-
   List<Item> sortedItems = [];
   for (int i = 0; i < items.length; i++) {
     Item? sortedItem = items.firstWhere((item) => item.shoppingPlaceNum == i);
@@ -306,7 +297,7 @@ Future<List<Item>> getItemsFromShoppingPlace(int? shoppingPlaceId) async {
 // edit
 Future<void> updateItem(Item item) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.update(
     'items',
@@ -319,7 +310,7 @@ Future<void> updateItem(Item item) async {
 // delete
 Future<void> deleteItem(int id) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.delete(
     'items',
@@ -331,7 +322,7 @@ Future<void> deleteItem(int id) async {
 // delete (select)
 Future<void> deleteItems(List<int> ids) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'test2.db'),
+    join(await getDatabasesPath(), 'test13.db'),
   );
   await db.delete(
     'items',

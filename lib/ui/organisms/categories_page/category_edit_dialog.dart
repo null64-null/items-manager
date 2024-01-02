@@ -5,6 +5,7 @@ import '../../molecules/categories_page/edit_dialog.dart';
 import './category_button.dart';
 import '../../pages/categories_page.dart';
 import '../../../util/classes/category.dart';
+import '../../../util/classes/items.dart';
 import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
 import '../../../util/developper_setting/values.dart';
@@ -126,6 +127,17 @@ Future<void> deleteData(
   WidgetRef ref,
 ) async {
   if (categoryType == "hikidashi") {
+    List<Item> itemsNotCategorized = await getItemsFromHikidashi(null);
+    List<Item> items = await getItemsFromHikidashi(category.id);
+    List<Item> itemsToNotcategorized = [];
+    for (int i = 0; i < items.length; i++) {
+      itemsToNotcategorized.add(items[i]
+          .copyWith(id: null, hikidashiNum: itemsNotCategorized.length + i));
+    }
+    await insertItems(itemsToNotcategorized);
+    List<int> itemIds = items.map((item) => item.id!).toList();
+    await deleteItems(itemIds);
+
     for (int i = category.num! + 1; i < categories.length - 1; i++) {
       await updateHikidashi(
           categories[i].copyWith(num: categories[i].num! - 1));
@@ -133,13 +145,24 @@ Future<void> deleteData(
     await deleteHikidashi(category.id!);
   }
   if (categoryType == "shoppingPlace") {
+    List<Item> itemsNotCategorized = await getItemsFromShoppingPlace(null);
+    List<Item> items = await getItemsFromShoppingPlace(category.id);
+    List<Item> itemsToNotcategorized = [];
+    for (int i = 0; i < items.length; i++) {
+      itemsToNotcategorized.add(items[i].copyWith(
+          id: null, shoppingPlaceNum: itemsNotCategorized.length + i));
+    }
+    await insertItems(itemsToNotcategorized);
+    List<int> itemIds = items.map((item) => item.id!).toList();
+    await deleteItems(itemIds);
+
     for (int i = category.num! + 1; i < categories.length - 1; i++) {
       await updateShoppingPlace(
           categories[i].copyWith(num: categories[i].num! - 1));
     }
     await deleteShoppingPlace(category.id!);
   }
-  await deleteCategoryId(category.id!, categoryType);
+
   await fetchData(categoryType, ref);
 }
 
