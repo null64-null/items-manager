@@ -241,9 +241,11 @@ class ItemEditPageTemplate extends ConsumerWidget {
         return '100未満の値を入力してください';
       } else if (double.parse(value) == 0) {
         return '0より大きい値を入力してください';
-      } else if (double.parse(value) < itemEdit.remainingValue) {
+      }
+      /*else if (double.parse(value) < itemEdit.remainingValue) {
         return '残りの量 < 必要量 としてください';
-      } else {
+      }*/
+      else {
         return null;
       }
     }
@@ -253,9 +255,10 @@ class ItemEditPageTemplate extends ConsumerWidget {
         return '値を入力してください';
       } else if (double.parse(value) > 99) {
         return '100未満の値を入力してください';
-      } else if (double.parse(value) > itemEdit.maxValue) {
+      } /* else if (double.parse(value) > itemEdit.maxValue) {
         return '残りの量 < 必要量 としてください';
-      } else {
+      }*/
+      else {
         return null;
       }
     }
@@ -580,9 +583,11 @@ void setIsActive(Item itemEdit, WidgetRef ref) {
   }
 
   // maxValue > remainingValue check
+  /*
   if (itemEdit.maxValue < itemEdit.remainingValue) {
     isActive = false;
   }
+  */
 
   notifire.state = isActive;
 }
