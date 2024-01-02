@@ -47,8 +47,6 @@ class ItemEditPageTemplate extends ConsumerWidget {
     final isActive = ref.watch(isActiveProvider);
     final items = ref.watch(itemsProvider);
 
-    debugPrint("item hikidashi id: " + itemEdit.hikidashiId.toString());
-
     void onNameChanged(String text) {
       final notifire = ref.read(itemEditProvider.notifier);
       notifire.state = itemEdit.copyWith(name: text);
