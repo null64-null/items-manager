@@ -37,14 +37,13 @@ class CategoriesPage extends ConsumerWidget {
             appBarColor: getColor(categoryType),
             indicatorColor: getDarkColor(categoryType),
           );
-        } /* else if (snapshot.hasError) {
+        } else if (snapshot.hasError) {
           return LoadingErrorPage(
             title: getTitle(categoryType),
             appBarColor: getColor(categoryType),
             errorMessage: 'Error: ${snapshot.error}',
           );
-        } */
-        else {
+        } else {
           final categories = ref.watch(categoriesProvider);
           final notificationsArray = ref.watch(notificationsArrayProvider);
 
