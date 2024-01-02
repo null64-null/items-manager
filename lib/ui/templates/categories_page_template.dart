@@ -13,9 +13,9 @@ import '../../util/values/initial_values.dart';
 
 String title(String categoryType) {
   if (categoryType == "hikidashi") {
-    return "ひきだし一覧";
+    return "ストックするもの";
   } else if (categoryType == "shoppingPlace") {
-    return "買う場所一覧";
+    return "かいものリスト";
   } else {
     return "";
   }

@@ -286,7 +286,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
             Align(
               alignment: const Alignment(0, -0.6),
               child: LabeledSelectForm(
-                title: "ひきだし",
+                title: "収納場所",
                 options: optionItems(hikidashiOptins),
                 onChanged: onHikidashiChanged,
                 value: itemEdit.hikidashiId,

@@ -1,9 +1,9 @@
 String getTitle(String categoryType) {
   switch (categoryType) {
     case "hikidashi":
-      return "おうちのひきだし";
+      return "収納する場所";
     case "shoppingPlace":
-      return "かいものリスト";
+      return "購入する場所";
     default:
       return "";
   }
