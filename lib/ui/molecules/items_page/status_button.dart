@@ -10,6 +10,7 @@ class StatusButton extends StatelessWidget {
   final double remainingValue;
   final double maxValue;
   final String unit;
+  final bool disabled;
 
   const StatusButton({
     Key? key,
@@ -19,6 +20,7 @@ class StatusButton extends StatelessWidget {
     this.remainingValue = 0,
     this.maxValue = 0,
     this.unit = "",
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class StatusButton extends StatelessWidget {
     return ContentButton(
       backgroundColor: backgroundColor,
       onPressed: onPressed,
+      disabled: disabled,
       child: Stack(
         fit: StackFit.expand,
         children: [

@@ -63,6 +63,7 @@ class ItemsPageTemplate extends ConsumerWidget {
                             item: items![index],
                             categoryType: categoryType,
                             categoryId: categoryId,
+                            disabled: isBeingReorderd,
                           ),
                         ),
                       ),
@@ -87,6 +88,7 @@ class ItemsPageTemplate extends ConsumerWidget {
                             item: items![index],
                             categoryType: categoryType,
                             categoryId: categoryId,
+                            disabled: isBeingReorderd,
                           ),
                         ),
                       );

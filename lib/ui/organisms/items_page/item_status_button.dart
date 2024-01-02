@@ -6,16 +6,27 @@ import '../../pages/item_edit_page.dart';
 import '../../../util/classes/items.dart';
 import '../../../util/values/initial_values.dart';
 
+Color getBackgroundColor(double remainingValue, double maxValue) {
+  final double value = remainingValue / maxValue;
+  if (value <= 0.3) {
+    return const Color(0xFFFFAEAE);
+  } else {
+    return const Color(0xFFAEE2FF);
+  }
+}
+
 class ItemStatusButton extends ConsumerWidget {
   final Item item;
   final String categoryType;
   final int? categoryId;
+  final bool disabled;
 
   const ItemStatusButton({
     Key? key,
     this.item = itemInit,
     this.categoryType = "",
     this.categoryId,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -44,15 +55,7 @@ class ItemStatusButton extends ConsumerWidget {
       remainingValue: item.remainingValue,
       unit: item.unit,
       onPressed: onPressed,
+      disabled: disabled,
     );
-  }
-}
-
-Color getBackgroundColor(double remainingValue, double maxValue) {
-  final double value = remainingValue / maxValue;
-  if (value <= 0.3) {
-    return const Color(0xFFFFAEAE);
-  } else {
-    return const Color(0xFFAEE2FF);
   }
 }

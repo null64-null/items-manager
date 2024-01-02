@@ -12,12 +12,14 @@ class ContentButton extends StatelessWidget {
   final Color backgroundColor;
   final VoidCallback? onPressed;
   final Widget? child;
+  final bool disabled;
 
   const ContentButton({
     Key? key,
     this.backgroundColor = Colors.white,
     this.onPressed,
     this.child,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class ContentButton extends StatelessWidget {
       height: 75,
       child: ElevatedButton(
         style: style(backgroundColor),
-        onPressed: onPressed,
+        onPressed: disabled ? () {} : onPressed,
         child: child,
       ),
     );
