@@ -47,6 +47,8 @@ class ItemEditPageTemplate extends ConsumerWidget {
     final isActive = ref.watch(isActiveProvider);
     final items = ref.watch(itemsProvider);
 
+    debugPrint("item hikidashi id: " + itemEdit.hikidashiId.toString());
+
     void onNameChanged(String text) {
       final notifire = ref.read(itemEditProvider.notifier);
       notifire.state = itemEdit.copyWith(name: text);
@@ -56,12 +58,40 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onHikidashiChanged(value) {
       final notifier = ref.read(itemEditProvider.notifier);
-      notifier.state = itemEdit.copyWith(hikidashiId: value);
+      if (value == null) {
+        notifier.state = Item(
+          id: itemEdit.id,
+          name: itemEdit.name,
+          remainingValue: itemEdit.remainingValue,
+          maxValue: itemEdit.maxValue,
+          unit: itemEdit.unit,
+          hikidashiId: null,
+          shoppingPlaceId: itemEdit.shoppingPlaceId,
+          hikidashiNum: itemEdit.hikidashiNum,
+          shoppingPlaceNum: itemEdit.shoppingPlaceNum,
+        );
+      } else {
+        notifier.state = itemEdit.copyWith(hikidashiId: value);
+      }
     }
 
     void onShoppingPlaceChanged(value) {
       final notifier = ref.read(itemEditProvider.notifier);
-      notifier.state = itemEdit.copyWith(shoppingPlaceId: value);
+      if (value == null) {
+        notifier.state = Item(
+          id: itemEdit.id,
+          name: itemEdit.name,
+          remainingValue: itemEdit.remainingValue,
+          maxValue: itemEdit.maxValue,
+          unit: itemEdit.unit,
+          hikidashiId: itemEdit.hikidashiId,
+          shoppingPlaceId: null,
+          hikidashiNum: itemEdit.hikidashiNum,
+          shoppingPlaceNum: itemEdit.shoppingPlaceNum,
+        );
+      } else {
+        notifier.state = itemEdit.copyWith(shoppingPlaceId: value);
+      }
     }
 
     void onMaxValueChanged(String text) {
