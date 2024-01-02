@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 Future<void> deleteCategoryId(int categoryId, String categoryType) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'zaiko_databases.db'),
+    join(await getDatabasesPath(), 'test19.db'),
   );
   if (categoryType == "hikidashi") {
     await db.update(

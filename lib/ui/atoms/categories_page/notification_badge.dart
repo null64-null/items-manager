@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class NotificationBadge extends StatelessWidget {
-  final int notifications;
+  final int badgeValue;
 
   const NotificationBadge({
     Key? key,
-    this.notifications = 0,
+    this.badgeValue = 0,
   }) : super(key: key);
 
   @override
@@ -19,9 +19,12 @@ class NotificationBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
-        notifications < 100 ? notifications.toString() : "+99",
+        badgeValue < 100 ? badgeValue.toString() : "+99",
         maxLines: 1,
-        style: const TextStyle(fontSize: 20),
+        style: const TextStyle(
+          fontSize: 20,
+          color: Colors.black,
+        ),
       ),
     );
   }

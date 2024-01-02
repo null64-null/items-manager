@@ -45,6 +45,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
     final shoppingPlaceOptions = ref.watch(shoppingPlaceOptinsProvider);
     final categories = ref.watch(categoriesProvider);
     final isActive = ref.watch(isActiveProvider);
+    final items = ref.watch(itemsProvider);
 
     void onNameChanged(String text) {
       final notifire = ref.read(itemEditProvider.notifier);
@@ -55,12 +56,40 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
     void onHikidashiChanged(value) {
       final notifier = ref.read(itemEditProvider.notifier);
-      notifier.state = itemEdit.copyWith(hikidashiId: value);
+      if (value == null) {
+        notifier.state = Item(
+          id: itemEdit.id,
+          name: itemEdit.name,
+          remainingValue: itemEdit.remainingValue,
+          maxValue: itemEdit.maxValue,
+          unit: itemEdit.unit,
+          hikidashiId: null,
+          shoppingPlaceId: itemEdit.shoppingPlaceId,
+          hikidashiNum: itemEdit.hikidashiNum,
+          shoppingPlaceNum: itemEdit.shoppingPlaceNum,
+        );
+      } else {
+        notifier.state = itemEdit.copyWith(hikidashiId: value);
+      }
     }
 
     void onShoppingPlaceChanged(value) {
       final notifier = ref.read(itemEditProvider.notifier);
-      notifier.state = itemEdit.copyWith(shoppingPlaceId: value);
+      if (value == null) {
+        notifier.state = Item(
+          id: itemEdit.id,
+          name: itemEdit.name,
+          remainingValue: itemEdit.remainingValue,
+          maxValue: itemEdit.maxValue,
+          unit: itemEdit.unit,
+          hikidashiId: itemEdit.hikidashiId,
+          shoppingPlaceId: null,
+          hikidashiNum: itemEdit.hikidashiNum,
+          shoppingPlaceNum: itemEdit.shoppingPlaceNum,
+        );
+      } else {
+        notifier.state = itemEdit.copyWith(shoppingPlaceId: value);
+      }
     }
 
     void onMaxValueChanged(String text) {
@@ -106,18 +135,33 @@ class ItemEditPageTemplate extends ConsumerWidget {
       if (isActive) {
         addData(
           item: itemEdit,
+          items: items,
+          initialItem: initialItem,
           categories: categories,
           categoryType: categoryType,
           ref: ref,
         );
-        afterItemAddSnackBar(
-          newItem: itemEdit,
-          initialItem: initialItem,
-          categoryType: categoryType,
-          categories: categories,
-          backgroundColor: getDarkColor(categoryType),
-          context: context,
-        );
+        if (categoryType == "hikidashi") {
+          afterItemAddSnackBar(
+            newItem: itemEdit.copyWith(hikidashiNum: items.length),
+            initialItem: initialItem,
+            categoryType: categoryType,
+            categories: categories,
+            backgroundColor: getDarkColor(categoryType),
+            context: context,
+          );
+        }
+        if (categoryType == "shoppingPlace") {
+          afterItemAddSnackBar(
+            newItem: itemEdit.copyWith(shoppingPlaceNum: items.length),
+            initialItem: initialItem,
+            categoryType: categoryType,
+            categories: categories,
+            backgroundColor: getDarkColor(categoryType),
+            context: context,
+          );
+        }
+
         final notifire = ref.read(isActiveProvider.notifier);
         notifire.state = false;
         Navigator.pop(context);
@@ -137,7 +181,8 @@ class ItemEditPageTemplate extends ConsumerWidget {
             },
             onTapDelete: () {
               deleteData(
-                id: itemEdit.id!,
+                item: itemEdit,
+                items: items,
                 categories: categories,
                 categoryType: categoryType,
                 ref: ref,
@@ -159,6 +204,8 @@ class ItemEditPageTemplate extends ConsumerWidget {
       if (isActive) {
         updateData(
           item: itemEdit,
+          initialItem: initialItem,
+          items: items,
           categories: categories,
           categoryType: categoryType,
           ref: ref,
@@ -194,9 +241,11 @@ class ItemEditPageTemplate extends ConsumerWidget {
         return '100未満の値を入力してください';
       } else if (double.parse(value) == 0) {
         return '0より大きい値を入力してください';
-      } else if (double.parse(value) < itemEdit.remainingValue) {
+      }
+      /*else if (double.parse(value) < itemEdit.remainingValue) {
         return '残りの量 < 必要量 としてください';
-      } else {
+      }*/
+      else {
         return null;
       }
     }
@@ -206,9 +255,10 @@ class ItemEditPageTemplate extends ConsumerWidget {
         return '値を入力してください';
       } else if (double.parse(value) > 99) {
         return '100未満の値を入力してください';
-      } else if (double.parse(value) > itemEdit.maxValue) {
+      } /* else if (double.parse(value) > itemEdit.maxValue) {
         return '残りの量 < 必要量 としてください';
-      } else {
+      }*/
+      else {
         return null;
       }
     }
@@ -239,7 +289,7 @@ class ItemEditPageTemplate extends ConsumerWidget {
             Align(
               alignment: const Alignment(0, -0.6),
               child: LabeledSelectForm(
-                title: "ひきだし",
+                title: "収納場所",
                 options: optionItems(hikidashiOptins),
                 onChanged: onHikidashiChanged,
                 value: itemEdit.hikidashiId,
@@ -316,11 +366,21 @@ class ItemEditPageTemplate extends ConsumerWidget {
 
 Future<void> addData({
   required Item item,
+  required Item initialItem,
+  required List<Item> items,
   required List<Category> categories,
   required String categoryType,
   required WidgetRef ref,
 }) async {
-  await insertItem(item);
+  List<Item> itemsInNewHikidashi =
+      await getItemsFromHikidashi(item.hikidashiId);
+  List<Item> itemsInNewShoppingPlace =
+      await getItemsFromShoppingPlace(item.shoppingPlaceId);
+  final itemAdd = item.copyWith(
+    hikidashiNum: itemsInNewHikidashi.length,
+    shoppingPlaceNum: itemsInNewShoppingPlace.length,
+  );
+  await insertItem(itemAdd);
   await fetchData(
     categories: categories,
     categoryType: categoryType,
@@ -330,11 +390,91 @@ Future<void> addData({
 
 Future<void> updateData({
   required Item item,
+  required Item initialItem,
+  required List<Item> items,
   required List<Category> categories,
   required String categoryType,
   required WidgetRef ref,
 }) async {
-  await updateItem(item);
+  if (item.hikidashiId != initialItem.hikidashiId &&
+      item.shoppingPlaceId == initialItem.shoppingPlaceId) {
+    for (int i = item.hikidashiNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(hikidashiNum: items[i].hikidashiNum! - 1));
+    }
+
+    List<Item> itemsInNewHikidashi =
+        await getItemsFromHikidashi(item.hikidashiId);
+    Item newItem = item.copyWith(hikidashiNum: itemsInNewHikidashi.length);
+
+    updateItem(newItem);
+  }
+
+  if (item.hikidashiId == initialItem.hikidashiId &&
+      item.shoppingPlaceId != initialItem.shoppingPlaceId) {
+    for (int i = item.shoppingPlaceNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(shoppingPlaceNum: items[i].shoppingPlaceNum! - 1));
+    }
+
+    List<Item> itemsInNewShoppingPlace =
+        await getItemsFromShoppingPlace(item.shoppingPlaceId);
+    Item newItem =
+        item.copyWith(shoppingPlaceNum: itemsInNewShoppingPlace.length);
+
+    updateItem(newItem);
+  }
+
+  if (item.hikidashiId != initialItem.hikidashiId &&
+      item.shoppingPlaceId != initialItem.shoppingPlaceId) {
+    if (categoryType == "hikidashi") {
+      for (int i = item.hikidashiNum! + 1; i < items.length; i++) {
+        await updateItem(
+            items[i].copyWith(hikidashiNum: items[i].hikidashiNum! - 1));
+      }
+      List<Item> itemsInPreviousShoppingPlace =
+          await getItemsFromShoppingPlace(initialItem.shoppingPlaceId);
+      for (int i = item.shoppingPlaceNum! + 1;
+          i < itemsInPreviousShoppingPlace.length;
+          i++) {
+        await updateItem(itemsInPreviousShoppingPlace[i].copyWith(
+            shoppingPlaceNum:
+                itemsInPreviousShoppingPlace[i].shoppingPlaceNum! - 1));
+      }
+    }
+
+    if (categoryType == "shoppingPlace") {
+      for (int i = item.shoppingPlaceNum! + 1; i < items.length; i++) {
+        await updateItem(items[i]
+            .copyWith(shoppingPlaceNum: items[i].shoppingPlaceNum! - 1));
+      }
+      List<Item> itemsInPreviousHikidashi =
+          await getItemsFromHikidashi(initialItem.hikidashiId);
+      for (int i = item.hikidashiNum! + 1;
+          i < itemsInPreviousHikidashi.length;
+          i++) {
+        await updateItem(itemsInPreviousHikidashi[i].copyWith(
+            hikidashiNum: itemsInPreviousHikidashi[i].hikidashiNum! - 1));
+      }
+    }
+
+    List<Item> itemsInNewHikidashi =
+        await getItemsFromHikidashi(item.hikidashiId);
+    List<Item> itemsInNewShoppingPlace =
+        await getItemsFromShoppingPlace(item.shoppingPlaceId);
+    Item newItem = item.copyWith(
+      hikidashiNum: itemsInNewHikidashi.length,
+      shoppingPlaceNum: itemsInNewShoppingPlace.length,
+    );
+
+    updateItem(newItem);
+  }
+
+  if (item.hikidashiId == initialItem.hikidashiId &&
+      item.shoppingPlaceId == initialItem.shoppingPlaceId) {
+    await updateItem(item);
+  }
+
   await fetchData(
     categories: categories,
     categoryType: categoryType,
@@ -343,12 +483,26 @@ Future<void> updateData({
 }
 
 Future<void> deleteData({
-  required id,
+  required Item item,
+  required List<Item> items,
   required List<Category> categories,
   required String categoryType,
   required WidgetRef ref,
 }) async {
-  await deleteItem(id);
+  if (categoryType == "hikidashi") {
+    for (int i = item.hikidashiNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(hikidashiNum: items[i].hikidashiNum! - 1));
+    }
+    await deleteItem(item.id!);
+  }
+  if (categoryType == "shoppingPlace") {
+    for (int i = item.shoppingPlaceNum! + 1; i < items.length; i++) {
+      await updateItem(
+          items[i].copyWith(shoppingPlaceNum: items[i].shoppingPlaceNum! - 1));
+    }
+    await deleteItem(item.id!);
+  }
   await fetchData(
     categories: categories,
     categoryType: categoryType,
@@ -429,9 +583,11 @@ void setIsActive(Item itemEdit, WidgetRef ref) {
   }
 
   // maxValue > remainingValue check
+  /*
   if (itemEdit.maxValue < itemEdit.remainingValue) {
     isActive = false;
   }
+  */
 
   notifire.state = isActive;
 }

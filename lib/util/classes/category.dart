@@ -1,23 +1,23 @@
 class Category {
   final int? id;
   final String name;
-  final int? notifications;
+  final int? num;
 
   const Category({
     this.id,
     required this.name,
-    this.notifications,
+    this.num,
   });
 
   Category copyWith({
     int? id,
     String? name,
-    int? notifications,
+    int? num,
   }) {
     return Category(
       id: id ?? this.id,
       name: name ?? this.name,
-      notifications: notifications ?? this.notifications,
+      num: num ?? this.num,
     );
   }
 
@@ -25,7 +25,7 @@ class Category {
     return {
       'id': id,
       'name': name,
-      'notifications': notifications,
+      'num': num,
     };
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../molecules/categories_page/badge_botton.dart';
+import '../../molecules/categories_page/badge_box_button.dart';
 import './category_edit_dialog.dart';
 import '../../pages/items_page.dart';
 import '../../../util/classes/category.dart';
@@ -15,12 +15,14 @@ class CategoryButton extends ConsumerWidget {
   final Category category;
   final String categoryType;
   final int notifications;
+  final bool disabled;
 
   const CategoryButton({
     Key? key,
     this.category = categoryInit,
     this.categoryType = "",
     this.notifications = 0,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -71,12 +73,13 @@ class CategoryButton extends ConsumerWidget {
       }
     }
 
-    return BadgeButton(
+    return BadgeBoxButton(
       label: category.name,
       color: category.id == null ? Colors.grey[300]! : getColor(categoryType),
-      notifications: notifications,
+      badgeValue: notifications,
       onPressed: onPressed,
       onLongPressed: onLongPressed,
+      disabled: disabled,
     );
   }
 }

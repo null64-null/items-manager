@@ -28,7 +28,11 @@ class ItemsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FutureBuilder<void>(
-      future: fetchData(ref),
+      future: fetchData(
+        categoryType: categoryType,
+        categoryId: categoryId,
+        ref: ref,
+      ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return LoadingPage(
@@ -55,18 +59,22 @@ class ItemsPage extends ConsumerWidget {
       },
     );
   }
+}
 
-  Future<void> fetchData(WidgetRef ref) async {
-    final notifire = ref.read(itemsProvider.notifier);
-    if (categoryType == "hikidashi") {
-      final hikidashiId = categoryId;
-      final selectedItems = await getItemsFromHikidashi(hikidashiId);
-      notifire.state = selectedItems;
-    }
-    if (categoryType == "shoppingPlace") {
-      final shopingPlaceId = categoryId;
-      final selectedItems = await getItemsFromShoppingPlace(shopingPlaceId);
-      notifire.state = selectedItems;
-    }
+Future<void> fetchData({
+  required String categoryType,
+  int? categoryId,
+  required WidgetRef ref,
+}) async {
+  final notifire = ref.read(itemsProvider.notifier);
+  if (categoryType == "hikidashi") {
+    final hikidashiId = categoryId;
+    final selectedItems = await getItemsFromHikidashi(hikidashiId);
+    notifire.state = selectedItems;
+  }
+  if (categoryType == "shoppingPlace") {
+    final shopingPlaceId = categoryId;
+    final selectedItems = await getItemsFromShoppingPlace(shopingPlaceId);
+    notifire.state = selectedItems;
   }
 }

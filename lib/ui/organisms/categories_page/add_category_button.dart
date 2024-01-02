@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../atoms/add_button.dart';
+import '../../atoms/custom_floating_action_button.dart';
 import 'category_add_dialog.dart';
 import '../../../../util/functions/get_color.dart';
 
@@ -28,9 +28,10 @@ class AddCategoryButton extends StatelessWidget {
       );
     }
 
-    return AddButton(
+    return CustomFloatingActionButton(
       color: getDarkColor(categoryType),
       onPressed: onPressed,
+      icon: const Icon(Icons.add),
     );
   }
 }

@@ -5,11 +5,11 @@ import '../../molecules/categories_page/edit_dialog.dart';
 import './category_button.dart';
 import '../../pages/categories_page.dart';
 import '../../../util/classes/category.dart';
+import '../../../util/classes/items.dart';
 import '../../../util/functions/get_color.dart';
 import '../../../util/functions/get_title.dart';
 import '../../../util/developper_setting/values.dart';
 import '../../../db/basic_crud.dart';
-import '../../../db/delete_category_id.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -56,7 +56,7 @@ class CategoryEditDialog extends ConsumerWidget {
     }
 
     Future<void> onTapDelete() async {
-      await deleteData(categoryId, categoryType, ref);
+      await deleteData(category, categories, categoryType, ref);
       Future.delayed(Duration.zero, () {
         final notifier = ref.read(isUpdatableProvider.notifier);
         notifier.state = false;
@@ -70,7 +70,7 @@ class CategoryEditDialog extends ConsumerWidget {
         var newCategory = Category(
           id: category.id,
           name: formText,
-          notifications: category.notifications,
+          num: category.num,
         );
         await updateData(newCategory, categoryType, ref);
         Future.delayed(Duration.zero, () {
@@ -120,14 +120,60 @@ Future<void> updateData(
 }
 
 Future<void> deleteData(
-    int categoryId, String categoryType, WidgetRef ref) async {
+  Category category,
+  List<Category> categories,
+  String categoryType,
+  WidgetRef ref,
+) async {
   if (categoryType == "hikidashi") {
-    await deleteHikidashi(categoryId);
+    List<Item> itemsNotCategorized = await getItemsFromHikidashi(null);
+    List<Item> items = await getItemsFromHikidashi(category.id);
+    for (int i = 0; i < items.length; i++) {
+      Item updatedItem = Item(
+        id: items[i].id,
+        name: items[i].name,
+        remainingValue: items[i].remainingValue,
+        maxValue: items[i].maxValue,
+        unit: items[i].unit,
+        hikidashiId: null,
+        shoppingPlaceId: items[i].shoppingPlaceId,
+        hikidashiNum: itemsNotCategorized.length + i,
+        shoppingPlaceNum: items[i].shoppingPlaceNum,
+      );
+      await updateItem(updatedItem);
+    }
+
+    for (int i = category.num! + 1; i < categories.length - 1; i++) {
+      await updateHikidashi(
+          categories[i].copyWith(num: categories[i].num! - 1));
+    }
+    await deleteHikidashi(category.id!);
   }
   if (categoryType == "shoppingPlace") {
-    await deleteShoppingPlace(categoryId);
+    List<Item> itemsNotCategorized = await getItemsFromShoppingPlace(null);
+    List<Item> items = await getItemsFromShoppingPlace(category.id);
+    for (int i = 0; i < items.length; i++) {
+      Item updatedItem = Item(
+        id: items[i].id,
+        name: items[i].name,
+        remainingValue: items[i].remainingValue,
+        maxValue: items[i].maxValue,
+        unit: items[i].unit,
+        hikidashiId: items[i].hikidashiId,
+        shoppingPlaceId: null,
+        hikidashiNum: items[i].hikidashiNum,
+        shoppingPlaceNum: itemsNotCategorized.length + i,
+      );
+      await updateItem(updatedItem);
+    }
+
+    for (int i = category.num! + 1; i < categories.length - 1; i++) {
+      await updateShoppingPlace(
+          categories[i].copyWith(num: categories[i].num! - 1));
+    }
+    await deleteShoppingPlace(category.id!);
   }
-  await deleteCategoryId(categoryId, categoryType);
+
   await fetchData(categoryType, ref);
 }
 

@@ -1,27 +1,12 @@
-# test_app
+# Items Manager "ざいこくん" 
+Ver.1 (off-line, manual)
 
-A new Flutter project.
+## どんなアプリ？
+家庭用の、食品・日用品等の在庫管理アプリ
+- 収納場所別にストックする物の個数やその他情報を管理
+- 買い物リスト機能つき
 
-## Getting Started
+## これからここを拡張したい！
+- 画像から品物の個数を自動入力する機能
+- オンラインアプリ化（家族で複数端末から編集可能）
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Local Database
-- database dir
-in ~/Library/Developer/CoreSimulator/Devices , command as follow to find database file in local
-find . -name "zaiko_database.db" -type f
-
-- make file editable
-chmod 666 zaiko_databases.db
-
-- make file readonly
-chmod 644 zaiko_databases.db

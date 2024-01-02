@@ -29,7 +29,7 @@ Future<int> countNotificationsHikidashi(
   double threshold,
 ) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'zaiko_databases.db'),
+    join(await getDatabasesPath(), 'test19.db'),
   );
 
   if (hikidashiId == null) {
@@ -62,7 +62,7 @@ Future<int> countNotificationsShoppingPlace(
   double threshold,
 ) async {
   final Database db = await openDatabase(
-    join(await getDatabasesPath(), 'zaiko_databases.db'),
+    join(await getDatabasesPath(), 'test19.db'),
   );
 
   if (shoppingPlaceId == null) {

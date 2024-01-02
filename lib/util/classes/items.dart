@@ -6,6 +6,8 @@ class Item {
   final String unit;
   final int? hikidashiId;
   final int? shoppingPlaceId;
+  final int? hikidashiNum;
+  final int? shoppingPlaceNum;
 
   const Item({
     this.id,
@@ -15,6 +17,8 @@ class Item {
     required this.unit,
     this.hikidashiId,
     this.shoppingPlaceId,
+    this.hikidashiNum,
+    this.shoppingPlaceNum,
   });
 
   Item copyWith({
@@ -25,6 +29,8 @@ class Item {
     String? unit,
     int? hikidashiId,
     int? shoppingPlaceId,
+    int? hikidashiNum,
+    int? shoppingPlaceNum,
   }) {
     return Item(
       id: id ?? this.id,
@@ -34,6 +40,8 @@ class Item {
       unit: unit ?? this.unit,
       hikidashiId: hikidashiId ?? this.hikidashiId,
       shoppingPlaceId: shoppingPlaceId ?? this.shoppingPlaceId,
+      hikidashiNum: hikidashiNum ?? this.hikidashiNum,
+      shoppingPlaceNum: shoppingPlaceNum ?? this.shoppingPlaceNum,
     );
   }
 
@@ -46,6 +54,8 @@ class Item {
       'unit': unit,
       'hikidashi_id': hikidashiId,
       'shopping_place_id': shoppingPlaceId,
+      'hikidashi_num': hikidashiNum,
+      'shopping_place_num': shoppingPlaceNum,
     };
   }
 }

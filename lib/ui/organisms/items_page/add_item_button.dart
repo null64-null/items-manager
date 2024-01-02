@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../atoms/add_button.dart';
+import '../../atoms/custom_floating_action_button.dart';
 import '../../templates/item_edit_page_template.dart';
 import '../../pages/item_edit_page.dart';
 import '../../../util/classes/items.dart';
@@ -34,9 +34,10 @@ class AddItemButton extends ConsumerWidget {
       );
     }
 
-    return AddButton(
+    return CustomFloatingActionButton(
       color: getDarkColor(categoryType),
       onPressed: onPressed,
+      icon: const Icon(Icons.add),
     );
   }
 }
