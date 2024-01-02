@@ -3,8 +3,6 @@ import 'package:sqflite/sqflite.dart';
 import '../util/classes/category.dart';
 import '../util/classes/items.dart';
 
-import 'package:flutter/material.dart';
-
 // Hikidashi
 // create
 Future<void> insertHikidashi(Category hikidashi) async {
