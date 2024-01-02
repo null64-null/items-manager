@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 Future<void> initializeDatabase() async {
   debugPrint("Database intialize start");
   final Future<Database> database = openDatabase(
-    join(await getDatabasesPath(), 'test17.db'),
+    join(await getDatabasesPath(), 'test19.db'),
     onCreate: (db, version) async {
       await db.execute(
         "CREATE TABLE hikidashis ("

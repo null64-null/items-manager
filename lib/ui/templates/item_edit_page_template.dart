@@ -424,13 +424,35 @@ Future<void> updateData({
 
   if (item.hikidashiId != initialItem.hikidashiId &&
       item.shoppingPlaceId != initialItem.shoppingPlaceId) {
-    for (int i = item.hikidashiNum! + 1; i < items.length; i++) {
-      await updateItem(
-          items[i].copyWith(hikidashiNum: items[i].hikidashiNum! - 1));
+    if (categoryType == "hikidashi") {
+      for (int i = item.hikidashiNum! + 1; i < items.length; i++) {
+        await updateItem(
+            items[i].copyWith(hikidashiNum: items[i].hikidashiNum! - 1));
+      }
+      List<Item> itemsInPreviousShoppingPlace =
+          await getItemsFromShoppingPlace(initialItem.shoppingPlaceId);
+      for (int i = item.shoppingPlaceNum! + 1;
+          i < itemsInPreviousShoppingPlace.length;
+          i++) {
+        await updateItem(itemsInPreviousShoppingPlace[i].copyWith(
+            shoppingPlaceNum:
+                itemsInPreviousShoppingPlace[i].shoppingPlaceNum! - 1));
+      }
     }
-    for (int i = item.shoppingPlaceNum! + 1; i < items.length; i++) {
-      await updateItem(
-          items[i].copyWith(shoppingPlaceNum: items[i].shoppingPlaceNum! - 1));
+
+    if (categoryType == "shoppingPlace") {
+      for (int i = item.shoppingPlaceNum! + 1; i < items.length; i++) {
+        await updateItem(items[i]
+            .copyWith(shoppingPlaceNum: items[i].shoppingPlaceNum! - 1));
+      }
+      List<Item> itemsInPreviousHikidashi =
+          await getItemsFromHikidashi(initialItem.hikidashiId);
+      for (int i = item.hikidashiNum! + 1;
+          i < itemsInPreviousHikidashi.length;
+          i++) {
+        await updateItem(itemsInPreviousHikidashi[i].copyWith(
+            hikidashiNum: itemsInPreviousHikidashi[i].hikidashiNum! - 1));
+      }
     }
 
     List<Item> itemsInNewHikidashi =
