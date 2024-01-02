@@ -38,10 +38,16 @@ class ItemsPageTemplate extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isBeingReorderd = ref.watch(isBeingReorderdProvider);
 
+    void onBackPressed() {
+      final notifire = ref.read(isBeingReorderdProvider.notifier);
+      notifire.state = false;
+    }
+
     return Scaffold(
       appBar: CustomAppBar(
         title: pageTitle,
         color: getColor(categoryType),
+        onBackPressed: onBackPressed,
       ),
       body: isBeingReorderd
           ? CustomScrollView(
